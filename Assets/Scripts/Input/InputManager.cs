@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
@@ -10,14 +9,6 @@ public class InputManager : MonoBehaviour
         if (inputReader != null)
         {
             inputReader.Initialize();
-        }
-    }
-
-    private void Update()
-    {
-        if (inputReader.InteractPressedThisFrame)
-        {
-            Debug.Log("test");
         }
     }
 
