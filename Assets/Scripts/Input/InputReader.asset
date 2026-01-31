@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24bedda27012bf4592c3bd824e47a6b, type: 3}
+  m_Name: InputReader
+  m_EditorClassIdentifier: Assembly-CSharp::InputReader
+  JumpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  RunEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  CrouchEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  CameraOpenedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  HoldToRun: 1
+  HoldToCrouch: 1
+  PhotoTakenEvent:
+    m_PersistentCalls:
+      m_Calls: []

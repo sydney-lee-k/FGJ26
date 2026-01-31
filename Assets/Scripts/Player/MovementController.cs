@@ -2,74 +2,54 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    public InputReader inputReader;
+    [Header("References")]
+    [SerializeField] private InputReader inputReader;
 
     [Header("Movement Settings")]
     [SerializeField] private float walkingSpeed = 4.0f;
-    [SerializeField] private float jumpForce = 10.0f;
 
-    [Header("Gravity Settings")]
+    [Header("Ground Settings")]
     [SerializeField] private float gravityMultiplier = 2.5f;
     [SerializeField] private float stickToGroundForce = 5.0f;
-
+    [Space]
     [SerializeField] private LayerMask groundLayer = ~0;
     [SerializeField] private float rayLength = 0.1f;
     [SerializeField] private float raySphereRadius = 0.1f;
 
-    private CharacterController m_characterController;
-
-    private RaycastHit m_hitInfo;
+    private CharacterController controller;
+    private Camera cam;
+    private RaycastHit hitInfo;
+    private float finalRayLength;
 
     [Space, Header("DEBUG")]
-    [SerializeField] private Vector3 m_finalMoveDirection;
-    [SerializeField] private Vector3 m_finalMoveVector;
-
-    [Space]
-    [SerializeField] public float m_currentSpeed;
-
-    [Space]
-    [SerializeField] private float m_finalRayLength;
-
-    [Space]
-    public bool m_isGrounded;
-    [SerializeField] private bool m_previouslyGrounded;
-    [Space]
-    [SerializeField] private float m_inAirTimer;
+    [SerializeField] private Vector3 finalMoveDirection;
+    [SerializeField] private Vector3 velocity;
+    [SerializeField] private bool isGrounded;
 
     public float KillHeight = -10f;
 
-    public bool jumpPressed;
-
     private void Start()
     {
-        m_characterController = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
+        cam = Camera.main;
 
-        m_finalRayLength = rayLength + m_characterController.center.y;
+        finalRayLength = rayLength + controller.center.y;
 
-        m_isGrounded = true;
-        m_previouslyGrounded = true;
-
-        m_inAirTimer = 0f;
+        isGrounded = true;
     }
 
     private void Update()
     {
         if (transform.position.y <= KillHeight)
         {
-            //GetComponent<Health>().Kill();
+            GetComponent<Health>().Kill();
         }
 
-        if (m_characterController)
+        if (controller)
         {
-            // Check if the player is grounded.
             CheckIfGrounded();
+            CalculateMovement();
 
-            // Calculate player movement.
-            CalculateDirection();
-            CalculateSpeed();
-            CalculateFinalMovement();
-
-            // Move the player.
             ApplyGravity();
             ApplyMovement();
         }
@@ -77,99 +57,56 @@ public class MovementController : MonoBehaviour
 
     private void CheckIfGrounded()
     {
-        // Manually check for grounded because the CharacterController default is less reliable.
-        Vector3 t_origin = transform.position + m_characterController.center;
-        bool t_hitGround = Physics.SphereCast(t_origin, raySphereRadius, Vector3.down, out m_hitInfo, m_finalRayLength, groundLayer);
+        Vector3 origin = transform.position + controller.center;
 
-        // Draw the groundcheck for convenience.
-        Debug.DrawRay(t_origin, Vector3.down * rayLength, Color.red);
-        m_isGrounded = t_hitGround;
+        isGrounded = Physics.SphereCast(
+            origin,
+            raySphereRadius,
+            Vector3.down,
+            out hitInfo,
+            finalRayLength,
+            groundLayer
+        );
+
+        Debug.DrawRay(origin, Vector3.down * finalRayLength, isGrounded ? Color.green : Color.red);
     }
 
-    private bool CheckIfRoof()
+    private void CalculateMovement()
     {
-        Vector3 t_origin = transform.position;
-        bool t_hitRoof = Physics.SphereCast(t_origin, raySphereRadius, Vector3.up, out _, rayLength, groundLayer);
-        return t_hitRoof;
-    }
+        Vector3 moveInput = inputReader.InputVector;
 
-    public void CalculateDirection()
-    {
-        Vector3 t_desiredDirection = transform.forward;
-        Vector3 t_flatDirection = FlattenVectorOnSlopes(t_desiredDirection);
+        if (moveInput.sqrMagnitude > 1f)
+            moveInput.Normalize();
 
-        m_finalMoveDirection = t_flatDirection;
-    }
+        Vector3 camForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
+        Vector3 camRight = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
 
-    private Vector3 FlattenVectorOnSlopes(Vector3 t_flattenedVector)
-    {
-        // Adjust movement on slopes to keep speed consistent.
-        if (m_isGrounded)
-            t_flattenedVector = Vector3.ProjectOnPlane(t_flattenedVector, m_hitInfo.normal);
+        Vector3 desiredDirection = camForward * moveInput.y + camRight * moveInput.x;
 
-        return t_flattenedVector;
-    }
+        if (isGrounded)
+            desiredDirection = Vector3.ProjectOnPlane(desiredDirection, hitInfo.normal);
 
-    private void CalculateFinalMovement()
-    {
-        Vector3 t_finalVector = m_currentSpeed * m_finalMoveDirection;
+        finalMoveDirection = desiredDirection.normalized;
 
-        m_finalMoveVector.x = t_finalVector.x;
-        m_finalMoveVector.z = t_finalVector.z;
-
-        if (m_characterController.isGrounded)
-            m_finalMoveVector.y += t_finalVector.y;
-    }
-
-    private void CalculateSpeed()
-    {
-        //m_currentSpeed = transform.fo == Vector2.zero ? 0.0f : walkingSpeed;
-    }
-
-    private void OnJumpEvent()
-    {
-        if (m_characterController.isGrounded && jumpPressed == false)
-        {
-            jumpPressed = true;
-        }
-    }
-
-    private void HandleJump()
-    {
-        if (jumpPressed)
-        {
-            m_finalMoveVector.y = jumpForce;
-
-            m_previouslyGrounded = true;
-            m_isGrounded = false;
-
-            jumpPressed = false;
-        }
+        velocity.x = finalMoveDirection.x * walkingSpeed;
+        velocity.z = finalMoveDirection.z * walkingSpeed;
     }
 
     private void ApplyGravity()
     {
         // If grounded, add a little bit of extra downward force just in case.
-        if (m_characterController.isGrounded)
+        if (controller.isGrounded)
         {
-            m_inAirTimer = 0f;
-            m_finalMoveVector.y = -stickToGroundForce;
-
-            HandleJump();
+            velocity.y = -stickToGroundForce;
         }
         else
         {
-            // If collided with a ceiling during air time, stop the player from sticking to the roof.
-            if (CheckIfRoof())
-                m_finalMoveVector.y = -stickToGroundForce;
-
-            m_inAirTimer += Time.deltaTime;
-            m_finalMoveVector += gravityMultiplier * Time.deltaTime * Physics.gravity;
+            velocity += gravityMultiplier * Time.deltaTime * Physics.gravity;
         }
     }
 
     private void ApplyMovement()
     {
-        m_characterController.Move(m_finalMoveVector * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
     }
 }
