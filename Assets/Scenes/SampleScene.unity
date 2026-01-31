@@ -506,9 +506,9 @@ GameObject:
   - component: {fileID: 436198479}
   - component: {fileID: 436198478}
   - component: {fileID: 436198477}
-  - component: {fileID: 436198476}
-  - component: {fileID: 436198480}
   - component: {fileID: 436198481}
+  - component: {fileID: 436198480}
+  - component: {fileID: 436198476}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -625,33 +625,24 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
---- !u!54 &436198481
-Rigidbody:
+--- !u!114 &436198481
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436198475}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &641113587
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +805,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionController
   inputReader: {fileID: 11400000, guid: 183b452149c7ec043b61f9a3db85041d, type: 2}
-  interactionRadius: 2
+  radius: 2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InteractableBase : MonoBehaviour, IInteractable
+public class Interactable : MonoBehaviour, IInteractable
 {
     [Header("Interactable Settings")]
     [SerializeField] private bool isInteractable = true;
@@ -11,11 +11,15 @@ public class InteractableBase : MonoBehaviour, IInteractable
 
     public bool IsInteractable => isInteractable;
 
-    // outline stuff
+    private Outline outline;
 
     private void Awake()
     {
-        
+        outline = GetComponent<Outline>();
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineColor = Color.white;
+        outline.OutlineWidth = 5f;
+        outline.enabled = false;
     }
 
     public void Interact()
@@ -34,7 +38,7 @@ public class InteractableBase : MonoBehaviour, IInteractable
 
         isFocused = true;
 
-        // outline stuff
+        outline.enabled = true;
     }
 
     public void OnFocusLost()
@@ -44,7 +48,7 @@ public class InteractableBase : MonoBehaviour, IInteractable
 
         isFocused = false;
 
-        // outline stuff
+        outline.enabled = false;
     }
 
     public virtual void SetInteractable(bool value)
