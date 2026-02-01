@@ -16,6 +16,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public bool ShootHeld;
 
     public bool InteractPressedThisFrame { get; private set; }
+    public bool QPressedThisFrame { get; private set; }
 
     private InputActions controls;
 
@@ -34,6 +35,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public void ClearOneFrameInputFlags()
     {
         InteractPressedThisFrame = false;
+        QPressedThisFrame = false;
     }
 
     public void ResetValues()
@@ -62,6 +64,14 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
         if (context.started)
         {
             InteractPressedThisFrame = true;
+        }
+    }
+
+    public void OnSwitch(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            QPressedThisFrame = true;
         }
     }
 }
