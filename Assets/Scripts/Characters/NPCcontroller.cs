@@ -13,6 +13,7 @@ public class NPCcontroller : MonoBehaviour
     public void Die()
     {
         AudioManager.PlaySoundAt(SoundType.DEATH, transform.position);
+        BloodSpawner.HandleBlood(transform.position);
         GetComponent<Animator>().enabled = false;
         SetRigidbodyState(false);
         SetColliderState(true);
