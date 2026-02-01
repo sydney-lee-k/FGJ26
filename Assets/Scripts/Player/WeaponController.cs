@@ -1,139 +1,136 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class WeaponController : MonoBehaviour
 {
-    public InputReader inputReader;
+    [Header("References")]
+    [SerializeField] private InputReader inputReader;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private TrailRenderer bulletTrail;
 
-    public Transform shootPoint;
-    public int bulletsPerShot;
+    [Header("Weapon Settings")]
+    [SerializeField] private int bulletsPerShot = 1;
+    [SerializeField] private float fireRate = 0.2f;
+    [SerializeField] private float bulletSpreadAngle = 0f;
+    [SerializeField] private float damage = 10f;
+    [SerializeField] private float range = 20f;
 
-
-    public TrailRenderer bulletTrail;
-
-    public float fireRate = 0.2f;
-    public float bulletSpreadAngle = 0f;
-
-    public float damage = 10f;
-    public float range = 20f;
-
-    public UnityAction OnShoot;
+    public event Action OnShoot;
     public event Action OnShootProcessed;
 
-    private List<Collider> m_ignoredColliders;
-
-    public int m_currentAmmo = 10;
-
+    public int CurrentAmmo { get; private set; } = 10;
     public GameObject Owner { get; set; }
 
-    private float m_nextTimeToFire = Mathf.NegativeInfinity;
 
+    private bool triggerHeld;
+    private float nextFireTime;
 
-    private void Start()
+    private void Awake()
     {
         Owner = gameObject;
     }
 
     private void Update()
     {
-        if (inputReader.ShootHeld)
-        {
+        if (triggerHeld)
             TryShoot();
-        }
     }
 
-    private bool TryShoot()
+    public void SetTriggerHeld(bool held)
     {
-        if (m_currentAmmo >= 1 && Time.time >= m_nextTimeToFire)
-        {
-            HandleShoot();
-            // minus ammo
+        triggerHeld = held;
+    }
 
-            return true;
-        }
+    private void TryShoot()
+    {
+        if (CurrentAmmo <= 0)
+            return;
 
-        return false;
+        if (Time.time < nextFireTime)
+            return;
+
+        HandleShoot();
+        nextFireTime = Time.time + fireRate;
     }
 
     private void HandleShoot()
     {
+        Vector3 origin = shootPoint.position;
+
         for (int i = 0; i < bulletsPerShot; i++)
         {
-            Vector3 t_direction = GetDirectionWithinSpread(shootPoint);
+            Vector3 direction = GetDirectionWithinSpread(shootPoint.forward);
+            Vector3 endPoint = origin + direction * range;
 
-            Debug.DrawRay(shootPoint.position, t_direction * range, Color.blue, 1.0f);
-            if (Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, range))
+            bool hitSomething = Physics.Raycast(
+                origin,
+                direction,
+                out RaycastHit hit,
+                range
+            );
+
+            if (hitSomething)
             {
-                TrailRenderer trail = Instantiate(bulletTrail, shootPoint.position, Quaternion.identity);
-                StartCoroutine(SpawnTrail(trail, hit));
+                endPoint = hit.point;
 
                 if (IsHitValid(hit))
-                {
-                    OnHit(hit.point, hit.normal, hit.collider);
-                }
+                    HandleHit(hit);
             }
+
+            SpawnTracer(origin, endPoint);
         }
 
-        m_nextTimeToFire = Time.time + fireRate;
+        // TODO: subtract ammo here if needed
 
         OnShoot?.Invoke();
         OnShootProcessed?.Invoke();
     }
 
-    public Vector3 GetDirectionWithinSpread(Transform shootTransform)
+    private Vector3 GetDirectionWithinSpread(Vector3 forward)
     {
-        float spreadAngleRatio = bulletSpreadAngle / 180f;
-        Vector3 spreadWorldDirection = Vector3.Slerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere,
-            spreadAngleRatio);
+        if (bulletSpreadAngle <= 0f)
+            return forward;
 
-        return spreadWorldDirection;
+        float spreadRatio = bulletSpreadAngle / 180f;
+        return Vector3.Slerp(forward, UnityEngine.Random.insideUnitSphere, spreadRatio).normalized;
     }
 
     private bool IsHitValid(RaycastHit hit)
     {
         if (hit.collider.isTrigger && hit.collider.GetComponent<Damageable>() == null)
-        {
             return false;
-        }
-
-        if (m_ignoredColliders != null && m_ignoredColliders.Contains(hit.collider))
-        {
-            return false;
-        }
 
         return true;
     }
 
-    private void OnHit(Vector3 point, Vector3 normal, Collider collider)
+    private void HandleHit(RaycastHit hit)
     {
-        Damageable damageable = collider.GetComponent<Damageable>();
-        if (damageable)
-        {
-            damageable.InflictDamage(damage, gameObject);
-        }
+        if (hit.collider.TryGetComponent(out Damageable damageable))
+            damageable.InflictDamage(damage, Owner);
 
-        //impact vfx and sfx
+        // impact VFX / SFX here
     }
 
-    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
+    private void SpawnTracer(Vector3 start, Vector3 end)
     {
-        float time = 0;
-        Vector3 startPosition = trail.transform.position;
+        TrailRenderer trail = Instantiate(bulletTrail, start, Quaternion.identity);
+        StartCoroutine(AnimateTrail(trail, start, end));
+    }
 
-        while (time < 1f)
+    private IEnumerator AnimateTrail(TrailRenderer trail, Vector3 start, Vector3 end)
+    {
+        float travelTime = 0.05f; // visual bullet speed
+        float elapsed = 0f;
+
+        while (elapsed < travelTime)
         {
-            trail.transform.position = Vector3.Lerp(startPosition, hit.point, time);
-            time += Time.deltaTime / trail.time;
-
+            trail.transform.position = Vector3.Lerp(start, end, elapsed / travelTime);
+            elapsed += Time.deltaTime;
             yield return null;
         }
 
-        trail.transform.position = hit.point;
-        //Instantiate(particleSystem, hit.point, Quaternion.LookRotation(hit.normal));
-
+        trail.transform.position = end;
         Destroy(trail.gameObject, trail.time);
     }
 }
