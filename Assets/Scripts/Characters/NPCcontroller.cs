@@ -12,6 +12,7 @@ public class NPCcontroller : MonoBehaviour
     // Update is called once per frame
     public void Die()
     {
+        AudioManager.PlaySoundAt(SoundType.DEATH, transform.position);
         GetComponent<Animator>().enabled = false;
         SetRigidbodyState(false);
         SetColliderState(true);

@@ -25,8 +25,6 @@ public class InteractionController : MonoBehaviour
         if (currentInteractable != null && inputReader.InteractPressedThisFrame)
         {
             if (currentInteractable.IsInteractable) currentInteractable.Interact();
-            //AudioManager.Instance.PlaySoundGunshot(0, GetComponent<AudioSource>());
-            AudioManager.Instance.PlaySoundSplatter(transform.position);
         }
     }
 
