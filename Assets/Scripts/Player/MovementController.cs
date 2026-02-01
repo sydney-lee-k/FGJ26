@@ -24,7 +24,10 @@ public class MovementController : MonoBehaviour
     [Space, Header("DEBUG")]
     [SerializeField] private Vector3 finalMoveDirection;
     [SerializeField] private Vector3 velocity;
-    [SerializeField] private bool isGrounded;
+    public bool isGrounded;
+
+    public float animForward;
+    public float animRight;
 
     public float KillHeight = -10f;
 
@@ -85,6 +88,12 @@ public class MovementController : MonoBehaviour
 
         if (isGrounded)
             desiredDirection = Vector3.ProjectOnPlane(desiredDirection, hitInfo.normal);
+
+        Vector3 localMove = transform.InverseTransformDirection(desiredDirection);
+
+        // These will now be clean -1..1 values
+        animForward = Mathf.Clamp(localMove.z, -1f, 1f);
+        animRight = Mathf.Clamp(localMove.x, -1f, 1f);
 
         finalMoveDirection = desiredDirection.normalized;
 
