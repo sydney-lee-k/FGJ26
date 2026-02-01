@@ -1857,6 +1857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1478e28b1c45bf4449708cca42954a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
+  health: {fileID: 0}
 --- !u!54 &8634094013655270466
 Rigidbody:
   m_ObjectHideFlags: 0
