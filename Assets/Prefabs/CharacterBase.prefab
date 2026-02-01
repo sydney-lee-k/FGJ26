@@ -1799,7 +1799,6 @@ GameObject:
   - component: {fileID: 4719703834835136699}
   - component: {fileID: 8634094013655270466}
   - component: {fileID: 3346857376682078224}
-  - component: {fileID: 6883740849309820850}
   m_Layer: 0
   m_Name: CharacterBase
   m_TagString: Untagged
@@ -1834,7 +1833,7 @@ Animator:
   m_GameObject: {fileID: 7826907894557150139}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 64456dd83b93dbd48adff425a8a082f0, type: 3}
-  m_Controller: {fileID: 9100000, guid: 46c067329998b4040bf408252554c7ba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 52dada273f077584ea02869d52acd58f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1908,18 +1907,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &6883740849309820850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7826907894557150139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05e82ec80e0835a4baad1c2c04726821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCAnimationHandler
 --- !u!1 &7839214062848368601
 GameObject:
   m_ObjectHideFlags: 0
