@@ -19,6 +19,12 @@ public class WeaponController : MonoBehaviour
     public event Action OnShoot;
     public event Action OnShootProcessed;
 
+    public ParticleSystem muzzleFlash;
+    public Light flash;
+
+    [SerializeField] private float minFlashDuration = 0.03f;
+    [SerializeField] private float maxFlashDuration = 0.07f;
+
     public int CurrentAmmo { get; private set; } = 10;
     public GameObject Owner { get; set; }
 
@@ -29,6 +35,11 @@ public class WeaponController : MonoBehaviour
     private void Awake()
     {
         Owner = gameObject;
+
+        if (flash != null)
+        {
+            flash.enabled = false;
+        }
     }
 
     private void Update()
@@ -58,6 +69,11 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 origin = shootPoint.position;
 
+        if (flash != null)
+        {
+            StartCoroutine(FlashLightRoutine());
+        }
+
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Vector3 direction = GetDirectionWithinSpread(shootPoint.forward);
@@ -81,7 +97,10 @@ public class WeaponController : MonoBehaviour
             SpawnTracer(origin, endPoint);
         }
 
-        // TODO: subtract ammo here if needed
+        CameraShake.Instance.ShakeCamera(3.5f, .35f);
+        if (muzzleFlash != null ) muzzleFlash.Play();
+
+        // TODO: subtract ammo here
 
         OnShoot?.Invoke();
         OnShootProcessed?.Invoke();
@@ -110,6 +129,7 @@ public class WeaponController : MonoBehaviour
             damageable.InflictDamage(damage, Owner);
 
         // impact VFX / SFX here
+        
     }
 
     private void SpawnTracer(Vector3 start, Vector3 end)
@@ -120,7 +140,7 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator AnimateTrail(TrailRenderer trail, Vector3 start, Vector3 end)
     {
-        float travelTime = 0.05f; // visual bullet speed
+        float travelTime = 0.15f; // visual bullet speed
         float elapsed = 0f;
 
         while (elapsed < travelTime)
@@ -132,5 +152,15 @@ public class WeaponController : MonoBehaviour
 
         trail.transform.position = end;
         Destroy(trail.gameObject, trail.time);
+    }
+
+    private IEnumerator FlashLightRoutine()
+    {
+        flash.enabled = true;
+
+        float duration = UnityEngine.Random.Range(minFlashDuration, maxFlashDuration);
+        yield return new WaitForSeconds(duration);
+
+        flash.enabled = false;
     }
 }
