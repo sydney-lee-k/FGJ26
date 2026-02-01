@@ -29,8 +29,9 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioMixerGroup sfxMixer;
 
-
     [SerializeField] [Range (0, 1f)] private float soundVar;
+
+    private bool isPlaying = false;
 
     void Awake()
     {
@@ -46,10 +47,23 @@ public class AudioManager : MonoBehaviour
             return;
         }
     }
-
-    public static void PlayMusic()
+    private void Start()
     {
-        instance.audioSourceMusic.Play();
+        PlayPauseMusic();
+    }
+
+    public static void PlayPauseMusic()
+    {
+        if (instance.isPlaying == true)
+        {
+            instance.audioSourceMusic.Stop();
+            instance.isPlaying = false;
+        }
+        else
+        {
+            instance.audioSourceMusic.Play();
+            instance.isPlaying = true;
+        }
     }
 
     //Plays sound by SoundType
