@@ -11,7 +11,7 @@ public class PlayerWeaponManager : MonoBehaviour
         if (inputReader.QPressedThisFrame)
         {
             weapon1.gameObject.SetActive(!weapon1.gameObject.activeSelf);
-            weapon2.gameObject.SetActive(!weapon1.gameObject.activeSelf);
+            weapon2.gameObject.SetActive(!weapon2.gameObject.activeSelf);
         }
 
         weapon1.SetTriggerHeld(inputReader.ShootHeld);

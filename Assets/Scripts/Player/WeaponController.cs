@@ -31,6 +31,7 @@ public class WeaponController : MonoBehaviour
 
     private bool triggerHeld;
     private float nextFireTime;
+    public bool isShotgun;
 
     private void Awake()
     {
@@ -67,6 +68,7 @@ public class WeaponController : MonoBehaviour
 
     private void HandleShoot()
     {
+        
         Vector3 origin = shootPoint.position;
 
         if (flash != null)
@@ -96,6 +98,16 @@ public class WeaponController : MonoBehaviour
 
             SpawnTracer(origin, endPoint);
         }
+
+        if (isShotgun == true)
+        {
+            AudioManager.PlaySound(SoundType.SHOTGUN);
+        }
+        else
+        {
+            AudioManager.PlaySound(SoundType.RIFLE);
+        }
+
 
         CameraShake.Instance.ShakeCamera(3.5f, .35f);
         if (muzzleFlash != null ) muzzleFlash.Play();
