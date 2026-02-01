@@ -18,6 +18,6 @@ public class BloodSpawner : MonoBehaviour
         pos.y += 1;
         GameObject tempGO = Instantiate(instance.squibPrefab, pos, lookRotation);
         
-        Destroy(tempGO, 0.5f);
+        Destroy(tempGO, 2f);
     }
 }

@@ -3,12 +3,20 @@ using UnityEngine;
 public class NPCcontroller : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] Health health;
+
     void Start()
     {
         SetRigidbodyState(true);
         SetColliderState(false);
     }
-
+    private void Update()
+    {
+        if (health.IsDead)
+        {
+            Die();
+        }
+    }
     // Update is called once per frame
     public void Die()
     {
