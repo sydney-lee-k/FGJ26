@@ -642,8 +642,15 @@ MonoBehaviour:
     m_SelectedIDs:
     - m_Data: 61262
     m_LastClickedID:
+<<<<<<< HEAD
       m_Data: 61262
     m_ExpandedIDs: []
+=======
+      m_Data: 65630
+    m_ExpandedIDs:
+    - m_Data: 0
+    - m_Data: 49400
+>>>>>>> model-add
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -674,7 +681,13 @@ MonoBehaviour:
     m_SelectedIDs: []
     m_LastClickedID:
       m_Data: 0
+<<<<<<< HEAD
     m_ExpandedIDs: []
+=======
+    m_ExpandedIDs:
+    - m_Data: 0
+    - m_Data: 49400
+>>>>>>> model-add
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1349,7 +1362,11 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
+<<<<<<< HEAD
     m_Target: {x: 11.617465, y: -7.0621085, z: 16.659777}
+=======
+    m_Target: {x: 15.403456, y: -14.370958, z: -12.663757}
+>>>>>>> model-add
     speed: 2
     m_Value: {x: 11.617465, y: -7.0621085, z: 16.659777}
   m_RenderMode: 0
@@ -1397,11 +1414,19 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
+<<<<<<< HEAD
     m_Target: {x: 0.2618924, y: 0.23308209, z: -0.06533875, w: 0.93424726}
+=======
+    m_Target: {x: 0.1254426, y: 0.8640556, z: -0.26473668, w: 0.40940738}
+>>>>>>> model-add
     speed: 2
     m_Value: {x: -0.2618924, y: -0.23308207, z: 0.065338746, w: -0.93424726}
   m_Size:
+<<<<<<< HEAD
     m_Target: 0.5920512
+=======
+    m_Target: 15.018677
+>>>>>>> model-add
     speed: 2
     m_Value: 10.854045
   m_Ortho:
