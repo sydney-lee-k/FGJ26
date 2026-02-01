@@ -72,12 +72,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7407405957689813277}
   - component: {fileID: 2819752090192465063}
-  - component: {fileID: 2304721686766299274}
   - component: {fileID: 7853231918159483550}
   - component: {fileID: 4252888364302051581}
   - component: {fileID: 3542588000231807645}
   - component: {fileID: 7394797092992838838}
   - component: {fileID: -2436604979182769401}
+  - component: {fileID: 2304721686766299274}
   m_Layer: 0
   m_Name: Dancer
   m_TagString: Untagged
@@ -124,18 +124,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2304721686766299274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390043793949497298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1478e28b1c45bf4449708cca42954a4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
 --- !u!54 &7853231918159483550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -225,6 +213,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damageable
   DamageMultiplier: 1
+--- !u!114 &2304721686766299274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390043793949497298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1478e28b1c45bf4449708cca42954a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCcontroller
+  health: {fileID: 7394797092992838838}
 --- !u!1 &523280639162522769
 GameObject:
   m_ObjectHideFlags: 0
