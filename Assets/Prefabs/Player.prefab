@@ -13285,7 +13285,7 @@ MonoBehaviour:
   shootPoint: {fileID: 7730460901850357014}
   bulletTrail: {fileID: 4457481267257717948, guid: c7292817e4db99b4082725138b5029db, type: 3}
   bulletsPerShot: 8
-  fireRate: 0.8
+  fireRate: 1.2
   bulletSpreadAngle: 15
   damage: 2
   range: 10
@@ -13293,6 +13293,7 @@ MonoBehaviour:
   flash: {fileID: 3498014072208140416}
   minFlashDuration: 0.03
   maxFlashDuration: 0.07
+  isShotgun: 1
 --- !u!4 &4184572847451862318 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6503ac0595b48364098f0401d7bbb485, type: 3}
@@ -13406,7 +13407,7 @@ MonoBehaviour:
   shootPoint: {fileID: 7730460901850357014}
   bulletTrail: {fileID: 4457481267257717948, guid: c7292817e4db99b4082725138b5029db, type: 3}
   bulletsPerShot: 1
-  fireRate: 0.4
+  fireRate: 0.15
   bulletSpreadAngle: 10
   damage: 3
   range: 10
@@ -13414,6 +13415,7 @@ MonoBehaviour:
   flash: {fileID: 365253877866993177}
   minFlashDuration: 0.03
   maxFlashDuration: 0.07
+  isShotgun: 0
 --- !u!4 &6462913357418156473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f958a7b5ad6e80d42a96bc4678393459, type: 3}
