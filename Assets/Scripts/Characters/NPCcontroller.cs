@@ -1,7 +1,11 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class NPCcontroller : MonoBehaviour
 {
+    [SerializeField] private GameObject[] maskObjects;
+    [SerializeField] private Material[] materials;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Health health;
 
@@ -9,14 +13,15 @@ public class NPCcontroller : MonoBehaviour
     {
         SetRigidbodyState(true);
         SetColliderState(false);
+
+        health.OnDie += Die;
+
+        GameObject selectedMask = maskObjects[Random.Range(0, maskObjects.Length)];
+        Material selectedMaterial = materials[Random.Range(0, materials.Length)];
+        
+
     }
-    private void Update()
-    {
-        if (health.IsDead)
-        {
-            Die();
-        }
-    }
+
     // Update is called once per frame
     public void Die()
     {
@@ -25,6 +30,7 @@ public class NPCcontroller : MonoBehaviour
         GetComponent<Animator>().enabled = false;
         SetRigidbodyState(false);
         SetColliderState(true);
+
     }
 
     private void SetRigidbodyState(bool state)

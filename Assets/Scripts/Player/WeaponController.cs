@@ -67,6 +67,7 @@ public class WeaponController : MonoBehaviour
 
     private void HandleShoot()
     {
+        
         Vector3 origin = shootPoint.position;
 
         if (flash != null)
@@ -96,6 +97,8 @@ public class WeaponController : MonoBehaviour
 
             SpawnTracer(origin, endPoint);
         }
+
+        AudioManager.PlaySound(SoundType.SHOTGUN);
 
         CameraShake.Instance.ShakeCamera(3.5f, .35f);
         if (muzzleFlash != null ) muzzleFlash.Play();
