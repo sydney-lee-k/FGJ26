@@ -13,6 +13,8 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
 
     public bool HasInput => inputVector.sqrMagnitude > 0.01f;
 
+    public bool ShootHeld;
+
     public bool InteractPressedThisFrame { get; private set; }
 
     private InputActions controls;
@@ -52,7 +54,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        
+        ShootHeld = context.ReadValueAsButton();
     }
 
     public void OnInteract(InputAction.CallbackContext context)

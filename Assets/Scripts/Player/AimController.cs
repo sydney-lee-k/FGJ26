@@ -23,7 +23,6 @@ public class AimController : MonoBehaviour
 
         if (mainCamera == null)
         {
-            Debug.LogError("AimController: No Main Camera found.");
             enabled = false;
         }
     }
