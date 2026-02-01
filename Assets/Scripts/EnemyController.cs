@@ -29,6 +29,8 @@ public class EnemyController : MonoBehaviour
     private Actor m_actor;
     [SerializeField] private Collider[] m_selfColliders;
 
+    public WeaponController currentWeapon;
+
     private float m_lastTimeDamaged = float.NegativeInfinity;
 
     void Start()
@@ -47,7 +49,6 @@ public class EnemyController : MonoBehaviour
 
         // Initialize detection module
         DetectionModule.OnDetectedTarget += OnDetectedTarget;
-
     }
 
     private void Update()
@@ -117,20 +118,21 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public bool TryAttack(Vector3 t_targetPosition)
+    public bool TryAttack(Vector3 targetPosition)
     {
-        // Check if enough time has passed since the last attack (based on cooldown)
-        if (m_attackTimer <= 0f)
-        {
+        // Single intentional shot (enemy logic)
+        currentWeapon.SetTriggerHeld(true);
 
-            // Reset the attack cooldown timer
-            m_attackTimer = attackCooldown;
+        onAttack?.Invoke();
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
+
+    public void ReleaseTrigger()
+    {
+        currentWeapon.SetTriggerHeld(false);
+    }
+
 
     public bool IsTargetInAttackRange()
     {
