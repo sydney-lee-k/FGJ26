@@ -147,7 +147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5658297615307503378}
-  - component: {fileID: 3410670665471154708}
   m_Layer: 0
   m_Name: Blood squib
   m_TagString: Untagged
@@ -164,23 +163,10 @@ Transform:
   m_GameObject: {fileID: 8368631415692055066}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.511, y: 1.124, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5877949145919081415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3410670665471154708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8368631415692055066}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e11fcfdb96758c458b0c93538cdeda6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BloodTrigger
-  bloodSplatter: {fileID: 1469957341462681385}
