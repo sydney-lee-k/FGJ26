@@ -5,6 +5,7 @@ public class NPCcontroller : MonoBehaviour
 {
     [SerializeField] private GameObject[] maskObjects;
     [SerializeField] private Material[] materials;
+    [SerializeField] private GameObject materialObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Health health;
@@ -17,9 +18,10 @@ public class NPCcontroller : MonoBehaviour
         health.OnDie += Die;
 
         GameObject selectedMask = maskObjects[Random.Range(0, maskObjects.Length)];
-        Material selectedMaterial = materials[Random.Range(0, materials.Length)];
-        
+        selectedMask.SetActive(false);
 
+        Material selectedMaterial = materials[Random.Range(0, materials.Length)];
+        materialObject.GetComponent<Renderer>().material = selectedMaterial;
     }
 
     // Update is called once per frame
