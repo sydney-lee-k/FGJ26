@@ -1,24 +1,18 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "InputReader", menuName = "Input/InputReader")]
 public class InputReader : ScriptableObject, InputActions.IPlayerActions
 {
-    private Vector2 inputVector;
-    public Vector2 InputVector => inputVector;
-
-    private Vector2 stickDelta;
-    public Vector2 StickDelta => stickDelta;
-
-    public bool HasInput => inputVector.sqrMagnitude > 0.01f;
-
-    public bool ShootHeld;
-
-    public bool InteractPressedThisFrame { get; private set; }
-    public bool QPressedThisFrame { get; private set; }
-
     private InputActions controls;
+
+    public Vector2 InputVector { get; private set; }
+    public Vector2 StickDelta { get; private set; }
+
+    public event Action InteractPressed;
+    //public event Action OnSwitch;
+    //public event Action<bool> OnAttack;
 
     public void Initialize()
     {
@@ -32,46 +26,31 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public void EnablePlayerInput() => controls?.Player.Enable();
     public void DisablePlayerInput() => controls?.Player.Disable();
 
-    public void ClearOneFrameInputFlags()
-    {
-        InteractPressedThisFrame = false;
-        QPressedThisFrame = false;
-    }
-
-    public void ResetValues()
-    {
-        inputVector = stickDelta = Vector2.zero;
-        ClearOneFrameInputFlags();
-    }
-
     public void OnMove(InputAction.CallbackContext context)
     {
-        inputVector = context.ReadValue<Vector2>();
+        InputVector = context.ReadValue<Vector2>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        stickDelta = context.ReadValue<Vector2>();
+        StickDelta = context.ReadValue<Vector2>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        ShootHeld = context.ReadValueAsButton();
+        
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
-            InteractPressedThisFrame = true;
-        }
+            InteractPressed?.Invoke();
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
     {
+        /*
         if (context.started)
-        {
-            QPressedThisFrame = true;
-        }
+            OnSwitch?.Invoke();*/
     }
 }

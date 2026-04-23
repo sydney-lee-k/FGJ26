@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class AimController : MonoBehaviour
 {
-    [Header("References")]
     [SerializeField] private InputReader inputReader;
+
+    [Header("Layer")]
     [SerializeField] private LayerMask groundMask;
 
     [Header("Gamepad Aim Settings")]

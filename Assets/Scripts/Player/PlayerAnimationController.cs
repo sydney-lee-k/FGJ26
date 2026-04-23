@@ -3,23 +3,47 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
-    [SerializeField] private MovementController controller;
 
-    [SerializeField, Range(0f, 5f)] private float blendSpeed;
+    [SerializeField] private MovementController movementController;
 
-    [SerializeField] private Animator m_animator;
+    [SerializeField] private Animator animator;
 
-    private readonly int MoveParameterHash = Animator.StringToHash("Moving");
-    private readonly int ForwardParameterHash = Animator.StringToHash("Forward");
-    private readonly int RightParameterHash = Animator.StringToHash("Right");
+    [Header("Settings")]
+    [SerializeField] private float damping = 0.1f;
+    [SerializeField] private float deadzone = 0.01f;
+
+    private Transform cachedTransform;
+
+    private void Awake()
+    {
+        cachedTransform = transform;
+    }
 
     private void Update()
     {
-        float t_forward = Mathf.MoveTowards(m_animator.GetFloat(ForwardParameterHash), controller.animForward, blendSpeed * Time.deltaTime);
-        float t_right = Mathf.MoveTowards(m_animator.GetFloat(RightParameterHash), controller.animRight, blendSpeed * Time.deltaTime);
+        UpdateMovementAnimation();
+    }
 
-        m_animator.SetBool(MoveParameterHash, inputReader.HasInput);
-        m_animator.SetFloat(ForwardParameterHash, t_forward);
-        m_animator.SetFloat(RightParameterHash, t_right);
+    private void UpdateMovementAnimation()
+    {
+        Vector3 worldMove = movementController.WorldMoveDirection;
+
+        if (worldMove.sqrMagnitude < deadzone)
+        {
+            animator.SetFloat("Forward", 0f, damping, Time.deltaTime);
+            animator.SetFloat("Right", 0f, damping, Time.deltaTime);
+            return;
+        }
+
+        Vector3 localMove = cachedTransform.InverseTransformDirection(worldMove);
+
+        float moveForward = Mathf.Clamp(localMove.z, -1f, 1f);
+        float moveRight = Mathf.Clamp(localMove.x, -1f, 1f);
+
+        Vector2 animVec = new(moveRight, moveForward);
+        animVec = Vector2.ClampMagnitude(animVec, 1f);
+
+        animator.SetFloat("Forward", animVec.y, damping, Time.deltaTime);
+        animator.SetFloat("Right", animVec.x, damping, Time.deltaTime);
     }
 }

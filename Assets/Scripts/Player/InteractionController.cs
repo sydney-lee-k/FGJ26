@@ -2,29 +2,38 @@ using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
-    [Header("References")]
     [SerializeField] private InputReader inputReader;
 
-    [Header("Interaction")]
+    [Header("Interaction Settings")]
     [SerializeField] private float radius = 2f;
     [SerializeField] private LayerMask interactableLayer = ~0;
 
     private readonly Collider[] buffer = new Collider[32];
     private IInteractable currentInteractable;
 
-    private void Awake()
+    private void OnEnable()
     {
-        
+        if (inputReader != null)
+            inputReader.InteractPressed += HandleInteract;
+    }
+
+    private void OnDisable()
+    {
+        if (inputReader != null)
+            inputReader.InteractPressed -= HandleInteract;
     }
 
     private void Update()
     {
         IInteractable nearest = FindNearestInteractable();
         UpdateFocus(nearest);
+    }
 
-        if (currentInteractable != null && inputReader.InteractPressedThisFrame)
+    private void HandleInteract()
+    {
+        if (currentInteractable != null && currentInteractable.IsInteractable)
         {
-            if (currentInteractable.IsInteractable) currentInteractable.Interact();
+            currentInteractable.Interact();
         }
     }
 
@@ -58,6 +67,7 @@ public class InteractionController : MonoBehaviour
     private void UpdateFocus(IInteractable interactable)
     {
         if (ReferenceEquals(currentInteractable, interactable)) return;
+
         currentInteractable?.OnFocusLost();
         currentInteractable = interactable;
         currentInteractable?.OnFocusGained();

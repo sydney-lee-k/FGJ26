@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [Header("References")]
     [SerializeField] private InputReader inputReader;
 
     [Header("Movement Settings")]
@@ -21,15 +20,12 @@ public class MovementController : MonoBehaviour
     private RaycastHit hitInfo;
     private float finalRayLength;
 
-    [Space, Header("DEBUG")]
-    [SerializeField] private Vector3 finalMoveDirection;
-    [SerializeField] private Vector3 velocity;
-    public bool isGrounded;
-
-    public float animForward;
-    public float animRight;
+    private Vector3 finalMoveDirection;
+    private Vector3 velocity;
+    private bool isGrounded;
 
     public float KillHeight = -10f;
+    public Vector3 WorldMoveDirection => finalMoveDirection;
 
     private void Start()
     {
@@ -88,12 +84,6 @@ public class MovementController : MonoBehaviour
 
         if (isGrounded)
             desiredDirection = Vector3.ProjectOnPlane(desiredDirection, hitInfo.normal);
-
-        Vector3 localMove = transform.InverseTransformDirection(desiredDirection);
-
-        // These will now be clean -1..1 values
-        animForward = Mathf.Clamp(localMove.z, -1f, 1f);
-        animRight = Mathf.Clamp(localMove.x, -1f, 1f);
 
         finalMoveDirection = desiredDirection.normalized;
 
