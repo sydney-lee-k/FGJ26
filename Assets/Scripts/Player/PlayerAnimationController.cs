@@ -4,13 +4,12 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
 
+    [Header("References")]
     [SerializeField] private MovementController movementController;
-
     [SerializeField] private Animator animator;
 
     [Header("Settings")]
     [SerializeField] private float damping = 0.1f;
-    [SerializeField] private float deadzone = 0.01f;
 
     private Transform cachedTransform;
 
@@ -28,7 +27,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         Vector3 worldMove = movementController.WorldMoveDirection;
 
-        if (worldMove.sqrMagnitude < deadzone)
+        if (worldMove.sqrMagnitude < 0.01f)
         {
             animator.SetFloat("Forward", 0f, damping, Time.deltaTime);
             animator.SetFloat("Right", 0f, damping, Time.deltaTime);

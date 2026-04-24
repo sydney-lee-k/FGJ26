@@ -17,6 +17,8 @@ public class MovementController : MonoBehaviour
 
     private CharacterController controller;
     private Camera cam;
+    private Health health;
+
     private RaycastHit hitInfo;
     private float finalRayLength;
 
@@ -24,34 +26,38 @@ public class MovementController : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    private Vector3 camForward;
+    private Vector3 camRight;
+
     public float KillHeight = -10f;
     public Vector3 WorldMoveDirection => finalMoveDirection;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
         cam = Camera.main;
 
         finalRayLength = rayLength + controller.center.y;
-
-        isGrounded = true;
     }
 
     private void Update()
     {
         if (transform.position.y <= KillHeight)
         {
-            GetComponent<Health>().Kill();
+            health.Kill();
         }
 
-        if (controller)
-        {
-            CheckIfGrounded();
-            CalculateMovement();
+        CheckIfGrounded();
+        CalculateMovement();
 
-            ApplyGravity();
-            ApplyMovement();
-        }
+        ApplyGravity();
+        ApplyMovement();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateCameraDirection();
     }
 
     private void CheckIfGrounded()
@@ -67,18 +73,30 @@ public class MovementController : MonoBehaviour
             groundLayer
         );
 
+#if UNITY_EDITOR
         Debug.DrawRay(origin, Vector3.down * finalRayLength, isGrounded ? Color.green : Color.red);
+#endif
+    }
+
+    private void UpdateCameraDirection()
+    {
+        camForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
+        camRight = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
     }
 
     private void CalculateMovement()
     {
         Vector3 moveInput = inputReader.InputVector;
 
-        if (moveInput.sqrMagnitude > 1f)
-            moveInput.Normalize();
+        if (moveInput.sqrMagnitude < 0.0001f)
+        {
+            finalMoveDirection = Vector3.zero;
+            velocity.x = 0f;
+            velocity.z = 0f;
+            return;
+        }
 
-        Vector3 camForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
-        Vector3 camRight = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
+        moveInput = Vector2.ClampMagnitude(moveInput, 1f);
 
         Vector3 desiredDirection = camForward * moveInput.y + camRight * moveInput.x;
 
@@ -94,13 +112,13 @@ public class MovementController : MonoBehaviour
     private void ApplyGravity()
     {
         // If grounded, add a little bit of extra downward force just in case.
-        if (controller.isGrounded)
+        if (isGrounded)
         {
             velocity.y = -stickToGroundForce;
         }
         else
         {
-            velocity += gravityMultiplier * Time.deltaTime * Physics.gravity;
+            velocity.y += gravityMultiplier * Physics.gravity.y * Time.deltaTime;
         }
     }
 
