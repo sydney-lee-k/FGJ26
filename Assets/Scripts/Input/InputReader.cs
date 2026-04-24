@@ -11,8 +11,8 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public Vector2 StickDelta { get; private set; }
 
     public event Action InteractPressed;
-    //public event Action OnSwitch;
-    public event Action<bool> AttackInputChanged;
+    public event Action SwitchPressed;
+    public event Action<bool> AttackInputDown;
 
     public void Initialize()
     {
@@ -39,9 +39,9 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
-            AttackInputChanged?.Invoke(true);
+            AttackInputDown?.Invoke(true);
         else if (ctx.canceled)
-            AttackInputChanged?.Invoke(false);
+            AttackInputDown?.Invoke(false);
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
@@ -52,8 +52,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
 
     public void OnSwitch(InputAction.CallbackContext ctx)
     {
-        /*
         if (ctx.started)
-            OnSwitch?.Invoke();*/
+            SwitchPressed?.Invoke();
     }
 }

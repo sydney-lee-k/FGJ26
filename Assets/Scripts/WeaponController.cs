@@ -24,6 +24,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private int currentAmmo = 30;
 
     [Header("Casings")]
+    [SerializeField] private bool useCasings;
     [SerializeField] private GameObject casingPrefab;
     [SerializeField] private Transform casingEjectPoint;
 
@@ -64,7 +65,7 @@ public class WeaponController : MonoBehaviour
         HandleShootInputs();
     }
 
-    private void SpawnCasing()
+    private void ShootShell()
     {
         if (casingPrefab == null || casingEjectPoint == null)
             return;
@@ -78,12 +79,12 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    private void HandleCasingEjection()
+    private void HandleShellEjection()
     {
         switch (cycleType)
         {
             case WeaponCycleType.Instant:
-                SpawnCasing();
+                ShootShell();
                 break;
 
             case WeaponCycleType.Pump:
@@ -99,7 +100,7 @@ public class WeaponController : MonoBehaviour
 
         if (waitingForPumpEject)
         {
-            SpawnCasing();
+            ShootShell();
             waitingForPumpEject = false;
         }
     }
@@ -174,7 +175,8 @@ public class WeaponController : MonoBehaviour
 
         // muzzle flash
 
-        HandleCasingEjection();
+        if (useCasings)
+            HandleShellEjection();
 
         // shoot sfx
 
