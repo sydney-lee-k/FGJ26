@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class PlayerWeapons : MonoBehaviour, IWeaponUser
+public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private WeaponController weapon;
     [SerializeField] private Transform weaponMuzzle;
+
+    [SerializeField] private Actor actor;
+
+    public Actor Owner => actor;
 
     private bool isFiring;
 

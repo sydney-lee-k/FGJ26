@@ -16,7 +16,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    public void InflictDamage(float damage, GameObject damageSource)
+    public void TakeDamage(float damage, GameObject damageSource)
     {
         if (Health)
         {
