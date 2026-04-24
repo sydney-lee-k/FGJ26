@@ -1,7 +1,16 @@
 using UnityEngine;
 
+public enum FireMode
+{
+    Manual,
+    Automatic
+}
+
 public class WeaponController : MonoBehaviour
 {
+    [Header("Firing")]
+    [SerializeField] private FireMode fireMode = FireMode.Manual;
+
     [Header("Stats")]
     [SerializeField] private float fireRate = 5f;
     [SerializeField] private float range = 50f;
@@ -12,15 +21,57 @@ public class WeaponController : MonoBehaviour
     [Header("Hit Settings")]
     [SerializeField] private LayerMask hitMask;
 
+    private IWeaponUser user;
+
+    private bool fireHeld;
+    private bool firePressed;
+
     private float lastFireTime;
 
-    public void TryFire(IWeaponUser user)
+    private void Update()
+    {
+        switch (fireMode)
+        {
+            case FireMode.Manual:
+                if (firePressed)
+                    TryFire();
+                break;
+
+            case FireMode.Automatic:
+                if (fireHeld)
+                    TryFire();
+                break;
+        }
+
+        firePressed = false;
+    }
+
+    public void SetUser(IWeaponUser weaponUser)
+    {
+        user = weaponUser;
+    }
+
+    public void SetFireHeld(bool held)
+    {
+        fireHeld = held;
+
+        if (held)
+            firePressed = true;
+    }
+
+    public bool TryFire()
     {
         if (Time.time < lastFireTime + 1f / fireRate)
-            return;
+            return false;
+
+        lastFireTime = Time.time;
+
+        if (user == null)
+            return false;
 
         Fire(user);
-        lastFireTime = Time.time;
+
+        return true;
     }
 
     private void Fire(IWeaponUser user)
@@ -79,10 +130,14 @@ public class WeaponController : MonoBehaviour
         if (angle <= 0f)
             return direction;
 
-        return Quaternion.Slerp(
-            Quaternion.LookRotation(direction),
-            Random.rotation,
-            angle / 180f
-        ) * Vector3.forward;
+        Vector2 randomPoint = Random.insideUnitCircle * angle;
+
+        Quaternion spreadRotation = Quaternion.Euler(
+            randomPoint.y,
+            randomPoint.x,
+            0f
+        );
+
+        return spreadRotation * direction;
     }
 }

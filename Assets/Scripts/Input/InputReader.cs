@@ -12,7 +12,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
 
     public event Action InteractPressed;
     //public event Action OnSwitch;
-    public event Action<bool> AttackHeld;
+    public event Action<bool> AttackInputChanged;
 
     public void Initialize()
     {
@@ -39,9 +39,9 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public void OnAttack(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
-            AttackHeld?.Invoke(true);
+            AttackInputChanged?.Invoke(true);
         else if (ctx.canceled)
-            AttackHeld?.Invoke(false);
+            AttackInputChanged?.Invoke(false);
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
