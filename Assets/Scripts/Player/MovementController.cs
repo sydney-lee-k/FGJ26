@@ -9,7 +9,7 @@ public class MovementController : MonoBehaviour
 
     [Header("Ground Settings")]
     [SerializeField] private float gravityMultiplier = 2.5f;
-    [SerializeField] private float stickToGroundForce = 5.0f;
+    [SerializeField] private float stickToGroundForce = 5f;
     [Space]
     [SerializeField] private LayerMask groundLayer = ~0;
     [SerializeField] private float rayLength = 0.1f;
@@ -18,12 +18,12 @@ public class MovementController : MonoBehaviour
     private CharacterController controller;
     private Camera cam;
     private Health health;
-
+    private Actor actor;
     private RaycastHit hitInfo;
-    private float finalRayLength;
 
     private Vector3 finalMoveDirection;
     private Vector3 velocity;
+    private float finalRayLength;
     private bool isGrounded;
 
     private Vector3 camForward;
@@ -36,7 +36,13 @@ public class MovementController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
+        actor = GetComponent<Actor>();
         cam = Camera.main;
+
+        if (ActorsManager.Instance != null)
+            ActorsManager.Instance.SetPlayer(actor);
+
+        health.OnDie += OnDie;
 
         finalRayLength = rayLength + controller.center.y;
     }
@@ -58,6 +64,11 @@ public class MovementController : MonoBehaviour
     private void LateUpdate()
     {
         UpdateCameraDirection();
+    }
+
+    private void OnDie()
+    {
+
     }
 
     private void CheckIfGrounded()

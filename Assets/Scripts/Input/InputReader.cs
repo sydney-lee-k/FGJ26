@@ -12,7 +12,7 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
 
     public event Action InteractPressed;
     //public event Action OnSwitch;
-    //public event Action<bool> OnAttack;
+    public event Action<bool> AttackHeld;
 
     public void Initialize()
     {
@@ -26,31 +26,34 @@ public class InputReader : ScriptableObject, InputActions.IPlayerActions
     public void EnablePlayerInput() => controls?.Player.Enable();
     public void DisablePlayerInput() => controls?.Player.Disable();
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext ctx)
     {
-        InputVector = context.ReadValue<Vector2>();
+        InputVector = ctx.ReadValue<Vector2>();
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    public void OnLook(InputAction.CallbackContext ctx)
     {
-        StickDelta = context.ReadValue<Vector2>();
+        StickDelta = ctx.ReadValue<Vector2>();
     }
 
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack(InputAction.CallbackContext ctx)
     {
-        
+        if (ctx.started)
+            AttackHeld?.Invoke(true);
+        else if (ctx.canceled)
+            AttackHeld?.Invoke(false);
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
+    public void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (context.started)
+        if (ctx.started)
             InteractPressed?.Invoke();
     }
 
-    public void OnSwitch(InputAction.CallbackContext context)
+    public void OnSwitch(InputAction.CallbackContext ctx)
     {
         /*
-        if (context.started)
+        if (ctx.started)
             OnSwitch?.Invoke();*/
     }
 }
