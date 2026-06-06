@@ -16,13 +16,10 @@ public class WeaponPickup : MonoBehaviour
 
         if (byPlayer.TryGetComponent<PlayerWeaponsManager>(out var weapons))
         {
-            WeaponController instance = Instantiate(weaponPrefab);
+            bool success = weapons.AddWeapon(weaponPrefab, forcedSlot, autoEquip);
 
-            if (!weapons.AddWeapon(instance))
-            {
-                //Destroy(instance.gameObject);
+            if (!success)
                 return;
-            }
 
             //Destroy(gameObject);
         }

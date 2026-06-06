@@ -4658,11 +4658,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapons
   inputReader: {fileID: 11400000, guid: 183b452149c7ec043b61f9a3db85041d, type: 2}
-  weapons:
+  StartingWeapons:
+  - {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
+  WeaponSlots:
   - {fileID: 0}
   - {fileID: 0}
   weaponMuzzle: {fileID: 468011665}
   actor: {fileID: 8280268543660224927}
+  WeaponParent: {fileID: 38440384}
 --- !u!4 &9048518334358448174
 Transform:
   m_ObjectHideFlags: 0

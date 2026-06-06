@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
@@ -6,7 +7,8 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     [SerializeField] private InputReader inputReader;
 
     [Header("Weapons")]
-    [SerializeField] private WeaponController[] weapons = new WeaponController[2];
+    public List<WeaponController> StartingWeapons = new();
+    [SerializeField] private WeaponController[] WeaponSlots = new WeaponController[2];
 
     [Header("References")]
     [SerializeField] private Transform weaponMuzzle;
@@ -14,24 +16,20 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
     public Transform WeaponParent;
 
-
     public Actor Owner => actor;
     public Transform AimOrigin => weaponMuzzle;
     public Vector3 AimDirection => transform.forward;
     private int activeWeaponIndex;
 
     private WeaponController ActiveWeapon =>
-        (weapons != null && weapons.Length > 0) ? weapons[activeWeaponIndex] : null;
+        (WeaponSlots != null && WeaponSlots.Length > 0) ? WeaponSlots[activeWeaponIndex] : null;
 
     private void Awake()
     {
         // Initialize weapons
-        for (int i = 0; i < weapons.Length; i++)
+        foreach (var weapon in StartingWeapons)
         {
-            if (weapons[i] == null) continue;
-
-            weapons[i].SetUser(this);
-            weapons[i].gameObject.SetActive(i == activeWeaponIndex);
+            AddWeapon(weapon);
         }
     }
 
@@ -55,59 +53,49 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
     private void SwitchWeapon()
     {
-        if (weapons.Length < 2)
+        if (WeaponSlots.Length < 2)
             return;
 
         if (ActiveWeapon != null)
             ActiveWeapon.SetFireHeld(false);
 
-        weapons[activeWeaponIndex].gameObject.SetActive(false);
+        int startIndex = activeWeaponIndex;
 
-        int nextIndex = (activeWeaponIndex + 1) % weapons.Length;
-
-        // skip empty slots safely
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 1; i <= WeaponSlots.Length; i++)
         {
-            int checkIndex = (activeWeaponIndex + 1 + i) % weapons.Length;
+            int nextIndex = (startIndex + i) % WeaponSlots.Length;
 
-            if (weapons[checkIndex] != null)
+            if (WeaponSlots[nextIndex] != null)
             {
-                nextIndex = checkIndex;
-                break;
-            }
-        }
-
-        activeWeaponIndex = nextIndex;
-        weapons[activeWeaponIndex].gameObject.SetActive(true);
-    }
-
-    public WeaponController GetActiveWeapon()
-    {
-        return ActiveWeapon;
-    }
-
-    public void ForceSwitchIfEmpty()
-    {
-        if (ActiveWeapon == null)
-        {
-            for (int i = 0; i < weapons.Length; i++)
-            {
-                if (weapons[i] != null)
-                {
-                    EquipWeapon(i);
-                    return;
-                }
+                SetActiveWeapon(nextIndex);
+                return;
             }
         }
     }
 
-    public bool AddWeapon(WeaponController newWeapon, int slotIndex = -1, bool autoEquip = true)
+    private void SetActiveWeapon(int index)
     {
-        if (newWeapon == null)
+        if (index < 0 || index >= WeaponSlots.Length)
+            return;
+
+        if (ActiveWeapon != null)
+        {
+            ActiveWeapon.SetFireHeld(false);
+            ActiveWeapon.gameObject.SetActive(false);
+        }
+
+        activeWeaponIndex = index;
+
+        WeaponSlots[activeWeaponIndex].gameObject.SetActive(true);
+    }
+
+    public bool AddWeapon(WeaponController prefab, int slotIndex = -1, bool autoEquip = true)
+    {
+        if (prefab == null)
             return false;
 
         // Decide slot
-        if (slotIndex < 0 || slotIndex >= weapons.Length)
+        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
         {
             slotIndex = GetFirstEmptySlot();
 
@@ -118,63 +106,47 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         // Remove existing weapon in slot
         RemoveWeapon(slotIndex);
 
-        // Assign new weapon
-        weapons[slotIndex] = newWeapon;
+        // INSTANTIATE HERE (your requirement)
+        WeaponController instance = Instantiate(prefab, WeaponParent);
+        instance.SetUser(this);
+        instance.gameObject.SetActive(false);
 
-        newWeapon.SetUser(this);
-        newWeapon.transform.SetParent(transform);
-        newWeapon.gameObject.SetActive(false);
+        WeaponSlots[slotIndex] = instance;
 
         if (autoEquip)
-        {
-            EquipWeapon(slotIndex);
-        }
+            SetActiveWeapon(slotIndex);
 
         return true;
     }
 
     public void RemoveWeapon(int slotIndex)
     {
-        if (slotIndex < 0 || slotIndex >= weapons.Length)
+        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
             return;
 
-        WeaponController weapon = weapons[slotIndex];
+        WeaponController weapon = WeaponSlots[slotIndex];
 
-        if (weapon == null) return;
+        if (weapon == null)
+            return;
 
         if (slotIndex == activeWeaponIndex)
-        {
             weapon.SetFireHeld(false);
-        }
 
-        weapon.gameObject.SetActive(false);
+        WeaponSlots[slotIndex] = null;
 
         Destroy(weapon.gameObject);
-
-        weapons[slotIndex] = null;
     }
 
-    public void EquipWeapon(int slotIndex)
+    public WeaponController GetActiveWeapon()
     {
-        if (slotIndex < 0 || slotIndex >= weapons.Length)
-            return;
-
-        if (weapons[slotIndex] == null)
-            return;
-
-        ActiveWeapon.SetFireHeld(false);
-        ActiveWeapon.gameObject.SetActive(false);
-
-        activeWeaponIndex = slotIndex;
-
-        weapons[activeWeaponIndex].gameObject.SetActive(true);
+        return ActiveWeapon;
     }
 
     private int GetFirstEmptySlot()
     {
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < WeaponSlots.Length; i++)
         {
-            if (weapons[i] == null)
+            if (WeaponSlots[i] == null)
                 return i;
         }
 
