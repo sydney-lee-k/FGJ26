@@ -33,7 +33,7 @@ public class InteractionController : MonoBehaviour
     {
         if (currentInteractable != null && currentInteractable.IsInteractable)
         {
-            currentInteractable.Interact();
+            currentInteractable.Interact(gameObject);
         }
     }
 

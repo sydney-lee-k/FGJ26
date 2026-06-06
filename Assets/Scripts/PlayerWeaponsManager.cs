@@ -12,10 +12,12 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     [SerializeField] private Transform weaponMuzzle;
     [SerializeField] private Actor actor;
 
+    public Transform WeaponParent;
+
+
     public Actor Owner => actor;
     public Transform AimOrigin => weaponMuzzle;
     public Vector3 AimDirection => transform.forward;
-
     private int activeWeaponIndex;
 
     private WeaponController ActiveWeapon =>
@@ -56,44 +58,79 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         if (weapons.Length < 2)
             return;
 
-        // Stop firing current weapon immediately
         if (ActiveWeapon != null)
             ActiveWeapon.SetFireHeld(false);
 
-        // Disable current weapon
         weapons[activeWeaponIndex].gameObject.SetActive(false);
 
-        // Switch index
-        activeWeaponIndex = (activeWeaponIndex + 1) % weapons.Length;
+        int nextIndex = (activeWeaponIndex + 1) % weapons.Length;
 
-        // Enable new weapon
+        // skip empty slots safely
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            int checkIndex = (activeWeaponIndex + 1 + i) % weapons.Length;
+
+            if (weapons[checkIndex] != null)
+            {
+                nextIndex = checkIndex;
+                break;
+            }
+        }
+
+        activeWeaponIndex = nextIndex;
         weapons[activeWeaponIndex].gameObject.SetActive(true);
     }
 
-    public void AddWeapon(WeaponController newWeapon, int slotIndex, bool autoEquip = true)
+    public WeaponController GetActiveWeapon()
     {
+        return ActiveWeapon;
+    }
+
+    public void ForceSwitchIfEmpty()
+    {
+        if (ActiveWeapon == null)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (weapons[i] != null)
+                {
+                    EquipWeapon(i);
+                    return;
+                }
+            }
+        }
+    }
+
+    public bool AddWeapon(WeaponController newWeapon, int slotIndex = -1, bool autoEquip = true)
+    {
+        if (newWeapon == null)
+            return false;
+
+        // Decide slot
         if (slotIndex < 0 || slotIndex >= weapons.Length)
         {
-            Debug.LogWarning("Invalid weapon slot index");
-            return;
+            slotIndex = GetFirstEmptySlot();
+
+            if (slotIndex == -1)
+                slotIndex = activeWeaponIndex;
         }
 
         // Remove existing weapon in slot
         RemoveWeapon(slotIndex);
 
+        // Assign new weapon
         weapons[slotIndex] = newWeapon;
-
-        if (newWeapon == null) return;
 
         newWeapon.SetUser(this);
         newWeapon.transform.SetParent(transform);
-
         newWeapon.gameObject.SetActive(false);
 
         if (autoEquip)
         {
             EquipWeapon(slotIndex);
         }
+
+        return true;
     }
 
     public void RemoveWeapon(int slotIndex)
@@ -105,7 +142,6 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         if (weapon == null) return;
 
-        // If removing active weapon, stop firing
         if (slotIndex == activeWeaponIndex)
         {
             weapon.SetFireHeld(false);
@@ -113,7 +149,6 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         weapon.gameObject.SetActive(false);
 
-        // Optional: destroy or detach
         Destroy(weapon.gameObject);
 
         weapons[slotIndex] = null;
@@ -127,14 +162,22 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         if (weapons[slotIndex] == null)
             return;
 
-        if (ActiveWeapon != null)
-        {
-            ActiveWeapon.SetFireHeld(false);
-            ActiveWeapon.gameObject.SetActive(false);
-        }
+        ActiveWeapon.SetFireHeld(false);
+        ActiveWeapon.gameObject.SetActive(false);
 
         activeWeaponIndex = slotIndex;
 
         weapons[activeWeaponIndex].gameObject.SetActive(true);
+    }
+
+    private int GetFirstEmptySlot()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] == null)
+                return i;
+        }
+
+        return -1;
     }
 }

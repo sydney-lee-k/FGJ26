@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Outline))]
 public class Interactable : MonoBehaviour, IInteractable
 {
     [Header("Interactable Settings")]
     [SerializeField] private bool isInteractable = true;
-    [SerializeField] private UnityEvent onInteract;
+
+    [SerializeField] private UnityEvent<GameObject> onInteract;
 
     private bool isFocused;
 
@@ -22,13 +24,13 @@ public class Interactable : MonoBehaviour, IInteractable
         outline.enabled = false;
     }
 
-    public void Interact()
+    public void Interact(GameObject interactor)
     {
         if (!isInteractable)
             return;
 
         Debug.Log($"Interacted with: {gameObject.name}");
-        onInteract?.Invoke();
+        onInteract?.Invoke(interactor);
     }
 
     public void OnFocusGained()
