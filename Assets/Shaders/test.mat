@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: test
-  m_Shader: {fileID: -6465566751694194690, guid: e412512bd5772844bbe3a542fb061f5f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b4b8fa1022ba92642b74aaad1b4e4c72, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -83,6 +83,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleReflectedCubemap_bb7da603e9f343698a8291736065449e_Cube_1_Cubemap:
         m_Texture: {fileID: 8900000, guid: 6161575d1a53d4c4595c36be07f41cc0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3f10183db5d4427a9a7e71d9790d7efa_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bf17f2ca44d84220ba65ec1703340c7a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 212bfd6ec8a40da41b0669f02dff5a29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
