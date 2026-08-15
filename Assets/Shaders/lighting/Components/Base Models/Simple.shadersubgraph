@@ -82,9 +82,6 @@
             "m_Id": "2c4daef37a324c32a10a0e2bb70c4fa9"
         },
         {
-            "m_Id": "6ec756e134fc47bd89adb3fa82060843"
-        },
-        {
             "m_Id": "b906b3b5ddeb47eabe84385b3fba03db"
         },
         {
@@ -152,9 +149,23 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "6ec756e134fc47bd89adb3fa82060843"
+                    "m_Id": "516f97760f374d688c1c7e47f585c3cd"
                 },
-                "m_SlotId": 1659263175
+                "m_SlotId": 281634797
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "2c4daef37a324c32a10a0e2bb70c4fa9"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ddde522306664d279b43d3d5bbb2ad28"
+                },
+                "m_SlotId": 1454846360
             }
         },
         {
@@ -286,34 +297,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "6ec756e134fc47bd89adb3fa82060843"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "516f97760f374d688c1c7e47f585c3cd"
-                },
-                "m_SlotId": 281634797
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "6ec756e134fc47bd89adb3fa82060843"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "ddde522306664d279b43d3d5bbb2ad28"
-                },
-                "m_SlotId": 1454846360
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "6fdade768da44e8881fc956a37deea1f"
                 },
                 "m_SlotId": 0
@@ -435,6 +418,20 @@
                     "m_Id": "cd630b2d504e4047840df5baabbf2ae1"
                 },
                 "m_SlotId": 10400465
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "b12dfe81052d450698c9bb9568f8b26b"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "ddde522306664d279b43d3d5bbb2ad28"
+                },
+                "m_SlotId": 855868821
             }
         },
         {
@@ -1867,51 +1864,6 @@
         "z": 0.0
     },
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
-    "m_ObjectId": "6ec756e134fc47bd89adb3fa82060843",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Smoothness To Spec Power",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -357.0,
-            "y": -700.0,
-            "width": 205.0,
-            "height": 95.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "f7b8cdb33f954f5ea7f9208db1b1e413"
-        },
-        {
-            "m_Id": "ea2b284f751641799030ac19db14d2da"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": false,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"5a62314d4407b0b4baaf49f059208501\",\n        \"type\": 3\n    }\n}",
-    "m_PropertyGuids": [
-        "3e396998-865d-4094-be02-2c0abcb56716"
-    ],
-    "m_PropertyIds": [
-        1659263175
-    ],
-    "m_Dropdowns": [],
-    "m_DropdownSelectedEntries": []
 }
 
 {
@@ -3636,22 +3588,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "ea2b284f751641799030ac19db14d2da",
-    "m_Id": 1,
-    "m_DisplayName": "Out",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
-    "m_DefaultValue": 0.0,
-    "m_Labels": [],
-    "m_LiteralMode": false
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SubGraphOutputNode",
     "m_ObjectId": "eb6199627fa24df6bdb380ede18814bb",
     "m_Group": {
@@ -3928,22 +3864,6 @@
     "m_ShaderOutputName": "_Smoothness",
     "m_StageCapability": 3,
     "m_Value": 0.5,
-    "m_DefaultValue": 0.0,
-    "m_Labels": [],
-    "m_LiteralMode": false
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "f7b8cdb33f954f5ea7f9208db1b1e413",
-    "m_Id": 1659263175,
-    "m_DisplayName": "Smoothness",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "_Smoothness",
-    "m_StageCapability": 3,
-    "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": [],
     "m_LiteralMode": false
