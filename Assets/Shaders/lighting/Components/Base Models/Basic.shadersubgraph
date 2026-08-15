@@ -1292,6 +1292,29 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "344aefff18d24818b80ef3d083457a35",
+    "m_Id": 10400465,
+    "m_DisplayName": "LightVector",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_LightVector",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "34b900968dd54eed89a774c403c58778",
     "m_Id": -615120201,
     "m_DisplayName": "Reflectance",
@@ -2546,6 +2569,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "9dc593c0d1a0410aaecd8784a1efb9c1",
+    "m_Id": 855868821,
+    "m_DisplayName": "LightVector",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_LightVector",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": -0.699999988079071,
+        "y": 0.699999988079071,
+        "z": 0.699999988079071
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "9f10e40c797845a4b705cd467db6b3c5",
     "m_Id": 0,
@@ -3207,6 +3253,9 @@
             "m_Id": "1bbb2bb2926d4a8ea08edbbb5c313b18"
         },
         {
+            "m_Id": "344aefff18d24818b80ef3d083457a35"
+        },
+        {
             "m_Id": "7008dd89adc34b518e8abcd11f8412c5"
         }
     ],
@@ -3220,10 +3269,12 @@
     },
     "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"5b2b811cc649dd1489e9ff549be89609\",\n        \"type\": 3\n    }\n}",
     "m_PropertyGuids": [
-        "7bf72618-306d-4773-8667-a5f9de3c8b54"
+        "7bf72618-306d-4773-8667-a5f9de3c8b54",
+        "b293b07b-0c00-41cf-83c5-c71329cb05e0"
     ],
     "m_PropertyIds": [
-        -1851110099
+        -1851110099,
+        10400465
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -3415,6 +3466,9 @@
             "m_Id": "6ebf65cd960e49eea088844fdcc7e61c"
         },
         {
+            "m_Id": "9dc593c0d1a0410aaecd8784a1efb9c1"
+        },
+        {
             "m_Id": "ecb64596b9f34f778fa10e363e05e7e7"
         }
     ],
@@ -3430,12 +3484,14 @@
     "m_PropertyGuids": [
         "26588fcd-1253-4864-9be7-49b53f9c3117",
         "41677c97-7d51-42c1-9f86-bec1c1b6af94",
-        "677ff85e-dcb3-43ce-873c-da1aa19405ec"
+        "677ff85e-dcb3-43ce-873c-da1aa19405ec",
+        "0994551b-2164-4be7-ad3a-909047cbe0e1"
     ],
     "m_PropertyIds": [
         -867899846,
         1454846360,
-        -764506933
+        -764506933,
+        855868821
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
