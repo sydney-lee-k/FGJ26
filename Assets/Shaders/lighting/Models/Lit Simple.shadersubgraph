@@ -447,6 +447,22 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "23a2db5d7a9748d1aef81419498dc1c4",
+    "m_Id": -443367879,
+    "m_DisplayName": "Micro Occlusion",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Micro_Occlusion",
+    "m_StageCapability": 3,
+    "m_Value": 1.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "23acf9f4087e4bee820a1235ea1318e6",
     "m_Id": -2081961638,
     "m_DisplayName": "Metallic",
@@ -1523,15 +1539,15 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "Simple",
+    "m_Name": "Light Simple",
     "m_DrawState": {
-        "m_Expanded": true,
+        "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -649.0,
-            "y": -73.0,
-            "width": 212.0,
-            "height": 191.0
+            "x": -648.9999389648438,
+            "y": -73.99999237060547,
+            "width": 211.99993896484376,
+            "height": 190.99996948242188
         }
     },
     "m_Slots": [
@@ -1551,6 +1567,9 @@
             "m_Id": "553a53c42aae4b4c8facc3498d93a260"
         },
         {
+            "m_Id": "23a2db5d7a9748d1aef81419498dc1c4"
+        },
+        {
             "m_Id": "e8b9dfb9701b453fb0c1763c39cc20e1"
         }
     ],
@@ -1568,14 +1587,16 @@
         "0909b3ff-4350-4925-87da-c117b5fcebc0",
         "25790d10-585f-417d-bfd0-ace8aa4c4f0f",
         "4e340a63-840b-482b-93dc-4d40e942ab90",
-        "f1846271-898c-4db5-909f-0974a34f9368"
+        "f1846271-898c-4db5-909f-0974a34f9368",
+        "445317fa-faa8-493c-b2e4-fdc5d9b7002d"
     ],
     "m_PropertyIds": [
         -1351272510,
         -1761159523,
         -2081961638,
         -688320494,
-        -1599390770
+        -1599390770,
+        -443367879
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []

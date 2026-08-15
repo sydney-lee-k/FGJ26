@@ -1392,8 +1392,8 @@
     "m_ObjectId": "773ac1e515954b3a963ef5f6301b5a71",
     "m_Title": "Surface Reduction",
     "m_Position": {
-        "x": -1370.0001220703125,
-        "y": -309.0000305175781
+        "x": -1370.0,
+        "y": -309.0
     }
 }
 
@@ -1765,10 +1765,10 @@
             "m_Id": "829101794f8e49eda39df5bd22ad884c"
         },
         {
-            "m_Id": "a5ba290d5bd6456782a2b4bca8e15c86"
+            "m_Id": "bf70fb479bc9423cbdbf595573eeefca"
         },
         {
-            "m_Id": "bf70fb479bc9423cbdbf595573eeefca"
+            "m_Id": "a5ba290d5bd6456782a2b4bca8e15c86"
         },
         {
             "m_Id": "13cef2b9f7ec44279fd85655b8ef09fe"
