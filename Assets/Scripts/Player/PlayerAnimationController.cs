@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
-
     [Header("References")]
     [SerializeField] private MovementController movementController;
     [SerializeField] private Animator animator;

@@ -4,9 +4,9 @@ public class InputHandler : MonoBehaviour
 {
     [SerializeField] private InputReader inputReader;
 
-    private void Awake()
+    private void Start()
     {
-        inputReader.Initialize();
+        inputReader = InputReader.instance;
         inputReader.EnablePlayerInput();
     }
 

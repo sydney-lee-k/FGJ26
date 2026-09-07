@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    private InputReader input;
 
     [Header("Interaction Settings")]
     [SerializeField] private float radius = 2f;
@@ -11,16 +12,9 @@ public class InteractionController : MonoBehaviour
     private readonly Collider[] buffer = new Collider[32];
     private IInteractable currentInteractable;
 
-    private void OnEnable()
+    private void Awake()
     {
-        if (inputReader != null)
-            inputReader.InteractPressed += HandleInteract;
-    }
-
-    private void OnDisable()
-    {
-        if (inputReader != null)
-            inputReader.InteractPressed -= HandleInteract;
+        input = InputReader.instance;
     }
 
     private void Update()

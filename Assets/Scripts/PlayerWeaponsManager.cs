@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 {
-    [Header("Input")]
-    [SerializeField] private InputReader inputReader;
+    private InputReader input;
 
     [Header("Weapons")]
     public List<WeaponController> StartingWeapons = new();
@@ -31,18 +31,19 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         {
             AddWeapon(weapon);
         }
+        input = InputReader.instance;
     }
 
     private void OnEnable()
     {
-        inputReader.AttackInputDown += HandleAttack;
-        inputReader.SwitchPressed += SwitchWeapon;
+        input.AttackInputDown += HandleAttack;
+        input.SwitchPressed += SwitchWeapon;
     }
 
     private void OnDisable()
     {
-        inputReader.AttackInputDown -= HandleAttack;
-        inputReader.SwitchPressed -= SwitchWeapon;
+        input.AttackInputDown -= HandleAttack;
+        input.SwitchPressed -= SwitchWeapon;
     }
 
     private void HandleAttack(bool held)

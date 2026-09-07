@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    private InputReader input;
 
     [Header("Movement Settings")]
     [SerializeField] private float walkingSpeed = 4.0f;
@@ -37,6 +37,7 @@ public class MovementController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         health = GetComponent<Health>();
         actor = GetComponent<Actor>();
+        input = InputReader.instance;
         cam = Camera.main;
 
         if (ActorsManager.Instance != null)
@@ -97,7 +98,7 @@ public class MovementController : MonoBehaviour
 
     private void CalculateMovement()
     {
-        Vector3 moveInput = inputReader.InputVector;
+        Vector3 moveInput = input.MoveVector;
 
         if (moveInput.sqrMagnitude < 0.0001f)
         {

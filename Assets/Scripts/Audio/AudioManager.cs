@@ -39,10 +39,11 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            if(!transform.parent) DontDestroyOnLoad(gameObject);
         }
         else
         {
+            Debug.Log("Trying to create a duplicate Audio Manager on " + gameObject.name);
             Destroy(gameObject);
             return;
         }

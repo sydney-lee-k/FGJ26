@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class AimController : MonoBehaviour
 {
-    [SerializeField] private InputReader inputReader;
+    private InputReader input;
 
     [Header("Layer")]
     [SerializeField] private LayerMask groundMask;
@@ -20,6 +20,7 @@ public class AimController : MonoBehaviour
 
     private void Awake()
     {
+        input = InputReader.instance;
         mainCamera = Camera.main;
 
         if (mainCamera == null)
@@ -30,7 +31,7 @@ public class AimController : MonoBehaviour
 
     private void Update()
     {
-        Vector2 stickInput = inputReader.StickDelta;
+        Vector2 stickInput = input.LookDelta;
 
         // Controller / stick aim takes priority when active
         if (stickInput.sqrMagnitude > stickDeadZone * stickDeadZone)
