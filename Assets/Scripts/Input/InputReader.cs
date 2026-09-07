@@ -55,32 +55,27 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         MoveVector = context.ReadValue<Vector2>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        Debug.Log("Look");
         LookDelta = context.ReadValue<Vector2>();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         if (context.started) AttackInputDown?.Invoke(true);
         else if (context.canceled) AttackInputDown?.Invoke(false);
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         if (context.started) InteractPressed?.Invoke();
     }
 
     public void OnSwitch(InputAction.CallbackContext context)
     {
-        Debug.Log("1");
         if (context.started) SwitchPressed?.Invoke();
     }
 }
