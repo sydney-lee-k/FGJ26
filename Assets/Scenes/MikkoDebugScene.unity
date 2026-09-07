@@ -3156,7 +3156,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.2
-  logPathResults: 1
+  logPathResults: 4
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -3397,8 +3397,9 @@ MonoBehaviour:
   currentRoute: {fileID: 0}
   currentRouteWaypointIndex: 0
   nextWaypointDistance: 1
-  patrolForward: 0
-  randomizePatrolDirection: 0
+  patrolForward: 1
+  randomizePatrolDirection: 1
+  scoutSpot: {fileID: 0}
 --- !u!114 &1869947714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3495,7 +3496,7 @@ MonoBehaviour:
   radius: 0.5
   height: 2
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 2
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2

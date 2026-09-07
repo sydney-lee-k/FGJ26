@@ -8,29 +8,43 @@ public class EnemyController : MonoBehaviour
     public enum EnemyState
     {
         Chase,
-        SoftChase,
+        Scout,
         Patrol,
         Idle
     }
 
+    [Header("State Management")]
     public EnemyState state = EnemyState.Patrol;
+    
+    [Header("Patrolling")]
     [SerializeField] private PatrolRoute currentRoute;
     [SerializeField] private int currentRouteWaypointIndex;
-    [SerializeField] private float nextWaypointDistance;
     [SerializeField] private bool patrolForward;
     [SerializeField] private bool randomizePatrolDirection;
+
+    [Header("Scout")]
+    [SerializeField] private GameObject scoutSpot;
+
+    [Header("Pathfinding")]
     private AIDestinationSetter destinationSetter;
     private PatrolController patrolController;
-
+    private EnemyState previousState;
+    private Transform player;
+    private AIPath aiPath;
     private void Start()
     {
         destinationSetter = GetComponent<AIDestinationSetter>();
         patrolController = PatrolController.Instance;
+        scoutSpot = Instantiate(new GameObject(), transform.position, Quaternion.identity);
+        scoutSpot.name = "ScoutSpot";
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        aiPath = GetComponent<AIPath>();
         
         if (state == EnemyState.Patrol)
         {
             SeekPatrolPath(currentRoute ? currentRoute : null);
         }
+        previousState = state;
     }
 
     private void Update()
@@ -38,8 +52,10 @@ public class EnemyController : MonoBehaviour
         switch (state)
         {
             case EnemyState.Chase:
+                Chase();
                 break;
-            case EnemyState.SoftChase:
+            case EnemyState.Scout:
+                Scout();
                 break;
             case EnemyState.Patrol:
                 Patrolling();
@@ -47,11 +63,41 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Idle:
                 break;
         }
+        
+        previousState = state;
+    }
+    
+    public void Chase()
+    {
+        if (previousState != state)
+        {
+            destinationSetter.target = player.transform;
+        }
+    }
+    
+    public void Scout()
+    {
+        if (previousState != state)
+        {
+            scoutSpot.transform.position = destinationSetter.target.position;
+            destinationSetter.target = scoutSpot.transform;
+        }
+        
+        if (aiPath.remainingDistance <= aiPath.endReachedDistance)
+        {
+            state = EnemyState.Patrol;
+            SeekPatrolPath(currentRoute);
+        }
     }
 
     public void Patrolling()
     {
-        if (Vector3.Distance(transform.position, destinationSetter.target.position) <= nextWaypointDistance)
+        if (previousState != state)
+        {
+            SeekPatrolPath(currentRoute ? currentRoute : null);
+        }
+
+        if (aiPath.remainingDistance <= aiPath.endReachedDistance)
         {
             if (patrolForward)
             {
