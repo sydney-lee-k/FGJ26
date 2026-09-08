@@ -116,6 +116,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void GoCheck(Vector3 position, bool panic = false)
+    {
+        //Implement panic. Essentially idea is if panic is true, dont return to patrol but do same panic as if they had spotted and then lost the player.
+        scoutSpot.transform.position = position;
+        destinationSetter.target = scoutSpot.transform;
+        state = EnemyState.Scout;
+    }
+
     private void Patrolling()
     {
         if (previousState != state)

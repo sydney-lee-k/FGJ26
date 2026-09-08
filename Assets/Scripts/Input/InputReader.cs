@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "InputReader", menuName = "Input/InputReader")]
 public class InputReader : MonoBehaviour, InputActions.IPlayerActions
 {
     public static InputReader instance;

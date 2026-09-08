@@ -34,6 +34,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private int damage = 10;
     [SerializeField] private int bulletsPerShot = 1;
     [SerializeField] private float spreadAngle = 0f;
+    [SerializeField] private float noiseRange = 0;
 
     [Header("Hit Settings")]
     [SerializeField] private LayerMask hitMask;
@@ -159,6 +160,7 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
+        NoiseController.Instance.CreateNoise(origin, noiseRange);
 
         for (int i = 0; i < bulletsPerShot; i++)
         {

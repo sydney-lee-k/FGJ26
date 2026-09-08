@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632784445186514696}
   - component: {fileID: 6287529495881920450}
+  - component: {fileID: 2007894662140343388}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,6 +46,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24bedda27012bf4592c3bd824e47a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputReader
+--- !u!114 &2007894662140343388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226041285944651985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d694e90527beb3f4e96ecf7b83794dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 192
+  wallMuffleMultiplier: 0.75
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 256
+  visualizeNoise: 1
 --- !u!1001 &5514083332751357780
 PrefabInstance:
   m_ObjectHideFlags: 0

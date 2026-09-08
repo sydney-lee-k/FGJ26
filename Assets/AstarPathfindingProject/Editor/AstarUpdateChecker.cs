@@ -159,6 +159,7 @@ namespace Pathfinding {
 		/// Returns: True if an update check is progressing (WWW request)
 		/// </summary>
 		static bool CheckForUpdates () {
+			return false;
 			if (updateCheckDownload != null && updateCheckDownload.isDone) {
 				if (!string.IsNullOrEmpty(updateCheckDownload.error)) {
 					Debug.LogWarning("There was an error checking for updates to the A* Pathfinding Project\n" +

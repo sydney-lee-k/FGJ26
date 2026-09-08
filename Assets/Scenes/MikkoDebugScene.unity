@@ -448,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 5.08, z: -5}
+  m_LocalPosition: {x: 0, y: 8.08, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2044,7 +2044,7 @@ GameObject:
   - component: {fileID: 636731953}
   - component: {fileID: 636731955}
   - component: {fileID: 636731954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2716,7 +2716,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 4, z: -5}
+  FollowOffset: {x: 0, y: 7, z: -9}
 --- !u!114 &1113521953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2769,7 +2769,7 @@ Transform:
   m_GameObject: {fileID: 1113521951}
   serializedVersion: 2
   m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 5.08, z: -5}
+  m_LocalPosition: {x: 0, y: 8.08, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3251,7 +3251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624296077}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EyeSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3581,7 +3581,7 @@ GameObject:
   - component: {fileID: 1869947722}
   - component: {fileID: 1869947721}
   - component: {fileID: 1869947720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

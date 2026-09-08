@@ -8,3 +8,11 @@ public static class Vector3Utils
     }
 }
 
+public static class LayerUtils
+{
+    public static bool Contains(LayerMask mask, Component target)
+    {
+        return (mask.value & (1 << target.gameObject.layer)) != 0;
+    }
+}
+
