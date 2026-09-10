@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
     {
         Chase,
         Alert,
-        LookAround,
         Scout,
         Patrol,
         Idle
@@ -35,14 +34,18 @@ public class EnemyController : MonoBehaviour
     
     [Header("Chase")]
     [SerializeField] private float chaseDistance;
-    
+
     [Header("Look Around")]
+    [SerializeField] private float lookAroundSpeed = 0.5f;
+    [SerializeField] private float minLookAroundAngle = 60;
+    [SerializeField] private float maxLookAroundAngle = 90;
     [SerializeField]private float minLookAroundTime;
     [SerializeField]private float maxLookAroundTime;
-    private float remainingLookAroundTime;
     private float lookAroundTimer;
-    private float lookAroundAngle;
     private float lookAroundStartingYRotation;
+    private Coroutine lookAroundCoroutine;
+    private float timeBeforeCanLook;
+
 
     [Header("Alerted")]
     [SerializeField]private float minTimeBeforeDirectionChange;
@@ -64,9 +67,10 @@ public class EnemyController : MonoBehaviour
     private EnemyState previousState;
     private Transform player;
     private AIPath aiPath;
+    
+    
     private void Start()
     {
-        remainingLookAroundTime = Random.Range(minLookAroundTime, maxLookAroundTime);
         destinationSetter = GetComponent<AIDestinationSetter>();
         patrolController = PatrolController.Instance;
         scoutSpot = Instantiate(new GameObject(), transform.position, Quaternion.identity);
@@ -93,9 +97,6 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Alert:
                 Alerted();
                 break;
-            case EnemyState.LookAround:
-                LookAround();
-                break;
             case EnemyState.Scout:
                 Scout();
                 break;
@@ -106,32 +107,35 @@ public class EnemyController : MonoBehaviour
                 break;
         }
         
+        if(state != previousState) timeBeforeCanLook = 1; //Whenever state changes, it gives a 1 sec cooldown before it can be told to look around.
+        if(timeBeforeCanLook > 0) timeBeforeCanLook -= Time.deltaTime;
         previousState = state;
     }
 
     private void Detection()
     {
-        Vector3 directionToPlayer = (player.transform.position - transform.position);
+        Vector3 directionToPlayer = player.position - eyeSpot.position;
+        Vector3 direction = directionToPlayer.normalized;
 
-        //First see if player is even within detection range, then see if they're in the cone, and finally check if you can actually raycast to them. If you can: Chase
-        if (Vector3Utils.IsWithinDistance(transform.position, player.transform.position, detectionRange) &&
-            Vector3.Dot(eyeSpot.forward, directionToPlayer.normalized) >= Mathf.Cos(coneAngle * 0.5f * Mathf.Deg2Rad))
+        if (Vector3Utils.IsWithinDistance(eyeSpot.position, player.position, detectionRange) && Vector3.Dot(eyeSpot.forward, direction) >= Mathf.Cos(coneAngle * 0.5f * Mathf.Deg2Rad))
         {
-            bool blocked = Physics.SphereCast(eyeSpot.position, 0.2f, directionToPlayer.normalized, out RaycastHit hit, directionToPlayer.magnitude, sightBlockLayers);
+            Vector3 castOrigin = eyeSpot.position;
+
+            if (Physics.CheckSphere(castOrigin, 0.1f, sightBlockLayers, QueryTriggerInteraction.Ignore))
+            {
+                //The head is clipping with the wall, don't spot player
+                return;
+            }
+            bool blocked = Physics.SphereCast(castOrigin, 0.2f, direction, out RaycastHit hit, directionToPlayer.magnitude, sightBlockLayers);
+
             if (!blocked)
             {
                 state = EnemyState.Chase;
                 alerted = true;
             }
-            else if (state == EnemyState.Chase)
-            {
-                state = EnemyState.Scout;
-            }
+            else if (state == EnemyState.Chase) state = EnemyState.Scout;
         }
-        else if (state == EnemyState.Chase)
-        {
-            state = EnemyState.Scout;
-        }
+        else if (state == EnemyState.Chase) state = EnemyState.Scout;
     }
     
     private void Chase()
@@ -142,74 +146,90 @@ public class EnemyController : MonoBehaviour
             aiPath.maxSpeed = chaseSpeed;
             aiPath.endReachedDistance = chaseDistance;
         }
+
+        if (aiPath.reachedDestination)
+        {
+            Vector3 directionToPlayer = player.position - transform.position;
+            directionToPlayer.y = 0f;
+
+            if (directionToPlayer.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    aiPath.rotationSpeed * Time.deltaTime
+                );
+            }
+        }
     }
     
     private void Alerted()
     {
         if (previousState != state)
         {
-            scoutSpot.transform.position = destinationSetter.target.position;
-            destinationSetter.target = scoutSpot.transform;
             aiPath.maxSpeed = alertSpeed;
             aiPath.endReachedDistance = 1;
-        }
 
-        if (aiPath.reachedDestination)
-        {
-            remainingTimeBeforeDirectionChange = Random.Range(minTimeBeforeDirectionChange, maxTimeBeforeDirectionChange);
-            state = EnemyState.LookAround;
-            return;
+            remainingTimeBeforeDirectionChange = 0f;
         }
 
         if (remainingTimeBeforeDirectionChange <= 0)
         {
-            Vector3 randomPosition = transform.position + Random.insideUnitSphere * 10f;
+            Vector2 randomDirection = Random.onUnitCircle;
+            Vector3 randomPosition = transform.position + new Vector3(randomDirection.x, 0f, randomDirection.y) * Random.Range(10, 20);
             NNInfo nearest = AstarPath.active.GetNearest(randomPosition);
+
             if (nearest.node != null && nearest.node.Walkable)
             {
-                scoutSpot.transform.position = (Vector3)nearest.position;
+                scoutSpot.transform.position = nearest.position;
                 destinationSetter.target = scoutSpot.transform;
             }
+
             remainingTimeBeforeDirectionChange = Random.Range(minTimeBeforeDirectionChange, maxTimeBeforeDirectionChange);
-        }
-        else
-        {
-            remainingTimeBeforeDirectionChange -= Time.deltaTime;
-        }
-    }
-    
-    private void LookAround()
-    {
-        if (previousState != state)
-        {
-            aiPath.isStopped = true;
-            aiPath.enableRotation = false;
-
-            lookAroundAngle = Random.Range(60f, 120f);
-            lookAroundTimer = 0f;
-            lookAroundStartingYRotation = transform.eulerAngles.y;
-
-            remainingLookAroundTime = Random.Range(minLookAroundTime, maxLookAroundTime);
-        }
-
-        if (remainingLookAroundTime <= 0f)
-        {
-            aiPath.enableRotation = true;
-            aiPath.isStopped = false;
-
-            state = alerted ? EnemyState.Alert : EnemyState.Patrol;
             return;
         }
+        remainingTimeBeforeDirectionChange -= Time.deltaTime;
 
-        lookAroundTimer += Time.deltaTime;
-        remainingLookAroundTime -= Time.deltaTime;
+        if (previousState == state && aiPath.reachedDestination)
+        {
+            remainingTimeBeforeDirectionChange = 0f;
 
-        float angle = Mathf.Sin(lookAroundTimer * 2f) * lookAroundAngle;
-
-        transform.rotation = Quaternion.Euler(0f, lookAroundStartingYRotation + angle, 0f);
+            if (lookAroundCoroutine == null && timeBeforeCanLook <= 0) lookAroundCoroutine = StartCoroutine(LookAround());
+        }
     }
 
+    private IEnumerator LookAround()
+    {
+        state = EnemyState.Idle;
+        float elapsed = 0f;
 
+        aiPath.isStopped = true;
+        aiPath.enableRotation = false;
+
+        float time = Random.Range(minLookAroundTime, maxLookAroundTime);
+        float lookAroundAngle = Random.Range(minLookAroundAngle, maxLookAroundAngle);
+        lookAroundStartingYRotation = transform.eulerAngles.y;
+
+        while (elapsed < time)
+        {
+            float angle = Mathf.Sin(elapsed * lookAroundSpeed) * lookAroundAngle;
+
+            transform.rotation = Quaternion.Euler(0f, lookAroundStartingYRotation + angle, 0f);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        lookAroundCoroutine = null;
+        aiPath.isStopped = false;
+        aiPath.enableRotation = true;
+
+        if (alerted) state = EnemyState.Alert;
+        else state = EnemyState.Patrol;
+        
+    }
 
     
     private void Scout()
@@ -228,20 +248,29 @@ public class EnemyController : MonoBehaviour
             {
                 state = EnemyState.Alert;
             }
-            else //Return to patrol if not alerted. For example if looking into specific noise, but not
+            else
             {
-                state = EnemyState.LookAround;
+                if (lookAroundCoroutine == null && timeBeforeCanLook <= 0) lookAroundCoroutine = StartCoroutine(LookAround());
             }
         }
     }
 
     public void GoCheck(Vector3 position, bool alert = false)
     {
+        //Stop looking around, go check right away
+        if (lookAroundCoroutine != null)
+        {
+            StopCoroutine(lookAroundCoroutine);
+            lookAroundCoroutine = null;
+            aiPath.isStopped = false;
+            aiPath.enableRotation = true;
+        }
+        
         //Implement panic. Essentially idea is if panic is true, dont return to patrol but do same panic as if they had spotted and then lost the player.
         scoutSpot.transform.position = position;
         destinationSetter.target = scoutSpot.transform;
-        state = EnemyState.Scout;
         if (!alerted) alerted = alert;
+        state = EnemyState.Scout;
     }
 
     private void Patrolling()
@@ -289,9 +318,6 @@ public class EnemyController : MonoBehaviour
         {
             case EnemyState.Chase:
                 Handles.color = new Color(1, 0, 0, 0.2f);
-                break;
-            case EnemyState.LookAround:
-                Handles.color = new Color(1, 0.33f, 0, 0.2f);
                 break;
             case EnemyState.Alert:
                 Handles.color = new Color(1, 0.33f, 0, 0.2f);

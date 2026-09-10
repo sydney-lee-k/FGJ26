@@ -2946,7 +2946,7 @@ Transform:
   m_GameObject: {fileID: 1624296076}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0.5}
+  m_LocalPosition: {x: -0.000000014901168, y: 1.5, z: 0.24999997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3281,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b82bfa271df9f44683f883337f8022b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  state: 4
+  state: 3
   eyeSpot: {fileID: 1624296077}
   detectionRange: 12
   coneAngle: 120
@@ -3289,11 +3289,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   alerted: 0
-  chaseSpeed: 6
-  alertSpeed: 4
-  scoutSpeed: 4
-  patrolSpeed: 4
+  chaseSpeed: 4
+  alertSpeed: 2.5
+  scoutSpeed: 2.5
+  patrolSpeed: 2.5
   chaseDistance: 4
+  lookAroundSpeed: 1
+  minLookAroundAngle: 60
+  maxLookAroundAngle: 90
   minLookAroundTime: 3
   maxLookAroundTime: 6
   minTimeBeforeDirectionChange: 3
@@ -3361,15 +3364,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869947712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.04, y: 0.25, z: -3.08}
+  m_LocalRotation: {x: -0, y: -0.7071067, z: -0, w: 0.70710695}
+  m_LocalPosition: {x: 5.04, y: 0.25, z: 0.6700001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1624296077}
   - {fileID: 636731953}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1869947720
 MonoBehaviour:
   m_ObjectHideFlags: 0
