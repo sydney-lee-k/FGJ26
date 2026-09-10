@@ -16,7 +16,7 @@ public class NoiseController : MonoBehaviour
         Instance = this;
     }
 
-    public void CreateNoise(Vector3 position, float radius)
+    public void CreateNoise(Vector3 position, float radius, bool alert = false)
     {
         //Get all enemies,
         Collider[] enemyHits = Physics.OverlapSphere(position, radius, enemyMask);
@@ -50,7 +50,7 @@ public class NoiseController : MonoBehaviour
                     
                     if (pathHit.transform == enemy.transform)
                     {
-                        enemy.GoCheck(position);
+                        enemy.GoCheck(position, alert);
                         break;
                     } //Enemy alerted, no need to continue
 

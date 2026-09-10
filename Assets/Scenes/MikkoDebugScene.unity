@@ -3261,6 +3261,7 @@ GameObject:
   - component: {fileID: 1869947721}
   - component: {fileID: 1869947720}
   - component: {fileID: 1869947723}
+  - component: {fileID: 1869947724}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -3280,13 +3281,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b82bfa271df9f44683f883337f8022b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  state: 2
+  state: 4
   eyeSpot: {fileID: 1624296077}
   detectionRange: 12
   coneAngle: 120
   sightBlockLayers:
     serializedVersion: 2
     m_Bits: 192
+  alerted: 0
+  chaseSpeed: 6
+  alertSpeed: 4
+  scoutSpeed: 4
+  patrolSpeed: 4
+  chaseDistance: 4
+  minLookAroundTime: 3
+  maxLookAroundTime: 6
+  minTimeBeforeDirectionChange: 3
+  maxTimeBeforeDirectionChange: 10
   currentRoute: {fileID: 0}
   currentRouteWaypointIndex: 0
   patrolForward: 1
@@ -3458,6 +3469,33 @@ MonoBehaviour:
   version: 1
   unwrap: 1
   splitAtEveryPortal: 0
+--- !u!54 &1869947724
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869947712}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1875079111
 GameObject:
   m_ObjectHideFlags: 0
