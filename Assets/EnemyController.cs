@@ -10,10 +10,15 @@ public class EnemyController : MonoBehaviour
     public enum EnemyState
     {
         Chase,
-        Alert,
         Scout,
         Patrol,
         Idle
+    }
+    
+    public enum AlertState
+    {
+        hasPath,
+        lookingForPath
     }
 
     [Header("State Management")]
@@ -34,13 +39,14 @@ public class EnemyController : MonoBehaviour
     
     [Header("Chase")]
     [SerializeField] private float chaseDistance;
+    private bool chaseAlert;
 
     [Header("Look Around")]
     [SerializeField] private float lookAroundSpeed = 0.5f;
     [SerializeField] private float minLookAroundAngle = 60;
     [SerializeField] private float maxLookAroundAngle = 90;
-    [SerializeField]private float minLookAroundTime;
-    [SerializeField]private float maxLookAroundTime;
+    [SerializeField]private int minLookAroundCount = 2;
+    [SerializeField]private int maxLookAroundCount = 4;
     private float lookAroundTimer;
     private float lookAroundStartingYRotation;
     private Coroutine lookAroundCoroutine;
@@ -48,9 +54,7 @@ public class EnemyController : MonoBehaviour
 
 
     [Header("Alerted")]
-    [SerializeField]private float minTimeBeforeDirectionChange;
-    [SerializeField]private float maxTimeBeforeDirectionChange;
-    private float remainingTimeBeforeDirectionChange;
+    [SerializeField][Range(0,100)] private float lookAroundChance;
     
     [Header("Patrolling")]
     [SerializeField] private PatrolRoute currentRoute;
@@ -94,9 +98,6 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Chase:
                 Chase();
                 break;
-            case EnemyState.Alert:
-                Alerted();
-                break;
             case EnemyState.Scout:
                 Scout();
                 break;
@@ -133,7 +134,11 @@ public class EnemyController : MonoBehaviour
                 state = EnemyState.Chase;
                 alerted = true;
             }
-            else if (state == EnemyState.Chase) state = EnemyState.Scout;
+            else if (state == EnemyState.Chase)
+            {
+                chaseAlert = true;
+                state = EnemyState.Scout;
+            }
         }
         else if (state == EnemyState.Chase) state = EnemyState.Scout;
     }
@@ -166,38 +171,25 @@ public class EnemyController : MonoBehaviour
     
     private void Alerted()
     {
-        if (previousState != state)
+        Vector2 randomDirection = Random.onUnitCircle;
+        Vector3 randomPosition;
+        if (chaseAlert)
         {
-            aiPath.maxSpeed = alertSpeed;
-            aiPath.endReachedDistance = 1;
+            chaseAlert = false;
 
-            remainingTimeBeforeDirectionChange = 0f;
+            float rng = Random.Range(10f, 20f);
+            randomPosition = transform.position + transform.forward * rng + new Vector3(randomDirection.x, 0f, randomDirection.y) * rng;
         }
-
-        if (remainingTimeBeforeDirectionChange <= 0)
+        else
         {
-            Vector2 randomDirection = Random.onUnitCircle;
-            Vector3 randomPosition = transform.position + new Vector3(randomDirection.x, 0f, randomDirection.y) * Random.Range(10, 20);
-            NNInfo nearest = AstarPath.active.GetNearest(randomPosition);
-
-            if (nearest.node != null && nearest.node.Walkable)
-            {
-                scoutSpot.transform.position = nearest.position;
-                destinationSetter.target = scoutSpot.transform;
-            }
-
-            remainingTimeBeforeDirectionChange = Random.Range(minTimeBeforeDirectionChange, maxTimeBeforeDirectionChange);
-            return;
+            Debug.Log("Called");
+            randomPosition = transform.position + new Vector3(randomDirection.x, 0f, randomDirection.y) * Random.Range(10f, 20f);
         }
-        remainingTimeBeforeDirectionChange -= Time.deltaTime;
-
-        if (previousState == state && aiPath.reachedDestination)
-        {
-            remainingTimeBeforeDirectionChange = 0f;
-
-            if (lookAroundCoroutine == null && timeBeforeCanLook <= 0) lookAroundCoroutine = StartCoroutine(LookAround());
-        }
+        
+        GoCheck(randomPosition);
     }
+
+
 
     private IEnumerator LookAround()
     {
@@ -207,15 +199,20 @@ public class EnemyController : MonoBehaviour
         aiPath.isStopped = true;
         aiPath.enableRotation = false;
 
-        float time = Random.Range(minLookAroundTime, maxLookAroundTime);
+        int lookCount = Random.Range(minLookAroundCount, maxLookAroundCount+1);
+        bool startDir = Random.value < 0.5f;
         float lookAroundAngle = Random.Range(minLookAroundAngle, maxLookAroundAngle);
         lookAroundStartingYRotation = transform.eulerAngles.y;
 
-        while (elapsed < time)
+        while (lookCount > 0)
         {
             float angle = Mathf.Sin(elapsed * lookAroundSpeed) * lookAroundAngle;
-
-            transform.rotation = Quaternion.Euler(0f, lookAroundStartingYRotation + angle, 0f);
+            transform.rotation = Quaternion.Euler(0f, lookAroundStartingYRotation + (startDir ? angle : -angle), 0f);
+            float previousAngle = Mathf.Sin((elapsed - Time.deltaTime) * lookAroundSpeed);
+            if (previousAngle * Mathf.Sin(elapsed * lookAroundSpeed) < 0f)
+            {
+                lookCount--;
+            }
 
             elapsed += Time.deltaTime;
 
@@ -226,7 +223,7 @@ public class EnemyController : MonoBehaviour
         aiPath.isStopped = false;
         aiPath.enableRotation = true;
 
-        if (alerted) state = EnemyState.Alert;
+        if (alerted) state = EnemyState.Scout;
         else state = EnemyState.Patrol;
         
     }
@@ -246,7 +243,26 @@ public class EnemyController : MonoBehaviour
         {
             if (alerted)
             {
-                state = EnemyState.Alert;
+                Vector2 randomDirection = Random.onUnitCircle;
+                Vector3 randomPosition;
+                if (chaseAlert)
+                {
+                    chaseAlert = false;
+                    float rng = Random.Range(10f, 20f);
+                    randomPosition = transform.position + transform.forward * rng + new Vector3(randomDirection.x, 0f, randomDirection.y) * rng;
+                }
+                else
+                {
+                    float rng = Random.Range(10f, 20f);
+                    randomPosition = transform.position + transform.forward * rng/4 + new Vector3(randomDirection.x, 0f, randomDirection.y) * Random.Range(10f, 20f);
+                }
+        
+                GoCheck(randomPosition);
+                float lookAroundRng = Random.Range(0, 100);
+                if (!chaseAlert && 100 - lookAroundChance <= lookAroundRng)
+                {
+                    if (lookAroundCoroutine == null && timeBeforeCanLook <= 0) lookAroundCoroutine = StartCoroutine(LookAround());
+                }
             }
             else
             {
@@ -314,16 +330,15 @@ public class EnemyController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
+        Gizmos.DrawWireSphere(transform.forward * 10f, 10);
+        
         switch (state)
         {
             case EnemyState.Chase:
                 Handles.color = new Color(1, 0, 0, 0.2f);
                 break;
-            case EnemyState.Alert:
-                Handles.color = new Color(1, 0.33f, 0, 0.2f);
-                break;
             case EnemyState.Scout:
-                Handles.color = new Color(1, 0.66f, 0, 0.2f);
+                Handles.color = new Color(1, 0.5f, 0, 0.2f);
                 break;
             case EnemyState.Patrol:
                 Handles.color = new Color(1, 1, 0, 0.2f);

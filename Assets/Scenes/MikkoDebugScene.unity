@@ -3281,7 +3281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b82bfa271df9f44683f883337f8022b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  state: 3
+  state: 2
   eyeSpot: {fileID: 1624296077}
   detectionRange: 12
   coneAngle: 120
@@ -3294,13 +3294,12 @@ MonoBehaviour:
   scoutSpeed: 2.5
   patrolSpeed: 2.5
   chaseDistance: 4
-  lookAroundSpeed: 1
-  minLookAroundAngle: 60
-  maxLookAroundAngle: 90
-  minLookAroundTime: 3
-  maxLookAroundTime: 6
-  minTimeBeforeDirectionChange: 3
-  maxTimeBeforeDirectionChange: 10
+  lookAroundSpeed: 1.25
+  minLookAroundAngle: 45
+  maxLookAroundAngle: 75
+  minLookAroundCount: 2
+  maxLookAroundCount: 3
+  lookAroundChance: 50
   currentRoute: {fileID: 0}
   currentRouteWaypointIndex: 0
   patrolForward: 1
