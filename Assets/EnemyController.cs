@@ -235,7 +235,7 @@ public class EnemyController : MonoBehaviour
         {
             scoutSpot.transform.position = destinationSetter.target.position;
             destinationSetter.target = scoutSpot.transform;
-            aiPath.maxSpeed = scoutSpeed;
+            aiPath.maxSpeed = alerted ? alertSpeed : scoutSpeed;
             aiPath.endReachedDistance = 1;
         }
         

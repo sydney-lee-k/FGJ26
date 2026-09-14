@@ -49,16 +49,14 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     private void HandleAttack(bool held)
     {
         if (ActiveWeapon != null)
-            ActiveWeapon.SetFireHeld(held);
+            ActiveWeapon.SetFiring(held);
     }
 
     private void SwitchWeapon()
     {
-        if (WeaponSlots.Length < 2)
-            return;
+        if (WeaponSlots.Length < 2) return;
 
-        if (ActiveWeapon != null)
-            ActiveWeapon.SetFireHeld(false);
+        if (ActiveWeapon != null) ActiveWeapon.SetFiring(false);
 
         int startIndex = activeWeaponIndex;
 
@@ -81,7 +79,7 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         if (ActiveWeapon != null)
         {
-            ActiveWeapon.SetFireHeld(false);
+            //ActiveWeapon.SetFireHeld(false);
             ActiveWeapon.gameObject.SetActive(false);
         }
 
@@ -131,7 +129,7 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
             return;
 
         if (slotIndex == activeWeaponIndex)
-            weapon.SetFireHeld(false);
+            //weapon.SetFireHeld(false);
 
         WeaponSlots[slotIndex] = null;
 

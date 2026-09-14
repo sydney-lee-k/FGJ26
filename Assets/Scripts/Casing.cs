@@ -2,22 +2,12 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Casing : MonoBehaviour
+public class Casing : MonoBehaviour, IPoolable
 {
     [SerializeField] private float activeTime = 10f;
 
     private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(DisablePhysicsAfterTime());
-    }
-
+    
     private IEnumerator DisablePhysicsAfterTime()
     {
         yield return new WaitForSeconds(activeTime);
@@ -32,5 +22,18 @@ public class Casing : MonoBehaviour
         rb.isKinematic = true;
         rb.detectCollisions = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void OnPoolSpawn()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.detectCollisions = true;
+        StartCoroutine(DisablePhysicsAfterTime());
+    }
+
+    public void OnPoolDespawn()
+    {
+        
     }
 }

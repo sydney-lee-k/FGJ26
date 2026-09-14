@@ -1,35 +1,34 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+//Manual overrides ShotDelay if you spam M1.
+
 public enum FireMode
 {
     Manual,
     Automatic
 }
 
-public enum WeaponCycleType
-{
-    Instant,
-    Pump
-}
 
 public class WeaponController : MonoBehaviour
 {
     [Header("Firing")]
     [SerializeField] private FireMode fireMode = FireMode.Manual;
-    [SerializeField] private WeaponCycleType cycleType = WeaponCycleType.Instant;
 
     [Header("Ammo")]
     [SerializeField] private int maxAmmo = 30;
     [SerializeField] private int currentAmmo = 30;
 
     [Header("Casings")]
-    [SerializeField] private bool useCasings;
     [SerializeField] private GameObject casingPrefab;
     [SerializeField] private Transform casingEjectPoint;
 
     [Header("Stats")]
-    [SerializeField] private float fireRate = 5f;
+    [SerializeField] private float shotDelay = 0.05f;
+    private float remainingShotDelay;
+    [SerializeField] private float ejectDelay = 0f;
+    private float remainingEjectDelay;
+    private bool preparingToEject;
     [SerializeField] private float range = 50f;
     [SerializeField] private int damage = 10;
     [SerializeField] private int bulletsPerShot = 1;
@@ -38,72 +37,15 @@ public class WeaponController : MonoBehaviour
 
     [Header("Hit Settings")]
     [SerializeField] private LayerMask hitMask;
-
-    public UnityAction OnShoot;
-
-
-    private bool waitingForPumpEject;
-
+    
     public int CurrentAmmo => currentAmmo;
     public int MaxAmmo => maxAmmo;
-
     private IWeaponUser user;
-
-    private bool fireHeld;
-    private bool firePressed;
-
-    private float lastFireTime;
-
-    public bool HasAmmo => currentAmmo > 0;
+    [SerializeField] private bool firePressed;
 
     private void Awake()
     {
         currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmo);
-    }
-
-    private void Update()
-    {
-        HandleShootInputs();
-    }
-
-    private void ShootShell()
-    {
-        if (casingPrefab == null || casingEjectPoint == null)
-            return;
-
-        GameObject casing = Instantiate(casingPrefab, casingEjectPoint.position, casingEjectPoint.rotation);
-        
-        if (casing.TryGetComponent<Rigidbody>(out var rb))
-        {
-            rb.AddForce(casingEjectPoint.right * Random.Range(1.5f, 3f), ForceMode.Impulse);
-            rb.AddTorque(Random.insideUnitSphere * 2f, ForceMode.Impulse);
-        }
-    }
-
-    private void HandleShellEjection()
-    {
-        switch (cycleType)
-        {
-            case WeaponCycleType.Instant:
-                ShootShell();
-                break;
-
-            case WeaponCycleType.Pump:
-                waitingForPumpEject = true;
-                break;
-        }
-    }
-
-    public void PumpAction()
-    {
-        if (cycleType != WeaponCycleType.Pump)
-            return;
-
-        if (waitingForPumpEject)
-        {
-            ShootShell();
-            waitingForPumpEject = false;
-        }
     }
 
     public void SetUser(IWeaponUser weaponUser)
@@ -111,48 +53,46 @@ public class WeaponController : MonoBehaviour
         user = weaponUser;
     }
 
-    public void SetFireHeld(bool held)
+    public void SetFiring(bool held)
     {
-        fireHeld = held;
-
-        if (held)
-            firePressed = true;
-    }
-
-    public void HandleShootInputs()
-    {
-        switch (fireMode)
+        if (!firePressed && fireMode == FireMode.Manual) //No shotDelay on automatic weapons. Shoot as fast as you spam.
         {
-            case FireMode.Manual:
-                if (firePressed)
-                    TryFire();
-                break;
-
-            case FireMode.Automatic:
-                if (fireHeld)
-                    TryFire();
-                break;
-
-            default:
-                break;
+            remainingShotDelay = 0;
         }
-
-        firePressed = false;
+        
+        firePressed = held;
     }
-
+    
+    private void Update()
+    {
+        if (remainingShotDelay > 0)
+        {
+            remainingShotDelay -= Time.deltaTime;
+        } else if (firePressed)
+        {
+            if (!TryFire())
+            {
+                //Play empty gun sound.
+            }
+        }
+        
+        if (remainingEjectDelay > 0)
+        {
+            remainingEjectDelay -= Time.deltaTime;
+        }
+        else if(preparingToEject)
+        {
+            preparingToEject = false;
+            ShootShell();
+        }
+    }
+    
     private bool TryFire()
     {
-        if (!HasAmmo)
-            return false;
-
-        if (Time.time < lastFireTime + 1f / fireRate)
-            return false;
-
-        lastFireTime = Time.time;
-        currentAmmo--;
+        if (currentAmmo > 0) currentAmmo--;
+        else return false;
 
         Fire();
-
         return true;
     }
 
@@ -161,31 +101,46 @@ public class WeaponController : MonoBehaviour
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
         NoiseController.Instance.CreateNoise(origin, noiseRange);
+        remainingShotDelay = shotDelay;
 
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Vector3 shotDirection = GetDirectionWithinSpread(baseDirection, spreadAngle);
             if (Physics.Raycast(origin, shotDirection, out RaycastHit hit, range, hitMask))
             {
-                // Validate hit first
-                if (!IsHitValid(hit))
-                    continue;
-
+                // If hit is not valid skip and look at next hit.
+                if (!IsHitValid(hit)) continue;
                 OnHit(hit);
             }
         }
-
-        // muzzle flash
-
-        if (useCasings)
-            HandleShellEjection();
-
+        
+        if (casingPrefab)
+        {
+            preparingToEject = true;
+            remainingEjectDelay = ejectDelay;
+        }
+        
         // shoot sfx
-
         // weapon animation (if any)
-
-        OnShoot?.Invoke();
     }
+    
+    private void ShootShell()
+    {
+        if (casingEjectPoint == null)
+        {
+            Debug.Log("Missing casing eject point");
+            return;
+        }
+
+        GameObject casing = PoolManager.Instance.Spawn(casingPrefab, casingEjectPoint.position, casingEjectPoint.rotation);
+        
+        if (casing.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.AddForce(casingEjectPoint.right * Random.Range(1.5f, 3f), ForceMode.Impulse);
+            rb.AddTorque(Random.insideUnitSphere * 2f, ForceMode.Impulse);
+        }
+    }
+    
 
     private bool IsHitValid(RaycastHit hit)
     {
@@ -211,17 +166,9 @@ public class WeaponController : MonoBehaviour
 
     private Vector3 GetDirectionWithinSpread(Vector3 direction, float angle)
     {
-        if (angle <= 0f)
-            return direction;
-
+        if (angle <= 0f) return direction;
         Vector2 randomPoint = Random.insideUnitCircle * angle;
-
-        Quaternion spreadRotation = Quaternion.Euler(
-            randomPoint.y,
-            randomPoint.x,
-            0f
-        );
-
+        Quaternion spreadRotation = Quaternion.Euler(randomPoint.y, randomPoint.x, 0f);
         return spreadRotation * direction;
     }
 }
