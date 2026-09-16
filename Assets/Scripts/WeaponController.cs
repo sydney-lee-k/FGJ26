@@ -22,6 +22,9 @@ public class WeaponController : MonoBehaviour
     [Header("Casings")]
     [SerializeField] private GameObject casingPrefab;
     [SerializeField] private Transform casingEjectPoint;
+    
+    [Header("Casings")]
+    [SerializeField] private GameObject tracer;
 
     [Header("Stats")]
     [SerializeField] private float shotDelay = 0.05f;
@@ -106,11 +109,20 @@ public class WeaponController : MonoBehaviour
         for (int i = 0; i < bulletsPerShot; i++)
         {
             Vector3 shotDirection = GetDirectionWithinSpread(baseDirection, spreadAngle);
+            Vector3 tracerHitPosition = origin + shotDirection * range;
+
             if (Physics.Raycast(origin, shotDirection, out RaycastHit hit, range, hitMask))
             {
-                // If hit is not valid skip and look at next hit.
-                if (!IsHitValid(hit)) continue;
-                OnHit(hit);
+                tracerHitPosition = hit.point;
+
+                if (IsHitValid(hit))
+                    OnHit(hit);
+            }
+
+            if (tracer)
+            {
+                Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position, Quaternion.identity).GetComponent<Tracer>();
+                trace.Initialize(tracerHitPosition);
             }
         }
         
