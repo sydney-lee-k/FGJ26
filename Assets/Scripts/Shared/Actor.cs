@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
@@ -18,10 +19,14 @@ public class Actor : MonoBehaviour
 
     private ActorsManager actorsManager;
 
-    private void OnEnable()
+    private void Start()
     {
         actorsManager = ActorsManager.Instance;
-        actorsManager.RegisterActor(this);
+    }
+
+    private void OnEnable()
+    {
+        if(actorsManager) actorsManager.RegisterActor(this);
     }
 
     private void OnDisable()

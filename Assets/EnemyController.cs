@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("State Management")]
     public EnemyState state = EnemyState.Patrol;
+    [SerializeField] private EnemyWeaponController enemyWeaponController;
 
     [Header("Detection")]
     [SerializeField] private Transform eyeSpot;
@@ -39,6 +40,7 @@ public class EnemyController : MonoBehaviour
     
     [Header("Chase")]
     [SerializeField] private float chaseDistance;
+    [SerializeField] private float attackDistance;
     private bool chaseAlert;
 
     [Header("Look Around")]
@@ -107,6 +109,17 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Idle:
                 break;
         }
+
+        if (enemyWeaponController)
+        {
+            if (state == EnemyState.Chase && Vector3Utils.IsWithinDistance(transform.position, player.position, attackDistance))
+            {
+                enemyWeaponController.target = player.TryGetComponent(out Actor actor) ? actor : null;
+            } else if (enemyWeaponController.target)
+            {
+                enemyWeaponController.target = null;
+            }
+        }
         
         if(state != previousState) timeBeforeCanLook = 1; //Whenever state changes, it gives a 1 sec cooldown before it can be told to look around.
         if(timeBeforeCanLook > 0) timeBeforeCanLook -= Time.deltaTime;
@@ -145,13 +158,13 @@ public class EnemyController : MonoBehaviour
     
     private void Chase()
     {
+        destinationSetter.target = player.transform;
         if (previousState != state)
         {
-            destinationSetter.target = player.transform;
             aiPath.maxSpeed = chaseSpeed;
             aiPath.endReachedDistance = chaseDistance;
         }
-
+        
         if (aiPath.reachedDestination)
         {
             Vector3 directionToPlayer = player.position - transform.position;
@@ -168,28 +181,6 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-    
-    private void Alerted()
-    {
-        Vector2 randomDirection = Random.onUnitCircle;
-        Vector3 randomPosition;
-        if (chaseAlert)
-        {
-            chaseAlert = false;
-
-            float rng = Random.Range(10f, 20f);
-            randomPosition = transform.position + transform.forward * rng + new Vector3(randomDirection.x, 0f, randomDirection.y) * rng;
-        }
-        else
-        {
-            Debug.Log("Called");
-            randomPosition = transform.position + new Vector3(randomDirection.x, 0f, randomDirection.y) * Random.Range(10f, 20f);
-        }
-        
-        GoCheck(randomPosition);
-    }
-
-
 
     private IEnumerator LookAround()
     {
