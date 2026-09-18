@@ -6304,7 +6304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapons
   StartingWeapons:
-  - {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
+  - {fileID: 1204861714508184108, guid: 7581f409eabb27541a76fef7294696ca, type: 3}
   WeaponSlots:
   - {fileID: 0}
   - {fileID: 0}

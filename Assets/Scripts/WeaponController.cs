@@ -1,12 +1,16 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 //Manual overrides ShotDelay if you spam M1.
 
 public enum FireMode
 {
     Manual,
-    Automatic
+    Automatic,
+    Melee
 }
 
 
@@ -33,6 +37,7 @@ public class WeaponController : MonoBehaviour
     private float remainingEjectDelay;
     private bool preparingToEject;
     [SerializeField] private float range = 50f;
+    [SerializeField] private float thickness = 0f;
     [SerializeField] private int damage = 10;
     [SerializeField] private int bulletsPerShot = 1;
     [SerializeField] private float spreadAngle = 0f;
@@ -103,7 +108,7 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
-        NoiseController.Instance.CreateNoise(origin, noiseRange);
+        if(noiseRange > 0) NoiseController.Instance.CreateNoise(origin, noiseRange);
         remainingShotDelay = shotDelay;
 
         for (int i = 0; i < bulletsPerShot; i++)
@@ -111,17 +116,32 @@ public class WeaponController : MonoBehaviour
             Vector3 shotDirection = GetDirectionWithinSpread(baseDirection, spreadAngle);
             Vector3 tracerHitPosition = origin + shotDirection * range;
 
-            if (Physics.Raycast(origin, shotDirection, out RaycastHit hit, range, hitMask))
+            if (thickness <= 0)
             {
-                tracerHitPosition = hit.point;
+                if (Physics.Raycast(origin, shotDirection, out RaycastHit hit, range, hitMask))
+                {
+                    tracerHitPosition = hit.point;
 
-                if (IsHitValid(hit))
-                    OnHit(hit);
+                    if (IsHitValid(hit))
+                        OnHit(hit);
+                }
+            }
+            else
+            {
+                //Melee / Thick shots
+                if (Physics.SphereCast(origin,  thickness, shotDirection, out RaycastHit hit, range, hitMask))
+                {
+                    tracerHitPosition = hit.point;
+
+                    if (IsHitValid(hit))
+                        OnHit(hit);
+                }
             }
 
             if (tracer)
             {
-                Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position, Quaternion.identity).GetComponent<Tracer>();
+                Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position + user.AimDirection.normalized*thickness, quaternion.identity).GetComponent<Tracer>();
+                trace.transform.localEulerAngles = user.AimDirection;
                 trace.Initialize(tracerHitPosition);
             }
         }
@@ -167,6 +187,7 @@ public class WeaponController : MonoBehaviour
 
     private void OnHit(RaycastHit hit)
     {
+        if(user.Owner.affiliation == Actor.Affiliation.Player) Debug.Log("Hit");
         if (hit.collider.TryGetComponent<Damageable>(out var damageable))
         {
             damageable.TakeDamage(damage, gameObject);
@@ -182,5 +203,17 @@ public class WeaponController : MonoBehaviour
         Vector2 randomPoint = Random.insideUnitCircle * angle;
         Quaternion spreadRotation = Quaternion.Euler(randomPoint.y, randomPoint.x, 0f);
         return spreadRotation * direction;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (firePressed && fireMode == FireMode.Melee)
+        {
+            Gizmos.color = Color.yellow;
+            Vector3 origin = user.AimOrigin.position;
+            Gizmos.DrawWireSphere(origin+user.AimDirection.normalized*thickness, thickness);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(origin+user.AimDirection.normalized*range, thickness);
+        }
     }
 }
