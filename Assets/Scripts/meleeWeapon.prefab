@@ -54,7 +54,7 @@ MonoBehaviour:
   shotDelay: 0.1
   ejectDelay: 0
   range: 0.5
-  thickness: 0.75
+  thickness: 0.5
   damage: 10
   bulletsPerShot: 1
   spreadAngle: 0

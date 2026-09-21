@@ -97,8 +97,12 @@ public class WeaponController : MonoBehaviour
     
     private bool TryFire()
     {
-        if (currentAmmo > 0) currentAmmo--;
-        else return false;
+        //melee weapons don't have or use ammo. Can be changed if we want weapons to have durability
+        if (fireMode != FireMode.Melee)
+        {
+            if (currentAmmo > 0 ) currentAmmo--;
+            else return false;
+        }
 
         Fire();
         return true;
@@ -128,13 +132,13 @@ public class WeaponController : MonoBehaviour
             }
             else
             {
-                //Melee / Thick shots
-                if (Physics.SphereCast(origin,  thickness, shotDirection, out RaycastHit hit, range, hitMask))
+                //Melee / Thick shots. Hits ALL in the path since otherwise you might just barely clip a wall and not hit the enemy etc.
+                RaycastHit[] hits = Physics.SphereCastAll(origin + user.AimDirection.normalized * thickness, thickness, shotDirection, range, hitMask);
+                foreach (var hit in hits)
                 {
                     tracerHitPosition = hit.point;
 
-                    if (IsHitValid(hit))
-                        OnHit(hit);
+                    if (IsHitValid(hit)) OnHit(hit);
                 }
             }
 
@@ -209,11 +213,12 @@ public class WeaponController : MonoBehaviour
     {
         if (firePressed && fireMode == FireMode.Melee)
         {
-            Gizmos.color = Color.yellow;
-            Vector3 origin = user.AimOrigin.position;
-            Gizmos.DrawWireSphere(origin+user.AimDirection.normalized*thickness, thickness);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(origin+user.AimDirection.normalized*range, thickness);
+            Vector3 origin = user.AimOrigin.position;
+            Gizmos.DrawWireSphere(origin + user.AimDirection.normalized * thickness, thickness);
+            Gizmos.DrawLine(origin + user.AimDirection.normalized * thickness, origin + user.AimDirection.normalized * range + user.AimDirection.normalized * thickness);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(origin + user.AimDirection.normalized * thickness + user.AimDirection.normalized * range, thickness);
         }
     }
 }
