@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
         Chase,
         Scout,
         Patrol,
+        Follow,
         Idle
     }
     
@@ -63,6 +64,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int currentRouteWaypointIndex;
     [SerializeField] private bool patrolForward;
     [SerializeField] private bool randomizePatrolDirection;
+
+    [Header("Follow")]
+    [SerializeField] private Transform followTarget;
+    private Vector3 followTargetLastPosition;
+
     
     [Header("Scout")]
     [SerializeField] private GameObject scoutSpot;
@@ -88,7 +94,7 @@ public class EnemyController : MonoBehaviour
         {
             SeekPatrolPath(currentRoute ? currentRoute : null);
         }
-        previousState = state;
+        //previousState = state;
     }
 
     private void Update()
@@ -105,6 +111,9 @@ public class EnemyController : MonoBehaviour
                 break;
             case EnemyState.Patrol:
                 Patrolling();
+                break;
+            case EnemyState.Follow:
+                Following();
                 break;
             case EnemyState.Idle:
                 break;
@@ -163,6 +172,7 @@ public class EnemyController : MonoBehaviour
         {
             aiPath.maxSpeed = chaseSpeed;
             aiPath.endReachedDistance = chaseDistance;
+            aiPath.slowdownDistance = 0;
         }
         
         if (aiPath.reachedDestination)
@@ -215,7 +225,9 @@ public class EnemyController : MonoBehaviour
         aiPath.enableRotation = true;
 
         if (alerted) state = EnemyState.Scout;
+        else if (followTarget) state = EnemyState.Follow;
         else state = EnemyState.Patrol;
+        
         
     }
 
@@ -228,6 +240,7 @@ public class EnemyController : MonoBehaviour
             destinationSetter.target = scoutSpot.transform;
             aiPath.maxSpeed = alerted ? alertSpeed : scoutSpeed;
             aiPath.endReachedDistance = 1;
+            aiPath.slowdownDistance = 0;
         }
         
         if (aiPath.remainingDistance <= aiPath.endReachedDistance)
@@ -287,6 +300,7 @@ public class EnemyController : MonoBehaviour
             SeekPatrolPath(currentRoute ? currentRoute : null);
             aiPath.maxSpeed = patrolSpeed;
             aiPath.endReachedDistance = 1;
+            aiPath.slowdownDistance = 0;
         }
 
         if (aiPath.remainingDistance <= aiPath.endReachedDistance)
@@ -302,6 +316,25 @@ public class EnemyController : MonoBehaviour
             }
             destinationSetter.target = currentRoute.waypoints[currentRouteWaypointIndex];
         }
+    }
+    
+    private void Following()
+    {
+        if (!followTarget)
+        {
+            //if following target is dead go check their last position and then scout.
+            GoCheck(followTargetLastPosition, true);
+        }
+        if (previousState != state)
+        {
+            Debug.Log("Ran");
+            destinationSetter.target = followTarget;
+            aiPath.maxSpeed = patrolSpeed;
+            aiPath.endReachedDistance = 1;
+            aiPath.slowdownDistance = 3;
+        }
+
+        followTargetLastPosition = followTarget.position;
     }
     
     public void SeekPatrolPath(PatrolRoute route = null)
@@ -332,6 +365,9 @@ public class EnemyController : MonoBehaviour
                 Handles.color = new Color(1, 0.5f, 0, 0.2f);
                 break;
             case EnemyState.Patrol:
+                Handles.color = new Color(1, 1, 0, 0.2f);
+                break;
+            case EnemyState.Follow:
                 Handles.color = new Color(1, 1, 0, 0.2f);
                 break;
             case EnemyState.Idle:
