@@ -48,8 +48,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float lookAroundSpeed = 0.5f;
     [SerializeField] private float minLookAroundAngle = 60;
     [SerializeField] private float maxLookAroundAngle = 90;
-    [SerializeField]private int minLookAroundCount = 2;
-    [SerializeField]private int maxLookAroundCount = 4;
+    [SerializeField] private int minLookAroundCount = 2;
+    [SerializeField] private int maxLookAroundCount = 4;
+    [SerializeField] private float alertOthersDistance = 0;
+    [SerializeField] private bool noiseAlerts;
     private float lookAroundTimer;
     private float lookAroundStartingYRotation;
     private Coroutine lookAroundCoroutine;
@@ -245,13 +247,18 @@ public class EnemyController : MonoBehaviour
         
         if (aiPath.remainingDistance <= aiPath.endReachedDistance)
         {
+            if (alertOthersDistance > 0)
+            {
+                Vector3 randomCircle = Random.insideUnitCircle.normalized * (1+aiPath.radius);
+                NoiseController.Instance.CreateNoise(transform.position + new Vector3(randomCircle.x, 0, randomCircle.y), alertOthersDistance, noiseAlerts);
+            }
+            
             if (alerted)
             {
                 Vector2 randomDirection = Random.onUnitCircle;
                 Vector3 randomPosition;
                 if (chaseAlert)
                 {
-                    chaseAlert = false;
                     float rng = Random.Range(10f, 20f);
                     randomPosition = transform.position + transform.forward * rng + new Vector3(randomDirection.x, 0f, randomDirection.y) * rng;
                 }
@@ -263,10 +270,13 @@ public class EnemyController : MonoBehaviour
         
                 GoCheck(randomPosition);
                 float lookAroundRng = Random.Range(0, 100);
+                
                 if (!chaseAlert && 100 - lookAroundChance <= lookAroundRng)
                 {
                     if (lookAroundCoroutine == null && timeBeforeCanLook <= 0) lookAroundCoroutine = StartCoroutine(LookAround());
                 }
+                
+                if(chaseAlert) chaseAlert = false;
             }
             else
             {
@@ -327,7 +337,6 @@ public class EnemyController : MonoBehaviour
         }
         if (previousState != state)
         {
-            Debug.Log("Ran");
             destinationSetter.target = followTarget;
             aiPath.maxSpeed = patrolSpeed;
             aiPath.endReachedDistance = 1;

@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   prePoolables:
   - prefab: {fileID: 3268605481806599866, guid: 436f96056cc776b488c852afd106d28d, type: 3}
-    count: 10
+    count: 50
 --- !u!1 &116533372
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
   chaseSpeed: 4
   alertSpeed: 2.5
   scoutSpeed: 2.5
-  patrolSpeed: 2.5
+  patrolSpeed: 1
   chaseDistance: 4
   attackDistance: 6
   lookAroundSpeed: 1.25
@@ -613,6 +613,8 @@ MonoBehaviour:
   maxLookAroundAngle: 75
   minLookAroundCount: 2
   maxLookAroundCount: 3
+  alertOthersDistance: 25
+  noiseAlerts: 0
   lookAroundChance: 50
   currentRoute: {fileID: 0}
   currentRouteWaypointIndex: 0
@@ -2065,6 +2067,8 @@ MonoBehaviour:
   maxLookAroundAngle: 75
   minLookAroundCount: 2
   maxLookAroundCount: 3
+  alertOthersDistance: 0
+  noiseAlerts: 0
   lookAroundChance: 50
   currentRoute: {fileID: 0}
   currentRouteWaypointIndex: 0

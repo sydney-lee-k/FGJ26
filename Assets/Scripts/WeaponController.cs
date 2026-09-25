@@ -191,7 +191,7 @@ public class WeaponController : MonoBehaviour
 
     private void OnHit(RaycastHit hit)
     {
-        if(user.Owner.affiliation == Actor.Affiliation.Player) Debug.Log("Hit");
+        //if(user.Owner.affiliation == Actor.Affiliation.Player) Debug.Log("Hit");
         if (hit.collider.TryGetComponent<Damageable>(out var damageable))
         {
             damageable.TakeDamage(damage, gameObject);
