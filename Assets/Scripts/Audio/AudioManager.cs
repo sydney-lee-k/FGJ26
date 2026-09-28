@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -26,4 +27,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
     }
+
+    public void playOneShot(EventReference sound, Vector3 pos)
+    {
+        RuntimeManager.PlayOneShot(sound, pos);
+    }
+
 }
