@@ -1,0 +1,915 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8930566928540790735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/Explosion
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/Explosion
+  Guid:
+    Data1: -945696089
+    Data2: 1335723578
+    Data3: 1695099279
+    Data4: 458680597
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7295715181158216733}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8619468384861498220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PLAYER/Footsteps
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/PLAYER/Footsteps
+  Guid:
+    Data1: -2040273787
+    Data2: 1147243243
+    Data3: 429779626
+    Data4: 573326700
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 137444415035371948}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8455373460748822573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Jump/Surface
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4276515589
+    data2: 3893835669
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Concrete
+  - Grass
+  - Wood
+  - Dirt
+  Exists: 1
+--- !u!114 &-8273345911851007085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gunshot/GunType
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: GunType
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 508215956
+    data2: 4021336627
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - handgun
+  - shotgun
+  - rifle
+  - submachine_gun
+  Exists: 1
+--- !u!114 &-7063575126637200983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/GunReload/GunType
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: GunType
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 508215956
+    data2: 4021336627
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - handgun
+  - shotgun
+  - rifle
+  - submachine_gun
+  Exists: 1
+--- !u!114 &-5827570679407657372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Impact/MaterialHit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: MaterialHit
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3392727186
+    data2: 2514119308
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - stone
+  - metal
+  - wood
+  - flesh
+  Exists: 1
+--- !u!114 &-5553329568936938554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PLAYER/Hurt
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/PLAYER/Hurt
+  Guid:
+    Data1: 1870756044
+    Data2: 1146084271
+    Data3: -1448024644
+    Data4: -1530728077
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5407820059011410787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/WEAPONS/GunReload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/WEAPONS/GunReload
+  Guid:
+    Data1: -1005464365
+    Data2: 1162097591
+    Data3: 811697591
+    Data4: -2027628360
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7063575126637200983}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5040005336038652314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/WEAPONS/MeleeSwing
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/WEAPONS/MeleeSwing
+  Guid:
+    Data1: -1351987010
+    Data2: 1186541202
+    Data3: 131489446
+    Data4: -44361133
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4873931278250004825}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4260188062509112611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/NpcFootsteps/Surface
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4276515589
+    data2: 3893835669
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Concrete
+  - Grass
+  - Wood
+  - Dirt
+  Exists: 1
+--- !u!114 &-2295223587870179002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/Impact
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/Impact
+  Guid:
+    Data1: -1034889929
+    Data2: 1238355837
+    Data3: -760050805
+    Data4: -884089071
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5827570679407657372}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2058494457859716823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/INTERFACE/MENU/UIselection
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/INTERFACE/MENU/UIselection
+  Guid:
+    Data1: 366374406
+    Data2: 1208505108
+    Data3: 203158407
+    Data4: -1313816767
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2032305552603869097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Main Menu
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/Main Menu
+  Guid:
+    Data1: 730051326
+    Data2: 1121335121
+    Data3: -606132327
+    Data4: 901962133
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-1773000655465851764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/FMOD/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639261913751762573
+  FileSizes:
+  - Name: 
+    Value: 2156
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EventCache
+  EditorBanks:
+  - {fileID: -1773000655465851764}
+  - {fileID: 6819436366412425}
+  EditorEvents:
+  - {fileID: -2058494457859716823}
+  - {fileID: 548244307028829946}
+  - {fileID: 8151506134241190745}
+  - {fileID: -2295223587870179002}
+  - {fileID: 7345141594408165952}
+  - {fileID: 7392883940773064588}
+  - {fileID: 6975996835734278515}
+  - {fileID: 5903853466534905445}
+  - {fileID: -8619468384861498220}
+  - {fileID: 8900831947283937914}
+  - {fileID: -8930566928540790735}
+  - {fileID: 8151099255002072557}
+  - {fileID: -5040005336038652314}
+  - {fileID: -5553329568936938554}
+  - {fileID: -5407820059011410787}
+  - {fileID: 3612349414230762837}
+  - {fileID: -2032305552603869097}
+  EditorParameters:
+  - {fileID: 4316817726588946967}
+  MasterBanks:
+  - {fileID: 6819436366412425}
+  StringsBanks:
+  - {fileID: -1773000655465851764}
+  cacheVersion: 131860
+  cacheTime: 639261913751762573
+  SerializableEventsDict:
+  - key: event:/INTERFACE/MENU/UIselection
+    index: 0
+  - key: event:/PLAYER/Land
+    index: 1
+  - key: event:/SPOT/WEAPONS/Gunshot
+    index: 2
+  - key: event:/SPOT/Impact
+    index: 3
+  - key: snapshot:/Game Over
+    index: 4
+  - key: snapshot:/Focus Mode
+    index: 5
+  - key: event:/PLAYER/Jump
+    index: 6
+  - key: event:/SPOT/NPC/NpcFootsteps
+    index: 7
+  - key: event:/PLAYER/Footsteps
+    index: 8
+  - key: event:/SPOT/Door
+    index: 9
+  - key: event:/SPOT/Explosion
+    index: 10
+  - key: event:/INTERFACE/MENU/UIclick
+    index: 11
+  - key: event:/SPOT/WEAPONS/MeleeSwing
+    index: 12
+  - key: event:/PLAYER/Hurt
+    index: 13
+  - key: event:/SPOT/WEAPONS/GunReload
+    index: 14
+  - key: event:/SPOT/NPC/NpcDeath
+    index: 15
+  - key: snapshot:/Main Menu
+    index: 16
+--- !u!114 &6819436366412425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/FMOD/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639261913751717420
+  FileSizes: []
+  Exists: 1
+--- !u!114 &137444415035371948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/Surface
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4276515589
+    data2: 3893835669
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Concrete
+  - Grass
+  - Wood
+  - Dirt
+  Exists: 1
+--- !u!114 &529149971659412036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Land/Surface
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 4276515589
+    data2: 3893835669
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Concrete
+  - Grass
+  - Wood
+  - Dirt
+  Exists: 1
+--- !u!114 &548244307028829946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PLAYER/Land
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/PLAYER/Land
+  Guid:
+    Data1: -488405480
+    Data2: 1091691186
+    Data3: -871985007
+    Data4: -195571353
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 529149971659412036}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1647465039265367375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/UIclick/ClickSound
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: ClickSound
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 614609397
+    data2: 879007222
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - A
+  - B
+  - C
+  - D
+  Exists: 1
+--- !u!114 &3612349414230762837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/NPC/NpcDeath
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/NPC/NpcDeath
+  Guid:
+    Data1: 1715894230
+    Data2: 1252913988
+    Data3: 1350266788
+    Data4: 532972845
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7468812318902625318}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4316817726588946967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/InRoom
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: InRoom
+  StudioPath: parameter:/InRoom
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3442218636
+    data2: 912700700
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &4873931278250004825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/MeleeSwing/Parameter 1
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1718550572
+    data2: 2322247655
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Unarmed
+  - Armed
+  Exists: 1
+--- !u!114 &5903853466534905445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/NPC/NpcFootsteps
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/NPC/NpcFootsteps
+  Guid:
+    Data1: -2059225492
+    Data2: 1123105010
+    Data3: 659717537
+    Data4: 560458810
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4260188062509112611}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6975996835734278515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/PLAYER/Jump
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/PLAYER/Jump
+  Guid:
+    Data1: -463997873
+    Data2: 1243461163
+    Data3: 1312580496
+    Data4: 1134712461
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8455373460748822573}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7295715181158216733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Explosion/ExplosiveType
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: ExplosiveType
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1325975404
+    data2: 3946703777
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - grenade
+  - trap
+  - environment
+  Exists: 1
+--- !u!114 &7345141594408165952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Game Over
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/Game Over
+  Guid:
+    Data1: 2028461624
+    Data2: 1110637204
+    Data3: 1854271155
+    Data4: 1361923400
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &7392883940773064588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Focus Mode
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/Focus Mode
+  Guid:
+    Data1: 1147029837
+    Data2: 1212014374
+    Data3: -1071971149
+    Data4: -473207920
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &7468812318902625318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/NpcDeath/Parameter 2
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Parameter 2
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 156716199
+    data2: 839577844
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Civilian
+  - EnemyA
+  - EnemyB
+  - EnemyC
+  Exists: 1
+--- !u!114 &8151099255002072557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/INTERFACE/MENU/UIclick
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/INTERFACE/MENU/UIclick
+  Guid:
+    Data1: 500349111
+    Data2: 1299761267
+    Data3: -2129858663
+    Data4: -1985577544
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1647465039265367375}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8151506134241190745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/WEAPONS/Gunshot
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/WEAPONS/Gunshot
+  Guid:
+    Data1: 729869854
+    Data2: 1305414293
+    Data3: -1992606572
+    Data4: 91950907
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8273345911851007085}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8900831947283937914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/Door
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/Door
+  Guid:
+    Data1: -1294998369
+    Data2: 1189891179
+    Data3: 1568402103
+    Data4: -1559877594
+  Banks:
+  - {fileID: 6819436366412425}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
