@@ -6,8 +6,11 @@ public class FMODEvents : MonoBehaviour
 
     public static FMODEvents instance {  get; private set; }
 
-    [field: Header("GunSFX")]
+    [field: Header("Gun SFX")]
     [field: SerializeField] public EventReference gunShot {  get; private set; }
+
+    [field: Header("Player SFX")]
+    [field: SerializeField] public EventReference playerFootstep { get; private set; }
 
     void Awake()
     {
@@ -22,10 +25,5 @@ public class FMODEvents : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
