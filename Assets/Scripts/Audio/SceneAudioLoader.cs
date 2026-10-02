@@ -1,0 +1,34 @@
+using System.Collections;
+using FMODUnity;
+using UnityEngine;
+
+public class SceneAudioLoader : MonoBehaviour
+{
+    [SerializeField] AudioEventLibrary library;
+
+    public bool isReady { get; private set; }
+
+    IEnumerator Start()
+    {
+        foreach (var bank in library.banks)
+            RuntimeManager.LoadBank(bank, true); //load sample data
+
+        //wait for banks and sample data to finish loading
+        while (!RuntimeManager.HaveAllBanksLoaded || RuntimeManager.AnySampleDataLoading())
+            yield return null;
+
+        AudioManager.instance.RegisterLibrary(library);
+        isReady = true;
+    }
+
+    void OnDestroy()
+    {
+        if (library == null) return;
+
+        if (AudioManager.instance != null)
+            AudioManager.instance.UnregisterLibrary(library);
+
+        foreach (var bank in library.banks)
+            RuntimeManager.UnloadBank(bank);
+    }
+}
