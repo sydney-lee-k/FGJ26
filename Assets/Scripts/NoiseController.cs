@@ -9,27 +9,43 @@ public class NoiseController : MonoBehaviour
     [SerializeField] private float wallMuffleMultiplier = 0.5f;
     [SerializeField] private LayerMask enemyMask;
 
+    [SerializeField] private GameObject focusNoiseVisual;
     [SerializeField] private bool visualizeNoise;
+    private FocusController focusController;
 
     private void Awake()
     {
         Instance = this;
+        focusController = GetComponent<FocusController>();
     }
 
-    public void CreateNoise(Vector3 position, float radius, bool alert = false)
+    public void CreateVisualNoise(Vector3 position, float radius)
     {
+        NoiseVisual noiseVisual = PoolManager.Instance.Spawn(focusNoiseVisual, position, Quaternion.identity).GetComponent<NoiseVisual>();
+        noiseVisual.radius = radius;
+
+    }
+    
+    public void CreateNoise(Vector3 position, float radius, bool alert = false, bool spawnVisual = true)
+    {
+        if (radius < 0) return;
+        if (focusController.focusing) // Should check if player is in focus state. If not then there's no reason to spawn a visual that almost certainly wont be seen
+        {
+            if (spawnVisual) CreateVisualNoise(position, radius);
+        }
+        
         //Get all enemies,
         Collider[] enemyHits = Physics.OverlapSphere(position, radius, enemyMask);
         foreach (var enemyHit in enemyHits)
         {
             EnemyController enemy = enemyHit.GetComponent<EnemyController>();
-            if (visualizeNoise) Debug.DrawLine(position, enemy.transform.position, new Color(1,1,0,0.33f),1 );
-            
+            if (visualizeNoise) Debug.DrawLine(position, enemy.transform.position, new Color(1, 1, 0, 0.33f), 1);
+
             if (enemy && Vector3Utils.IsWithinDistance(position, enemyHit.transform.position, radius))
             {
-                
+
                 RaycastHit[] pathHits = new RaycastHit[10]; //If there are more than 10 objects in the way the enemy probably cant hear you.
-                
+
                 Vector3 direction = enemyHit.transform.position - position;
 
                 int hitCount = Physics.RaycastNonAlloc(position, direction.normalized, pathHits, direction.magnitude + 1); //+1 Range for safety buffer. Should be unnecessary but does little harm.
@@ -47,7 +63,7 @@ public class NoiseController : MonoBehaviour
 
                     if (remainingDistance <= 0f) break; //Noise ran out due to walls and wont reach
                     totalDistance += segmentDistance;
-                    
+
                     if (pathHit.transform == enemy.transform)
                     {
                         enemy.GoCheck(position, alert);
@@ -56,18 +72,17 @@ public class NoiseController : MonoBehaviour
 
                     if (LayerUtils.Contains(obstacleMask, pathHit.transform))
                     {
-                        remainingDistance *= 1-wallMuffleMultiplier;
+                        remainingDistance *= 1 - wallMuffleMultiplier;
                     } //Reduce distance due to a wall
 
                     previousHitDistance = pathHit.distance;
                 }
-                
-                if (visualizeNoise) Debug.DrawRay(position, direction.normalized * totalDistance, new Color(0,1,0), 1f);
-                
+
+                if (visualizeNoise) Debug.DrawRay(position, direction.normalized * totalDistance, new Color(0, 1, 0), 1f);
             }
         }
-    } 
+    }
     // on hindsight the above could be optimized so that instead of even reaching the enemy, we just check if the wall distance would be enough.
     // We already know how far the enemy is so comparing the distance the sound travels vs that would maybe be a bit more efficient. However I doubt it will matter, but if there's lag then ig look here.
-    
+
 }

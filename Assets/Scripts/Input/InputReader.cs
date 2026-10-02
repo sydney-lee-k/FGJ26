@@ -23,6 +23,8 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     public event Action InteractPressed;
     public event Action SwitchPressed;
     public event Action<bool> AttackInputDown;
+    public event Action<bool> OnFocusDown;
+    
     void Awake()
     {
         if (!instance)
@@ -76,5 +78,11 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     public void OnSwitch(InputAction.CallbackContext context)
     {
         if (context.started) SwitchPressed?.Invoke();
+    }
+
+    public void OnFocus(InputAction.CallbackContext context)
+    {
+        if (context.started) OnFocusDown?.Invoke(true);
+        else if (context.canceled) OnFocusDown?.Invoke(false);
     }
 }

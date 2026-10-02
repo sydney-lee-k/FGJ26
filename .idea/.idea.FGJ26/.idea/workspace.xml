@@ -6,13 +6,45 @@
   <component name="ChangeListManager">
     <list default="true" id="7b197633-d58b-467b-8c78-b5817935b6d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Bootstrap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Bootstrap.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyWeaponController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/EnemyWeaponController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FootprintParticle.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FootprintParticle.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputActions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NoiseController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NoiseController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PatrolController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PatrolController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PatrolRoute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PatrolRoute.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PoolManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PoolManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PrePooling.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PrePooling.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/GameManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GameManager.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tracer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tracer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Utils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Utils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,8 +57,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f713e1c3c5f545ce9b1df47230f4f85346ae00/2c/98b28efc/Exception.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f713e1c3c5f545ce9b1df47230f4f85346ae00/90/444fc374/IntPtr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/NoiseController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/NoiseVisual.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PatrolRoute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PrePooling.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/SceneSettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/WeaponControllerOld.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Utils.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -85,13 +119,15 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17040">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="17040" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list />
+        <list>
+          <MonoRuntime />
+        </list>
       </option>
       <option name="selectedOptions">
         <list />
@@ -121,6 +157,7 @@
       <workItem from="1789988350221" duration="3377000" />
       <workItem from="1790326841916" duration="1631000" />
       <workItem from="1790775215867" duration="4568000" />
+      <workItem from="1790933925365" duration="11076000" />
     </task>
     <servers />
   </component>

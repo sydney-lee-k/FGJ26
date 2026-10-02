@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FootprintParticle : MonoBehaviour
 {
-    private ParticleSystem particleSystem;
+    private ParticleSystem pSystem;
     [SerializeField] private float updateDistance = 1f;
     [SerializeField] private Vector3 offset;
 
@@ -12,7 +12,7 @@ public class FootprintParticle : MonoBehaviour
     
     private void Start()
     {
-        particleSystem = GetComponent<ParticleSystem>();
+        pSystem = GetComponent<ParticleSystem>();
         emitParameters = new ParticleSystem.EmitParams();
         previousPoint = transform.position;
         
@@ -32,7 +32,7 @@ public class FootprintParticle : MonoBehaviour
                 //Some manual values for now. Edit these to match whatever texture / shader we use for footsteps.
                 emitParameters.rotation3D = offset + new Vector3(-90f, 0f, rotationFollow.eulerAngles.y-90);
 
-                particleSystem.Emit(emitParameters, 1);
+                pSystem.Emit(emitParameters, 1);
             }
             previousPoint = transform.position;
         }
