@@ -12,28 +12,42 @@ public class NoiseController : MonoBehaviour
     [SerializeField] private GameObject focusNoiseVisual;
     [SerializeField] private bool visualizeNoise;
     private FocusController focusController;
+    private Transform player;
 
     private void Awake()
     {
         Instance = this;
-        focusController = GetComponent<FocusController>();
+        Debug.Log(Instance);
     }
 
-    public void CreateVisualNoise(Vector3 position, float radius)
+    public void CreateVisualNoise(Vector3 position, float radius, float sizeMultiplier = 1)
     {
+        //Doing this in start is too fast, and since this is only really called once it should be fine.
+        if (!focusController) focusController = FocusController.instance;
+        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         NoiseVisual noiseVisual = PoolManager.Instance.Spawn(focusNoiseVisual, position, Quaternion.identity).GetComponent<NoiseVisual>();
-        noiseVisual.radius = radius;
-
+        Debug.Log(sizeMultiplier);
+        noiseVisual.radius = radius * sizeMultiplier;
     }
     
     public void CreateNoise(Vector3 position, float radius, bool alert = false, bool spawnVisual = true)
     {
-        if (radius < 0) return;
-        if (focusController.focusing) // Should check if player is in focus state. If not then there's no reason to spawn a visual that almost certainly wont be seen
-        {
-            if (spawnVisual) CreateVisualNoise(position, radius);
-        }
+        //Doing this in start is too fast, and since this is only really called once it should be fine.
+        if (!focusController) focusController = FocusController.instance;
+        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
         
+        if (radius < 0) return;
+
+
+        //make a visual if you are focusing, or target is close enough (should later check if the target is actually in the vision cone since then we probably shouldnt spawn this.)
+        float distanceVisibility = focusController.CalculateVisibility(transform, player);
+        if (focusController.focusing || distanceVisibility > 0)
+        {
+            if (spawnVisual) CreateVisualNoise(position, radius, distanceVisibility);
+        }
+
+
         //Get all enemies,
         Collider[] enemyHits = Physics.OverlapSphere(position, radius, enemyMask);
         foreach (var enemyHit in enemyHits)

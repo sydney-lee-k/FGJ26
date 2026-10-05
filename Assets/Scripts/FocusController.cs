@@ -6,19 +6,19 @@ public class FocusController : MonoBehaviour
 {
     private InputReader input;
     public static FocusController instance;
-    public SceneSettings.SceneType sceneType; //When this is assigned we can assume you are in a gameplay scene.
-    public bool focusing;
-    private bool initialized;
 
-    private Material[] focusMaterials;
-    private float currentFocus;
+    public float unfocusedVisibilityDistance;
+    
+    [NonSerialized] public float currentFocus;
+    [NonSerialized] public bool focusing;
+    [NonSerialized] public SceneSettings.SceneType sceneType; //When this is assigned we can assume you are in a gameplay scene.
+    private bool initialized;
     private float focusGrowthRate = 1f;
 
     private void Awake()
     {
         instance = this;
         input = InputReader.instance;
-        focusMaterials = Resources.LoadAll<Material>("FocusMaterials");
     }
 
     private void Start()
@@ -30,20 +30,14 @@ public class FocusController : MonoBehaviour
     private void Update()
     {
         currentFocus = Mathf.Clamp01(focusing ? currentFocus+Time.deltaTime * focusGrowthRate : currentFocus-Time.deltaTime * focusGrowthRate);
-        
-        if (sceneType == SceneSettings.SceneType.Combat)
-        {
-            foreach (var mat in focusMaterials)
-            {
-                mat.SetFloat("_Focus", currentFocus);
-            }
-        }
-        else
-        {
-            return;
-        }
     }
 
+    public float CalculateVisibility(Transform self, Transform target)
+    {
+        float a = (Mathf.Clamp(Vector3.Distance(self.position, target.position), 0f, unfocusedVisibilityDistance) / unfocusedVisibilityDistance);
+        a = 1 - a * a * a; //Power of 3, but without Mathf.Pow to optimize
+        return a;
+    }
 
     private void HandleFocus(bool focus)
     {
@@ -53,7 +47,6 @@ public class FocusController : MonoBehaviour
             return;
         }
         focusing = focus;
-        Debug.Log(focusing);
     }
     
     private void OnEnable()

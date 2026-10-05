@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 84065340}
   - component: {fileID: 84065341}
   - component: {fileID: 84065342}
+  - component: {fileID: 84065343}
   m_Layer: 0
   m_Name: SceneSettings
   m_TagString: Untagged
@@ -215,6 +216,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentScene: 1
+--- !u!114 &84065343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84065339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297810efc6456764aadbc5a62694f2e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FocusController
+  unfocusedVisibilityDistance: 20
 --- !u!1 &116533372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,6 +1550,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963762494}
   m_CullTransparentMesh: 1
+--- !u!1 &1008616760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6876988860683026340, guid: e8c7ef408f312d84b81a3f3151c45d13, type: 3}
+  m_PrefabInstance: {fileID: 3182979178198259808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1113521951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,6 +2048,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1729481324981828258, guid: e8c7ef408f312d84b81a3f3151c45d13, type: 3}
   m_PrefabInstance: {fileID: 3182979178198259808}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1856753516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008616760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55019348bfaa6649b5b70aa5ee0b359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1869947712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3767,7 +3798,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6876988860683026340, guid: e8c7ef408f312d84b81a3f3151c45d13, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1856753516}
   m_SourcePrefab: {fileID: 100100000, guid: e8c7ef408f312d84b81a3f3151c45d13, type: 3}
 --- !u!33 &3261765511093853961
 MeshFilter:

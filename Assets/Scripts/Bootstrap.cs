@@ -15,6 +15,5 @@ public static class Bootstrap
         }
 
         Object.DontDestroyOnLoad(Object.Instantiate(prefab));
-        
     }
 }
