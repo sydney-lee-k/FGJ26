@@ -16,7 +16,7 @@ MonoBehaviour:
   - Master
   - Master.strings
   events:
-  - key: GunShot
+  - eventKey: GunShot
     eventRef:
       Guid:
         Data1: 729869854
@@ -24,11 +24,27 @@ MonoBehaviour:
         Data3: -1992606572
         Data4: 91950907
       Path: event:/SPOT/WEAPONS/Gunshot
-  - key: ReverbZone
+  - eventKey: ReverbSnapshot
     eventRef:
       Guid:
-        Data1: 729869854
-        Data2: 1305414293
-        Data3: -1992606572
-        Data4: 91950907
-      Path: event:/SPOT/WEAPONS/Gunshot
+        Data1: -1855092218
+        Data2: 1341310246
+        Data3: -1379457641
+        Data4: -1803017335
+      Path: snapshot:/ReverbZone
+  - eventKey: DebugMusic
+    eventRef:
+      Guid:
+        Data1: -1377175953
+        Data2: 1279195731
+        Data3: -607004768
+        Data4: -102190523
+      Path: event:/MUSIC/LEVEL/debugMusic
+  - eventKey: ReverbSnapshot2
+    eventRef:
+      Guid:
+        Data1: -445853886
+        Data2: 1234321518
+        Data3: 1228527533
+        Data4: 1460135023
+      Path: snapshot:/Reverbparam

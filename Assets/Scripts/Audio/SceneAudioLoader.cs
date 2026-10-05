@@ -19,8 +19,10 @@ public class SceneAudioLoader : MonoBehaviour
 
         AudioManager.instance.RegisterLibrary(library);
         isReady = true;
+        //AudioManager.instance.PlaySound("DebugMusic");
     }
 
+    //Unregister and unload event library and banks to clear audiomanager for new sets on next scene load
     void OnDestroy()
     {
         if (library == null) return;

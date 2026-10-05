@@ -46,8 +46,8 @@ MonoBehaviour:
     Data3: 131489446
     Data4: -44361133
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -462,8 +462,8 @@ MonoBehaviour:
     Data3: -1448024644
     Data4: -1530728077
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -486,10 +486,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639265566866739266
+  lastModified: 639268010038342705
   FileSizes:
   - Name: 
-    Value: 2296
+    Value: 2430
   Exists: 1
 --- !u!114 &-5827570679407657372
 MonoBehaviour:
@@ -867,6 +867,33 @@ MonoBehaviour:
   lastModified: 639262057885331462
   FileSizes: []
   Exists: 1
+--- !u!114 &-3540477109947629410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Reverbparam
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/Reverbparam
+  Guid:
+    Data1: -445853886
+    Data2: 1234321518
+    Data3: 1228527533
+    Data4: 1460135023
+  Banks:
+  - {fileID: 4149460093089343465}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-3073094933548656352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -962,14 +989,15 @@ MonoBehaviour:
     Data3: -607004768
     Data4: -102190523
   Banks:
+  - {fileID: 2023634056781414357}
   - {fileID: 4149460093089343465}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 262217
 --- !u!114 &-2295223587870179002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,8 +1203,8 @@ MonoBehaviour:
     Data3: -1992606572
     Data4: 91950907
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1255,7 +1283,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639265566867314990
+  lastModified: 639267957263876153
   FileSizes: []
   Exists: 1
 --- !u!114 &-185136485302371235
@@ -1304,8 +1332,8 @@ MonoBehaviour:
     Data3: 1312580496
     Data4: 1134712461
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1330,6 +1358,7 @@ MonoBehaviour:
   - {fileID: -6016888432995624847}
   - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 2023634056781414357}
   EditorEvents:
   - {fileID: 9210151238480530414}
   - {fileID: 5812288240306880645}
@@ -1348,8 +1377,9 @@ MonoBehaviour:
   - {fileID: 1474765597431111638}
   - {fileID: 7574187575600110783}
   - {fileID: 5665553567615872060}
-  - {fileID: 3142581351842161133}
   - {fileID: -2449921618870598967}
+  - {fileID: 5030845324195817382}
+  - {fileID: -3540477109947629410}
   EditorParameters:
   - {fileID: 2476208889625339744}
   MasterBanks:
@@ -1357,7 +1387,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -6016888432995624847}
   cacheVersion: 131860
-  cacheTime: 639265566867314990
+  cacheTime: 639268010038342705
   SerializableEventsDict:
   - key: event:/INTERFACE/MENU/UIselection
     index: 0
@@ -1393,10 +1423,12 @@ MonoBehaviour:
     index: 15
   - key: snapshot:/Main Menu
     index: 16
-  - key: snapshot:/ReverbZone
-    index: 17
   - key: event:/MUSIC/LEVEL/debugMusic
+    index: 17
+  - key: snapshot:/ReverbZone
     index: 18
+  - key: snapshot:/Reverbparam
+    index: 19
 --- !u!114 &6819436366412425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1629,8 +1661,8 @@ MonoBehaviour:
     Data3: 811697591
     Data4: -2027628360
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1695,6 +1727,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2023634056781414357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/music.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/FMOD/Desktop/music.bank
+  Name: music
+  StudioPath: bank:/music
+  lastModified: 639268002891190747
+  FileSizes: []
+  Exists: 1
 --- !u!114 &2124979907700056098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,33 +1824,6 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &3142581351842161133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/ReverbZone
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: snapshot:/ReverbZone
-  Guid:
-    Data1: -1855092218
-    Data2: 1341310246
-    Data3: -1379457641
-    Data4: -1803017335
-  Banks:
-  - {fileID: 4149460093089343465}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
 --- !u!114 &3612349414230762837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,7 +1923,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639265566866688196
+  lastModified: 639268010038292631
   FileSizes: []
   Exists: 1
 --- !u!114 &4221056473334895465
@@ -2065,6 +2088,33 @@ MonoBehaviour:
   - Unarmed
   - Armed
   Exists: 1
+--- !u!114 &5030845324195817382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/ReverbZone
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/ReverbZone
+  Guid:
+    Data1: -1855092218
+    Data2: 1341310246
+    Data3: -1379457641
+    Data4: -1803017335
+  Banks:
+  - {fileID: 4149460093089343465}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &5272898274538514895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,8 +2134,8 @@ MonoBehaviour:
     Data3: 429779626
     Data4: 573326700
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2224,8 +2274,8 @@ MonoBehaviour:
     Data3: -871985007
     Data4: -195571353
   Banks:
-  - {fileID: 4149460093089343465}
   - {fileID: -288278060016133498}
+  - {fileID: 4149460093089343465}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

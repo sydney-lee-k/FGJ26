@@ -8,7 +8,7 @@ public class AudioEventLibrary : ScriptableObject
     [System.Serializable]
     public struct Entry
     {
-        public string key;
+        public string eventKey;
         public EventReference eventRef;
     }
 
@@ -23,7 +23,7 @@ public class AudioEventLibrary : ScriptableObject
         if (eventRefs == null)
         {
             eventRefs = new();
-            foreach (var e in events) eventRefs[e.key] = e.eventRef;
+            foreach (var e in events) eventRefs[e.eventKey] = e.eventRef;
         }
         return eventRefs.TryGetValue(key, out var r) ? r : default;
     }

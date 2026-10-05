@@ -144,7 +144,7 @@ public class WeaponController : MonoBehaviour
 
             if (tracer)
             {
-                AudioManager.instance.PlayParamSound("GunShot", transform.position, "GunType", 1);
+                AudioManager.instance.PlayParamSound("GunShot", transform.position, "GunType", 0);
 
                 Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position + user.AimDirection.normalized*thickness, quaternion.identity).GetComponent<Tracer>();
                 trace.transform.localEulerAngles = user.AimDirection;
