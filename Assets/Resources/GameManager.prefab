@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 632784445186514696}
   - component: {fileID: 6287529495881920450}
-  - component: {fileID: -2169517436712928263}
   - component: {fileID: 2007894662140343388}
   - component: {fileID: 8922602717063280331}
   m_Layer: 0
@@ -48,18 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a24bedda27012bf4592c3bd824e47a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputReader
---- !u!114 &-2169517436712928263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5226041285944651985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 297810efc6456764aadbc5a62694f2e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!114 &2007894662140343388
 MonoBehaviour:
   m_ObjectHideFlags: 0

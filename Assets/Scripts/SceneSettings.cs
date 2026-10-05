@@ -11,22 +11,9 @@ public class SceneSettings : MonoBehaviour
     }
     
     public SceneType currentScene = SceneType.Combat;
-    private bool initialized;
 
     private void Start()
     {
-        initialized = true;
-        Debug.Log("Ran");
-        //FocusController.instance.sceneType = currentScene;
-    }
-
-    private void LateUpdate()
-    {
-        if (initialized)
-        {
-            Debug.Log("Ran");
-            initialized = false;
-            FocusController.instance.sceneType = currentScene;
-        }
+        FocusController.instance.sceneType = currentScene;
     }
 }

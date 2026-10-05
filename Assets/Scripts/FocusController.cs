@@ -12,25 +12,30 @@ public class FocusController : MonoBehaviour
 
     private Material[] focusMaterials;
     private float currentFocus;
-    private float focusGrowthRate;
+    private float focusGrowthRate = 1f;
+
+    private void Awake()
+    {
+        instance = this;
+        input = InputReader.instance;
+        focusMaterials = Resources.LoadAll<Material>("FocusMaterials");
+    }
 
     private void Start()
     {
-        input = InputReader.instance;
-        focusMaterials = Resources.LoadAll<Material>("FocusMaterials");
-        
         initialized = true;
         input.OnFocusDown += HandleFocus;
     }
 
     private void Update()
     {
+        currentFocus = Mathf.Clamp01(focusing ? currentFocus+Time.deltaTime * focusGrowthRate : currentFocus-Time.deltaTime * focusGrowthRate);
+        
         if (sceneType == SceneSettings.SceneType.Combat)
         {
-            Debug.Log("Test");
             foreach (var mat in focusMaterials)
             {
-                mat.SetFloat("_Focus", focusing ? 1 : 0);
+                mat.SetFloat("_Focus", currentFocus);
             }
         }
         else

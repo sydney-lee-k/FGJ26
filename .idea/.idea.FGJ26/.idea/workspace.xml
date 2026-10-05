@@ -6,36 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7b197633-d58b-467b-8c78-b5817935b6d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Bootstrap.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Bootstrap.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EnemyController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EnemyWeaponController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/EnemyWeaponController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FootprintParticle.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/FootprintParticle.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputActions.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NoiseController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NoiseController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PatrolController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PatrolController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PatrolRoute.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PatrolRoute.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PoolManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PoolManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PrePooling.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PrePooling.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/GameManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GameManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tracer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Tracer.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Utils.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Utils.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FocusController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FocusController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,15 +92,13 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17040">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="17040" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
-        <list>
-          <MonoRuntime />
-        </list>
+        <list />
       </option>
       <option name="selectedOptions">
         <list />
@@ -158,6 +129,7 @@
       <workItem from="1790326841916" duration="1631000" />
       <workItem from="1790775215867" duration="4568000" />
       <workItem from="1790933925365" duration="11076000" />
+      <workItem from="1791198170148" duration="383000" />
     </task>
     <servers />
   </component>
