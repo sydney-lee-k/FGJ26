@@ -46,8 +46,8 @@ MonoBehaviour:
     Data3: 131489446
     Data4: -44361133
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -462,8 +462,8 @@ MonoBehaviour:
     Data3: -1448024644
     Data4: -1530728077
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -486,10 +486,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639268010038342705
+  lastModified: 639268090929516708
   FileSizes:
   - Name: 
-    Value: 2430
+    Value: 2564
   Exists: 1
 --- !u!114 &-5827570679407657372
 MonoBehaviour:
@@ -711,6 +711,34 @@ MonoBehaviour:
   - wood
   - flesh
   Exists: 1
+--- !u!114 &-4553056771713362840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SPOT/loopTesting
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SPOT/loopTesting
+  Guid:
+    Data1: -371062659
+    Data2: 1264726627
+    Data3: 1285700250
+    Data4: 420671454
+  Banks:
+  - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 10971
 --- !u!114 &-4287090787510509512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1203,8 +1231,8 @@ MonoBehaviour:
     Data3: -1992606572
     Data4: 91950907
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1283,7 +1311,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639267957263876153
+  lastModified: 639268090930177096
   FileSizes: []
   Exists: 1
 --- !u!114 &-185136485302371235
@@ -1332,8 +1360,8 @@ MonoBehaviour:
     Data3: 1312580496
     Data4: 1134712461
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1380,6 +1408,8 @@ MonoBehaviour:
   - {fileID: -2449921618870598967}
   - {fileID: 5030845324195817382}
   - {fileID: -3540477109947629410}
+  - {fileID: 3729132114813822702}
+  - {fileID: -4553056771713362840}
   EditorParameters:
   - {fileID: 2476208889625339744}
   MasterBanks:
@@ -1387,7 +1417,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -6016888432995624847}
   cacheVersion: 131860
-  cacheTime: 639268010038342705
+  cacheTime: 639268090930177096
   SerializableEventsDict:
   - key: event:/INTERFACE/MENU/UIselection
     index: 0
@@ -1429,6 +1459,10 @@ MonoBehaviour:
     index: 18
   - key: snapshot:/Reverbparam
     index: 19
+  - key: snapshot:/LowHealth
+    index: 20
+  - key: event:/SPOT/loopTesting
+    index: 21
 --- !u!114 &6819436366412425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,6 +1536,30 @@ MonoBehaviour:
   - shotgun
   - rifle
   - submachine_gun
+  Exists: 1
+--- !u!114 &436829487219639556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/LowHealth/Intensity 2
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: Intensity 2
+  StudioPath: 
+  Min: 0
+  Max: 5
+  Default: 5
+  ID:
+    data1: 3168545026
+    data2: 404510729
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &529149971659412036
 MonoBehaviour:
@@ -1661,8 +1719,8 @@ MonoBehaviour:
     Data3: 811697591
     Data4: -2027628360
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1742,7 +1800,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/music.bank
   Name: music
   StudioPath: bank:/music
-  lastModified: 639268002891190747
+  lastModified: 639268085354482627
   FileSizes: []
   Exists: 1
 --- !u!114 &2124979907700056098
@@ -1852,6 +1910,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3729132114813822702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/LowHealth
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: snapshot:/LowHealth
+  Guid:
+    Data1: -105481255
+    Data2: 1250913773
+    Data3: -344049516
+    Data4: -1434264266
+  Banks:
+  - {fileID: 4149460093089343465}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 436829487219639556}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &3836151390455912267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1923,7 +2009,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639268010038292631
+  lastModified: 639268090929464151
   FileSizes: []
   Exists: 1
 --- !u!114 &4221056473334895465
@@ -2134,8 +2220,8 @@ MonoBehaviour:
     Data3: 429779626
     Data4: 573326700
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2274,8 +2360,8 @@ MonoBehaviour:
     Data3: -871985007
     Data4: -195571353
   Banks:
-  - {fileID: -288278060016133498}
   - {fileID: 4149460093089343465}
+  - {fileID: -288278060016133498}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

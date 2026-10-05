@@ -15,6 +15,7 @@ MonoBehaviour:
   banks:
   - Master
   - Master.strings
+  - SFX
   events:
   - eventKey: GunShot
     eventRef:
@@ -48,3 +49,11 @@ MonoBehaviour:
         Data3: 1228527533
         Data4: 1460135023
       Path: snapshot:/Reverbparam
+  - eventKey: looptest
+    eventRef:
+      Guid:
+        Data1: -371062659
+        Data2: 1264726627
+        Data3: 1285700250
+        Data4: 420671454
+      Path: event:/SPOT/loopTesting
