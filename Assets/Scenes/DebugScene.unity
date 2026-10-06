@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 368803350}
   - component: {fileID: 368803349}
   - component: {fileID: 368803348}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1470,7 +1470,7 @@ GameObject:
   - component: {fileID: 588775121}
   - component: {fileID: 588775120}
   - component: {fileID: 588775119}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1584,7 +1584,7 @@ GameObject:
   - component: {fileID: 624975891}
   - component: {fileID: 624975890}
   - component: {fileID: 624975889}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 802449549}
   - component: {fileID: 802449548}
   - component: {fileID: 802449547}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2189,7 +2189,7 @@ GameObject:
   - component: {fileID: 1536804223}
   - component: {fileID: 1536804222}
   - component: {fileID: 1536804221}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2468,7 +2468,7 @@ GameObject:
   - component: {fileID: 1795529040}
   - component: {fileID: 1795529039}
   - component: {fileID: 1795529038}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2637,7 +2637,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032978201}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2736,7 +2736,7 @@ MonoBehaviour:
   viewAngle: 100
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64
