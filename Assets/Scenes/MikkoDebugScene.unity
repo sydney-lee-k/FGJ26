@@ -6977,8 +6977,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04bd158f1d2be704ca54b344183a0094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
-  viewRadius: 10
+  viewRadius: 5
+  viewCircleRadius: 3
   viewAngle: 90
+  detectionOffset: 1
+  detectionTimer: 0.2
   targetMask:
     serializedVersion: 2
     m_Bits: 256

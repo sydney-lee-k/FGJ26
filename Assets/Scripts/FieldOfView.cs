@@ -6,6 +6,7 @@ public class FieldOfView : MonoBehaviour
 {
     [Header("View Area Settings")]
     [Range(0, 360)] public float viewRadius = 10;
+    [Range(0, 360)] public float viewCircleRadius = 2;
     public float viewAngle = 90;
     [SerializeField] private float detectionOffset = 1f;
     [SerializeField] private float detectionTimer = 0.2f;
@@ -86,20 +87,48 @@ public class FieldOfView : MonoBehaviour
 
     private void DrawFieldOfView()
     {
-        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+        //Main cone
+        int coneStepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+        int circleStepCount = Mathf.RoundToInt((360-viewAngle) * meshResolution);
+        
 
-        if (stepCount <= 0) return;
-
-        float stepAngleSize = viewAngle / stepCount;
+        float coneStepAngleSize = viewAngle / coneStepCount;
+        float circleStepAngleSize = (360-viewAngle) / circleStepCount;
 
         viewPoints.Clear();
         ViewCastInfo oldViewCast = default;
 
         // Go through each ray to determine how far the view can extend before hitting the environment.
-        for (int i = 0; i <= stepCount; i++)
+        for (int i = 0; i <= coneStepCount; i++)
         {
-            float angle = transform.eulerAngles.y - viewAngle * 0.5f + stepAngleSize * i;
-            ViewCastInfo newViewCast = ViewCast(angle);
+            float angle = transform.eulerAngles.y - viewAngle * 0.5f + coneStepAngleSize * i;
+            ViewCastInfo newViewCast = ViewCast(angle, viewRadius);
+
+            if (i > 0)
+            {
+                bool edgeThresholdExceeded = Mathf.Abs(oldViewCast.distance - newViewCast.distance) > edgeDistanceThreshold;
+
+                // When adjacent rays give considerably different results, refine the
+                // boundary between them to better follow corners.
+                if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeThresholdExceeded))
+                {
+                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
+                    if (edge.pointA != Vector3.zero)
+                        viewPoints.Add(edge.pointA);
+
+                    if (edge.pointB != Vector3.zero)
+                        viewPoints.Add(edge.pointB);
+                }
+            }
+
+            viewPoints.Add(newViewCast.point);
+            oldViewCast = newViewCast;
+        }
+        
+        for (int i = 0; i <= circleStepCount; i++)
+        {
+            float angle = transform.eulerAngles.y - viewAngle * 0.5f + circleStepAngleSize * (i+coneStepCount);
+            ViewCastInfo newViewCast = ViewCast(angle, viewCircleRadius);
 
             if (i > 0)
             {
@@ -159,7 +188,7 @@ public class FieldOfView : MonoBehaviour
         for (int i = 0; i < edgeResolveIterations; i++)
         {
             float angle = (minAngle + maxAngle) / 2;
-            ViewCastInfo newViewCast = ViewCast(angle);
+            ViewCastInfo newViewCast = ViewCast(angle, viewAngle);
 
             bool edgeThresholdExceeded = Mathf.Abs(minViewCast.distance - newViewCast.distance) > edgeDistanceThreshold;
             if (newViewCast.hit == minViewCast.hit && !edgeThresholdExceeded)
@@ -178,18 +207,15 @@ public class FieldOfView : MonoBehaviour
     }
 
 
-    private ViewCastInfo ViewCast(float globalAngle)
+    private ViewCastInfo ViewCast(float globalAngle, float range)
     {
         Vector3 direction = DirectionFromAngle(globalAngle, true);
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, viewRadius, obstacleMask))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, range, obstacleMask))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }
-        else
-        {
-            return new ViewCastInfo(false, transform.position + direction * viewRadius, viewRadius, globalAngle);
-        }    
+        return new ViewCastInfo(false, transform.position + direction * range, viewRadius, globalAngle);    
     }
 
     public Vector3 DirectionFromAngle(float angleInDegrees, bool angleIsGlobal)
