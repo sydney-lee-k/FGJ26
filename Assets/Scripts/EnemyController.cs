@@ -250,7 +250,7 @@ public class EnemyController : MonoBehaviour
             if (alertOthersDistance > 0)
             {
                 Vector3 randomCircle = Random.insideUnitCircle.normalized * (1+aiPath.radius);
-                NoiseController.Instance.CreateNoise(transform.position + new Vector3(randomCircle.x, 0, randomCircle.y), alertOthersDistance, noiseAlerts);
+                NoiseController.Instance.CreateNoise(transform.position + new Vector3(randomCircle.x, 0, randomCircle.y), alertOthersDistance, transform.root, noiseAlerts);
             }
             
             if (alerted)

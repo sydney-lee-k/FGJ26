@@ -14,11 +14,13 @@ public class FocusController : MonoBehaviour
     [NonSerialized] public SceneSettings.SceneType sceneType; //When this is assigned we can assume you are in a gameplay scene.
     private bool initialized;
     private float focusGrowthRate = 1f;
+    [NonSerialized] public FieldOfView fov;
 
     private void Awake()
     {
         instance = this;
         input = InputReader.instance;
+        fov = FindAnyObjectByType<FieldOfView>();
     }
 
     private void Start()

@@ -154,7 +154,7 @@ public class WeaponControllerOld : MonoBehaviour
     {
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
-        NoiseController.Instance.CreateNoise(origin, noiseRange);
+        NoiseController.Instance.CreateNoise(origin, noiseRange, transform.root);
 
         for (int i = 0; i < bulletsPerShot; i++)
         {

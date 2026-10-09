@@ -5,8 +5,11 @@ using System.Collections.Generic;
 public class FieldOfView : MonoBehaviour
 {
     [Header("View Area Settings")]
-    [Range(0, 360)] public float viewRadius;
-    public float viewAngle;
+    [Range(0, 360)] public float viewRadius = 10;
+    public float viewAngle = 90;
+    [SerializeField] private float detectionOffset = 1f;
+    [SerializeField] private float detectionTimer = 0.2f;
+    private float curDetectionTimer;
 
     [Header("Layers")]
     [SerializeField] private LayerMask targetMask;
@@ -18,7 +21,7 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private float edgeDistanceThreshold;
     [SerializeField] private MeshFilter viewMeshFilter;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<Transform> visibleTargets = new();
 
     private Mesh viewMesh;
@@ -36,15 +39,18 @@ public class FieldOfView : MonoBehaviour
 
         viewMesh.MarkDynamic();
         viewMeshFilter.mesh = viewMesh;
-
-        StartCoroutine(nameof(FindTargetsWithDelay), .2f);
+        curDetectionTimer = detectionTimer;
     }
 
-    private IEnumerator FindTargetsWithDelay(float delay)
+    private void Update()
     {
-        while (true)
+        if (curDetectionTimer > 0)
         {
-            yield return new WaitForSeconds(delay);
+            curDetectionTimer -= Time.deltaTime;
+        }
+        else
+        {
+            curDetectionTimer = detectionTimer;
             FindVisibleTargets();
         }
     }
@@ -53,7 +59,7 @@ public class FieldOfView : MonoBehaviour
     {
         DrawFieldOfView();
     }
-
+    
     private void FindVisibleTargets()
     {
         visibleTargets.Clear();
@@ -63,18 +69,17 @@ public class FieldOfView : MonoBehaviour
         {
             Transform target = targetBuffer[i].transform;
 
-            Vector3 directionToTarget = target.position - transform.position;
+            Vector3 directionToTarget = (target.position + new Vector3(0, detectionOffset, 0)) - transform.position;
+            Debug.DrawRay(transform.position, directionToTarget, Color.red);
             float distanceToTarget = directionToTarget.magnitude;
 
-            if (distanceToTarget <= 0f)
-                continue;
+            if (distanceToTarget <= 0f) continue;
 
             directionToTarget /= distanceToTarget;
-
+            
             if (Vector3.Dot(transform.forward, directionToTarget) > Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad))
             {
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleMask))
-                    visibleTargets.Add(target);
+                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleMask)) visibleTargets.Add(target);
             }
         }
     }
@@ -83,8 +88,7 @@ public class FieldOfView : MonoBehaviour
     {
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
 
-        if (stepCount <= 0)
-            return;
+        if (stepCount <= 0) return;
 
         float stepAngleSize = viewAngle / stepCount;
 

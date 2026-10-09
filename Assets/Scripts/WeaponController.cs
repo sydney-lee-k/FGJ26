@@ -112,7 +112,7 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
-        if(noiseRange > 0) NoiseController.Instance.CreateNoise(origin, noiseRange);
+        if(noiseRange > 0) NoiseController.Instance.CreateNoise(origin, noiseRange, transform.root);
         remainingShotDelay = shotDelay;
 
         for (int i = 0; i < bulletsPerShot; i++)

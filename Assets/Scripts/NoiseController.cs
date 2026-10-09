@@ -13,6 +13,7 @@ public class NoiseController : MonoBehaviour
     [SerializeField] private bool visualizeNoise;
     private FocusController focusController;
     private Transform player;
+    private FieldOfView fov;
 
     private void Awake()
     {
@@ -23,26 +24,24 @@ public class NoiseController : MonoBehaviour
     public void CreateVisualNoise(Vector3 position, float radius, float sizeMultiplier = 1)
     {
         //Doing this in start is too fast, and since this is only really called once it should be fine.
-        if (!focusController) focusController = FocusController.instance;
-        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnsureVariables();
         
         NoiseVisual noiseVisual = PoolManager.Instance.Spawn(focusNoiseVisual, position, Quaternion.identity).GetComponent<NoiseVisual>();
-        Debug.Log(sizeMultiplier);
+        //Debug.Log(sizeMultiplier);
         noiseVisual.radius = radius * sizeMultiplier;
     }
     
-    public void CreateNoise(Vector3 position, float radius, bool alert = false, bool spawnVisual = true)
+    public void CreateNoise(Vector3 position, float radius, Transform source, bool alert = false, bool spawnVisual = true)
     {
         //Doing this in start is too fast, and since this is only really called once it should be fine.
-        if (!focusController) focusController = FocusController.instance;
-        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnsureVariables();
         
         if (radius < 0) return;
 
 
         //make a visual if you are focusing, or target is close enough (should later check if the target is actually in the vision cone since then we probably shouldnt spawn this.)
         float distanceVisibility = focusController.CalculateVisibility(transform, player);
-        if (focusController.focusing || distanceVisibility > 0)
+        if (focusController.focusing || (distanceVisibility > 0 && !fov.visibleTargets.Contains(source)))
         {
             if (spawnVisual) CreateVisualNoise(position, radius, distanceVisibility);
         }
@@ -99,4 +98,11 @@ public class NoiseController : MonoBehaviour
     // on hindsight the above could be optimized so that instead of even reaching the enemy, we just check if the wall distance would be enough.
     // We already know how far the enemy is so comparing the distance the sound travels vs that would maybe be a bit more efficient. However I doubt it will matter, but if there's lag then ig look here.
 
+
+    private void EnsureVariables()
+    {
+        if (!focusController) focusController = FocusController.instance;
+        if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (!fov) fov = focusController.fov;
+    }
 }
