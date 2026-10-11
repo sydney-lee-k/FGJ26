@@ -2461,7 +2461,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: -876546973899608171, guid: b4b8fa1022ba92642b74aaad1b4e4c72, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6988,6 +6988,8 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 192
+  bottomOffset: 1
+  viewHeight: 3
   meshResolution: 1
   edgeResolveIterations: 1
   edgeDistanceThreshold: 1
