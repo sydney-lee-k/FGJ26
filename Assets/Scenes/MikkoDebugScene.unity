@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &363808099
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -610,6 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   startingWeapon: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
+  droppedWeaponPrefab: {fileID: 1730581614353563471, guid: ca9871bef63c6624f8470acb673b2736, type: 3}
   actor: {fileID: 363808104}
 --- !u!114 &363808106
 MonoBehaviour:
@@ -666,6 +667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!114 &363808108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2142,6 +2144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!114 &1869947715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,6 +2353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   startingWeapon: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
+  droppedWeaponPrefab: {fileID: 1730581614353563471, guid: ca9871bef63c6624f8470acb673b2736, type: 3}
   actor: {fileID: 1869947725}
 --- !u!1 &2067473699
 GameObject:
@@ -2662,6 +2666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!4 &926887284525531545
 Transform:
   m_ObjectHideFlags: 0
@@ -3122,6 +3127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!1 &2047509548466513664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5234,6 +5240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!1 &5855585347676782867
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,6 +5353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!4 &6111078528904404668
 Transform:
   m_ObjectHideFlags: 0
@@ -6479,6 +6487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!114 &8342563396492148315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6825,6 +6834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 10
   criticalHealthRatio: 0.3
+  CurrentHealth: 0
 --- !u!114 &9031216631055548070
 MonoBehaviour:
   m_ObjectHideFlags: 0

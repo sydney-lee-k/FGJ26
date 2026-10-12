@@ -27,7 +27,6 @@ public class NoiseController : MonoBehaviour
         if (!player) player = GameObject.FindGameObjectWithTag("Player").transform;
         
         NoiseVisual noiseVisual = PoolManager.Instance.Spawn(focusNoiseVisual, position, Quaternion.identity).GetComponent<NoiseVisual>();
-        Debug.Log(sizeMultiplier);
         noiseVisual.radius = radius * sizeMultiplier;
     }
     

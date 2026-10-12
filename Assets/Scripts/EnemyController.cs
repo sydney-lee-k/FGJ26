@@ -81,12 +81,34 @@ public class EnemyController : MonoBehaviour
     private EnemyState previousState;
     private Transform player;
     private AIPath aiPath;
+
+    private Health health;
     
-    
-    private void Start()
+    void OnEnable()
     {
+        health.OnDie += Death;
+    }
+    void OnDisable()
+    {
+        health.OnDie -= Death;
+    }
+
+    private void Death()
+    {
+        
+        enemyWeaponController.DropWeapon();
+        Destroy(gameObject);
+    }
+
+    private void Awake()
+    {
+        health = GetComponent<Health>();
         destinationSetter = GetComponent<AIDestinationSetter>();
         patrolController = PatrolController.Instance;
+    }
+
+    private void Start()
+    {
         scoutSpot = Instantiate(new GameObject(), transform.position, Quaternion.identity);
         scoutSpot.name = "ScoutSpot";
         player = GameObject.FindGameObjectWithTag("Player").transform;

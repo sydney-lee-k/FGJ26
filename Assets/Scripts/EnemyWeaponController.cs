@@ -1,9 +1,11 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 public class EnemyWeaponController : MonoBehaviour, IWeaponUser
 {
     [Header("Weapon")]
     public WeaponController startingWeapon;
+    [SerializeField] private GameObject droppedWeaponPrefab;
     private WeaponController currentWeapon;
     
     [Header("Variables")]
@@ -20,14 +22,9 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
     
     private void Update()
     {
-        if (target)
-        {
-            currentWeapon.SetFiring(true);
-        }
-        else
-        {
-            currentWeapon.SetFiring(false);
-        }
+        if (target) currentWeapon.SetFiring(true);
+        else currentWeapon.SetFiring(false);
+        
     }
     
     public void SwapWeapon(WeaponController prefab)
@@ -35,5 +32,14 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
         if(currentWeapon) Destroy(currentWeapon);
         currentWeapon = Instantiate(prefab, transform);
         currentWeapon.SetUser(this);
+    }
+
+    public void DropWeapon()
+    {
+        if (!droppedWeaponPrefab) return;
+        DroppedWeaponController droppedWeapon = Instantiate(droppedWeaponPrefab, transform.position, quaternion.identity).GetComponent<DroppedWeaponController>();
+        droppedWeapon.weapon = startingWeapon;
+        droppedWeapon.remainingAmmo = currentWeapon.currentAmmo;
+
     }
 }

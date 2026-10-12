@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   fireMode: 0
+  ammoType: 0
   maxAmmo: 9999
   currentAmmo: 9999
   casingPrefab: {fileID: 3268605481806599866, guid: 436f96056cc776b488c852afd106d28d, type: 3}
@@ -54,7 +55,8 @@ MonoBehaviour:
   shotDelay: 0.2
   ejectDelay: 0
   range: 50
-  damage: 10
+  thickness: 0
+  damage: 5
   bulletsPerShot: 1
   spreadAngle: 1
   noiseRange: 20

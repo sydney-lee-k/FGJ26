@@ -13,6 +13,13 @@ public enum FireMode
     Melee
 }
 
+public enum AmmoType
+{
+    Pistol,
+    Automatic,
+    Shotgun
+}
+
 
 public class WeaponController : MonoBehaviour
 {
@@ -20,8 +27,9 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private FireMode fireMode = FireMode.Manual;
 
     [Header("Ammo")]
+    public AmmoType ammoType = AmmoType.Pistol;
     [SerializeField] private int maxAmmo = 30;
-    [SerializeField] private int currentAmmo = 30;
+    public int currentAmmo = 30;
 
     [Header("Casings")]
     [SerializeField] private GameObject casingPrefab;
@@ -45,8 +53,6 @@ public class WeaponController : MonoBehaviour
 
     [Header("Hit Settings")]
     [SerializeField] private LayerMask hitMask;
-    
-    public int CurrentAmmo => currentAmmo;
     public int MaxAmmo => maxAmmo;
     private IWeaponUser user;
     [SerializeField] private bool firePressed;
