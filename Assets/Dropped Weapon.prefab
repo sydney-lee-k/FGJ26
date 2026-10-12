@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 701775072339939798}
   - component: {fileID: 8188635124628426494}
+  - component: {fileID: 3977112225194680406}
+  - component: {fileID: 3564836487971117423}
   - component: {fileID: 6213590964912255615}
   - component: {fileID: 3306974356759536788}
   - component: {fileID: 698017260673660992}
@@ -50,8 +52,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   weapon: {fileID: 0}
+  remainingAmmo: 0
   playerWeaponsManager: {fileID: 0}
   pickupRange: 2.5
+  forcedSlot: -1
+  autoEquip: 1
+--- !u!114 &3977112225194680406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730581614353563471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &3564836487971117423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730581614353563471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1107292aa356686429ee3f3c96ac40f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactable
+  isInteractable: 1
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8188635124628426494}
+        m_TargetAssemblyTypeName: DroppedWeaponController, Assembly-CSharp
+        m_MethodName: Pickup
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!33 &6213590964912255615
 MeshFilter:
   m_ObjectHideFlags: 0

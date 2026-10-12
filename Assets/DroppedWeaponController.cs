@@ -7,9 +7,13 @@ public class DroppedWeaponController : MonoBehaviour
     public WeaponController weapon;
     public int remainingAmmo;
     public PlayerWeaponsManager playerWeaponsManager;
-    [SerializeField] private float pickupRange = 2f; 
+    [SerializeField] private float pickupRange = 2f;
     private Transform player;
     private float checkDelay;
+    
+    [Header("Pickup Settings")]
+    [SerializeField] private int forcedSlot = -1;
+    [SerializeField] private bool autoEquip = true;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public class DroppedWeaponController : MonoBehaviour
             if (Vector3Utils.IsWithinDistance(player.position, transform.position, pickupRange))
             {
                 //Add weapon pickup here? Or use old interactive systme. We shall see.
-            
+
                 if (weapon.currentAmmo > 0)
                 {
                     WeaponController activeWeapon = playerWeaponsManager.GetActiveWeapon();
@@ -46,4 +50,16 @@ public class DroppedWeaponController : MonoBehaviour
             checkDelay -= Time.deltaTime;
         }
     }
+    
+    public void Pickup(GameObject byPlayer)
+    {
+        if (byPlayer == null) return;
+        if (byPlayer.TryGetComponent<PlayerWeaponsManager>(out var weapons))
+        {
+            bool success = weapons.AddWeapon(weapon, forcedSlot, autoEquip);
+            if (!success) return;
+            Destroy(gameObject);
+        }
+    }
 }
+
