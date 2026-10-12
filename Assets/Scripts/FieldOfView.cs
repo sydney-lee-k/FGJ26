@@ -66,7 +66,7 @@ public class FieldOfView : MonoBehaviour
     private void FindVisibleTargets()
     {
         visibleTargets.Clear();
-        int targetCount = Physics.OverlapSphereNonAlloc(transform.position, viewRadius, targetBuffer, targetMask);
+        int targetCount = Physics.OverlapSphereNonAlloc(transform.position, viewRadius+0.5f, targetBuffer, targetMask);
 
         for (int i = 0; i < targetCount; i++)
         {
@@ -84,6 +84,21 @@ public class FieldOfView : MonoBehaviour
             {
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleMask)) visibleTargets.Add(target);
             }
+        }
+        
+        targetCount = Physics.OverlapSphereNonAlloc(transform.position, viewCircleRadius+0.5f, targetBuffer, targetMask);
+
+        for (int i = 0; i < targetCount; i++)
+        {
+            Transform target = targetBuffer[i].transform;
+
+            Vector3 directionToTarget = (target.position + new Vector3(0, detectionOffset, 0)) - transform.position;
+            Debug.DrawRay(transform.position, directionToTarget, Color.red);
+            float distanceToTarget = directionToTarget.magnitude;
+
+            if (distanceToTarget <= 0f) continue;
+            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstacleMask)) visibleTargets.Add(target);
+            
         }
     }
 

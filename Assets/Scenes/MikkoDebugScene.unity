@@ -1176,7 +1176,7 @@ GameObject:
   - component: {fileID: 636731953}
   - component: {fileID: 636731955}
   - component: {fileID: 636731954}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 910737225}
   - component: {fileID: 910737227}
   - component: {fileID: 910737226}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2461,7 +2461,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: b4b8fa1022ba92642b74aaad1b4e4c72, type: 3}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
