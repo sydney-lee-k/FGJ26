@@ -13,21 +13,16 @@ public enum FireMode
     Melee
 }
 
-public enum AmmoType
-{
-    Pistol,
-    Automatic,
-    Shotgun
-}
-
 
 public class WeaponController : MonoBehaviour
 {
+    [Header("Weapon")]
+    public string weaponId;
+    
     [Header("Firing")]
     [SerializeField] private FireMode fireMode = FireMode.Manual;
 
     [Header("Ammo")]
-    public AmmoType ammoType = AmmoType.Pistol;
     [SerializeField] private int maxAmmo = 30;
     public int currentAmmo = 30;
 
@@ -57,9 +52,12 @@ public class WeaponController : MonoBehaviour
     private IWeaponUser user;
     [SerializeField] private bool firePressed;
 
+    private WeaponVisual weaponVisual;
+
     private void Awake()
     {
         currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmo);
+        weaponVisual = GetComponentInChildren<WeaponVisual>();
     }
 
     public void SetUser(IWeaponUser weaponUser)
@@ -150,7 +148,7 @@ public class WeaponController : MonoBehaviour
 
             if (tracer)
             {
-                Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position + user.AimDirection.normalized*thickness, quaternion.identity).GetComponent<Tracer>();
+                Tracer trace = PoolManager.Instance.Spawn(tracer, weaponVisual.muzzle.position, quaternion.identity).GetComponent<Tracer>();
                 trace.transform.localEulerAngles = user.AimDirection;
                 trace.Initialize(tracerHitPosition);
             }

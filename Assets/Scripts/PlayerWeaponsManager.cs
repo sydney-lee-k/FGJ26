@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 {
     private InputReader input;
-
+    
     [Header("Weapons")]
     public List<WeaponController> StartingWeapons = new();
     [SerializeField] private WeaponController[] WeaponSlots = new WeaponController[2];

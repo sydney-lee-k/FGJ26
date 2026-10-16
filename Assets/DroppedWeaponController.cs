@@ -14,11 +14,18 @@ public class DroppedWeaponController : MonoBehaviour
     [Header("Pickup Settings")]
     [SerializeField] private int forcedSlot = -1;
     [SerializeField] private bool autoEquip = true;
-
+    
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerWeaponsManager = player.GetComponent<PlayerWeaponsManager>();
+    }
+
+    private void Start()
+    {
+        GameObject visual = Instantiate(weapon.gameObject, transform);
+        Destroy(visual.GetComponent<WeaponController>());
+        visual.GetComponentInChildren<WeaponVisual>().modelCollider.isTrigger = false;
     }
 
     private void Update()
@@ -32,7 +39,7 @@ public class DroppedWeaponController : MonoBehaviour
                 if (weapon.currentAmmo > 0)
                 {
                     WeaponController activeWeapon = playerWeaponsManager.GetActiveWeapon();
-                    if (weapon.ammoType == activeWeapon.ammoType && activeWeapon.currentAmmo != activeWeapon.MaxAmmo)
+                    if (weapon.weaponId == activeWeapon.weaponId && activeWeapon.currentAmmo != activeWeapon.MaxAmmo)
                     {
                         //Formula can be changed here.
                         int missingAmmo = activeWeapon.MaxAmmo - activeWeapon.currentAmmo;
