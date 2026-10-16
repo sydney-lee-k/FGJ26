@@ -26,6 +26,7 @@ public class DroppedWeaponController : MonoBehaviour
         GameObject visual = Instantiate(weapon.gameObject, transform);
         Destroy(visual.GetComponent<WeaponController>());
         visual.GetComponentInChildren<WeaponVisual>().modelCollider.isTrigger = false;
+        Physics.SyncTransforms();
     }
 
     private void Update()
