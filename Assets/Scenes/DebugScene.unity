@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 358724208}
   - component: {fileID: 358724209}
   m_Layer: 30
-  m_Name: GameObject
+  m_Name: ScreenFilter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,8 +347,8 @@ Transform:
   m_GameObject: {fileID: 358724207}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.000000059604645, z: 0.2499999}
-  m_LocalScale: {x: 120, y: 60, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.15}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 330585546}
@@ -402,7 +402,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
@@ -1325,7 +1325,7 @@ Transform:
   m_GameObject: {fileID: 436198475}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.121, y: 1.421, z: 3.255}
+  m_LocalPosition: {x: -1.121, y: 1.421, z: 3.255}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
