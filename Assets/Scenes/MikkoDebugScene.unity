@@ -6988,8 +6988,6 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 192
-  bottomOffset: 1
-  viewHeight: 3
   meshResolution: 1
   edgeResolveIterations: 1
   edgeDistanceThreshold: 1

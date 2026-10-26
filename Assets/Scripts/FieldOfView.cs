@@ -17,8 +17,6 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask obstacleMask;
 
     [Header("View Mesh Settings")]
-    [SerializeField] private float bottomOffset = 0.1f;
-    [SerializeField] private float viewHeight = 3f;
     [SerializeField] private float meshResolution;
     [SerializeField] private int edgeResolveIterations;
     [SerializeField] private float edgeDistanceThreshold;
@@ -129,7 +127,7 @@ public class FieldOfView : MonoBehaviour
                 // boundary between them to better follow corners.
                 if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeThresholdExceeded))
                 {
-                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast, viewRadius);
+                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
                     if (edge.pointA != Vector3.zero)
                         viewPoints.Add(edge.pointA);
 
@@ -155,68 +153,45 @@ public class FieldOfView : MonoBehaviour
                 // boundary between them to better follow corners.
                 if (oldViewCast.hit != newViewCast.hit || (oldViewCast.hit && newViewCast.hit && edgeThresholdExceeded))
                 {
-                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast, viewCircleRadius);
-                    if (edge.pointA != Vector3.zero) viewPoints.Add(edge.pointA);
-                    if (edge.pointB != Vector3.zero) viewPoints.Add(edge.pointB);
+                    EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
+                    if (edge.pointA != Vector3.zero)
+                        viewPoints.Add(edge.pointA);
+
+                    if (edge.pointB != Vector3.zero)
+                        viewPoints.Add(edge.pointB);
                 }
             }
 
             viewPoints.Add(newViewCast.point);
             oldViewCast = newViewCast;
         }
-        
-        
-        int pointCount = viewPoints.Count;
-        int vertexCount = (pointCount + 1) * 2;
+
+        int vertexCount = viewPoints.Count + 1;
 
         Vector3[] vertices = new Vector3[vertexCount];
-        int[] triangles = new int[pointCount * 12];
-        
-        //Top and bottom.
-        vertices[0] = Vector3.down * bottomOffset;
-        vertices[pointCount + 1] = Vector3.up * (viewHeight - bottomOffset);
+        int[] triangles = new int[(vertexCount - 2) * 3];
 
-        for (int i = 0; i < pointCount; i++)
+        vertices[0] = Vector3.zero;
+
+        for (int i = 0; i < vertexCount - 1; i++)
         {
-            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]) + Vector3.down * bottomOffset;
-            vertices[pointCount + 2 + i] = vertices[i + 1] + Vector3.up * viewHeight;
-        }
+            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
 
-        int triangleIndex = 0;
-        
-        
-        for (int i = 0; i < pointCount; i++)
-        {
-            int next = (i + 1) % pointCount; //Wraps around to 0 to prevent a gap between the first and last point (as well as overflow)
-
-            // Bottom
-            triangles[triangleIndex++] = 0;
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = i + 1;
-
-            // Top
-            triangles[triangleIndex++] = pointCount + 1;
-            triangles[triangleIndex++] = pointCount + 2 + i;
-            triangles[triangleIndex++] = pointCount + 2 + next;
-
-            // Walls
-            triangles[triangleIndex++] = i + 1;
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = pointCount + 2 + i;
-
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = pointCount + 2 + next;
-            triangles[triangleIndex++] = pointCount + 2 + i;
+            if (i < vertexCount - 2)
+            {
+                triangles[i * 3] = 0;
+                triangles[i * 3 + 1] = i + 1;
+                triangles[i * 3 + 2] = i + 2;
+            }
         }
 
         viewMesh.Clear();
+
         viewMesh.vertices = vertices;
         viewMesh.triangles = triangles;
-        viewMesh.RecalculateNormals();
     }
 
-    
-    private EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast, float range)
+    private EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast)
     {
         float minAngle = minViewCast.angle;
         float maxAngle = maxViewCast.angle;
@@ -224,10 +199,11 @@ public class FieldOfView : MonoBehaviour
         Vector3 minPoint = Vector3.zero;
         Vector3 maxPoint = Vector3.zero;
 
+        // Narrow down the boundary between the two view casts.
         for (int i = 0; i < edgeResolveIterations; i++)
         {
             float angle = (minAngle + maxAngle) / 2;
-            ViewCastInfo newViewCast = ViewCast(angle, range);
+            ViewCastInfo newViewCast = ViewCast(angle, viewAngle);
 
             bool edgeThresholdExceeded = Mathf.Abs(minViewCast.distance - newViewCast.distance) > edgeDistanceThreshold;
             if (newViewCast.hit == minViewCast.hit && !edgeThresholdExceeded)
