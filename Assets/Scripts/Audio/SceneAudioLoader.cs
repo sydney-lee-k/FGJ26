@@ -19,6 +19,7 @@ public class SceneAudioLoader : MonoBehaviour
         RuntimeManager.WaitForAllSampleLoading();
 
         AudioManager.instance.RegisterLibrary(library);
+        MusicManager.instance.RegisterLibrary(library);
         isReady = true;
     }
 
@@ -29,6 +30,9 @@ public class SceneAudioLoader : MonoBehaviour
 
         if (AudioManager.instance != null)
             AudioManager.instance.UnregisterLibrary(library);
+
+        if (MusicManager.instance != null)
+            MusicManager.instance.UnregisterLibrary(library);
 
         foreach (var bank in library.banks)
             RuntimeManager.UnloadBank(bank);
