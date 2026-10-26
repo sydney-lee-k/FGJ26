@@ -66,4 +66,14 @@ public class InteractionController : MonoBehaviour
         currentInteractable = interactable;
         currentInteractable?.OnFocusGained();
     }
+    
+    private void OnEnable()
+    {
+        input.InteractPressed += HandleInteract;
+    }
+    
+    private void OnDisable()
+    {
+        input.InteractPressed -= HandleInteract;
+    }
 }

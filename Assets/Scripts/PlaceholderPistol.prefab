@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5334085457094407030}
+  - {fileID: 6148516096228126158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1204861714508184108
@@ -50,7 +50,7 @@ MonoBehaviour:
   maxAmmo: 9999
   currentAmmo: 9999
   casingPrefab: {fileID: 3268605481806599866, guid: 436f96056cc776b488c852afd106d28d, type: 3}
-  casingEjectPoint: {fileID: 8012814559756920257}
+  casingEjectPoint: {fileID: 8099350942410947449}
   tracer: {fileID: 3762802332306566877, guid: 019d0fc5ec4a0634ab509df19ac29e9a, type: 3}
   shotDelay: 0.2
   ejectDelay: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 448
   firePressed: 0
---- !u!1001 &5375921179320592488
+--- !u!1001 &6183032660657813200
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -116,18 +116,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponVisual_PlaceholderPistol
       objectReference: {fileID: 0}
+    - target: {fileID: 2795913819637563266, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 1204861714508184108}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
---- !u!4 &5334085457094407030 stripped
+--- !u!4 &6148516096228126158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 44298920533646110, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
-  m_PrefabInstance: {fileID: 5375921179320592488}
+  m_PrefabInstance: {fileID: 6183032660657813200}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8012814559756920257 stripped
+--- !u!4 &8099350942410947449 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2713462442499018153, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
-  m_PrefabInstance: {fileID: 5375921179320592488}
+  m_PrefabInstance: {fileID: 6183032660657813200}
   m_PrefabAsset: {fileID: 0}

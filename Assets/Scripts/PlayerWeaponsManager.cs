@@ -90,6 +90,7 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
     public bool AddWeapon(WeaponController prefab, int slotIndex = -1, bool autoEquip = true)
     {
+        Debug.Log("Adding weapon:" + prefab + " To slot: " + slotIndex + " Auto equip?: " + autoEquip);
         if (prefab == null)
             return false;
 

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Might be good to make this as an IPoolable and then dynamically change models. Easier to test once we actually have models tho so for now instantiated.
@@ -23,9 +24,6 @@ public class DroppedWeaponController : MonoBehaviour
 
     private void Start()
     {
-        GameObject visual = Instantiate(weapon.gameObject, transform);
-        Destroy(visual.GetComponent<WeaponController>());
-        visual.GetComponentInChildren<WeaponVisual>().modelCollider.isTrigger = false;
         Physics.SyncTransforms();
     }
 
@@ -49,6 +47,10 @@ public class DroppedWeaponController : MonoBehaviour
                         activeWeapon.currentAmmo += ammoToRemove;
                     }
                 }
+                else
+                {
+                    //Remove pickup and shit.
+                }
             }
 
             checkDelay = 0.5f;
@@ -59,15 +61,13 @@ public class DroppedWeaponController : MonoBehaviour
         }
     }
     
-    public void Pickup(GameObject byPlayer)
+    public void Pickup()
     {
-        if (byPlayer == null) return;
-        if (byPlayer.TryGetComponent<PlayerWeaponsManager>(out var weapons))
-        {
-            bool success = weapons.AddWeapon(weapon, forcedSlot, autoEquip);
-            if (!success) return;
-            Destroy(gameObject);
-        }
+        PlayerWeaponsManager playerWeaponsManager = player.GetComponent<PlayerWeaponsManager>();
+        bool success = playerWeaponsManager.AddWeapon(weapon, forcedSlot, autoEquip);
+        Debug.Log("tried to add weapon: " + success);
+        if (!success) return;
+        Destroy(gameObject);
     }
 }
 

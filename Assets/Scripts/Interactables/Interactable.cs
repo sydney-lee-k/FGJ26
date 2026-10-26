@@ -14,6 +14,7 @@ public class Interactable : MonoBehaviour, IInteractable
     public bool IsInteractable => isInteractable;
 
     private Outline outline;
+    
 
     private void Awake()
     {
@@ -45,11 +46,9 @@ public class Interactable : MonoBehaviour, IInteractable
 
     public void OnFocusLost()
     {
-        if (!isFocused)
-            return;
-
+        if (!isFocused || !outline) return;
+        
         isFocused = false;
-
         outline.enabled = false;
     }
 
