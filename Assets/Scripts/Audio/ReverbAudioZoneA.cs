@@ -2,7 +2,8 @@ using UnityEngine;
 using FMOD;
 using FMODUnity;
 
-//This script handles a reverb snapshot within a collider. The designated sound busses are setup in unity.
+//This script handles a reverb snapshot within a collider. this works on 0/1 logic, the reverb is only ever fully on or off
+//The designated sound busses are setup in unity.
 //upon the player object entering the collider, the snapshot gets triggered and on exit the snapshot fades out. 
 public class ReverbAudioZoneA : MonoBehaviour
 {

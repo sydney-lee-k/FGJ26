@@ -37,8 +37,7 @@ public class AudioManager : MonoBehaviour
 
     public void UnregisterLibrary(AudioEventLibrary lib) => activeLibraries.Remove(lib);
 
-
-    //find the event in the currently registered library and play sound (without parameters)
+    //finds the event in the currently registered library and plays sound (without parameters)
     public void PlaySound(string key, Vector3 pos = default)
     {
         foreach (var lib in activeLibraries)

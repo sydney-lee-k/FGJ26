@@ -16,13 +16,10 @@ public class SceneAudioLoader : MonoBehaviour
             RuntimeManager.LoadBank(bank, true); //load sample data
 
         //wait for banks and sample data to finish loading
-        //while (!RuntimeManager.HaveAllBanksLoaded || RuntimeManager.AnySampleDataLoading())
-        //    yield return null;
         RuntimeManager.WaitForAllSampleLoading();
 
         AudioManager.instance.RegisterLibrary(library);
         isReady = true;
-        //AudioManager.instance.PlaySound("DebugMusic");
     }
 
     //Unregister and unload event library and banks to clear audiomanager for new sets on next scene load
