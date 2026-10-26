@@ -13,7 +13,6 @@ public enum FireMode
     Melee
 }
 
-
 public class WeaponController : MonoBehaviour
 {
     [Header("Weapon")]
@@ -53,7 +52,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private bool firePressed;
 
     private WeaponVisual weaponVisual;
-
+    
     private void Awake()
     {
         currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmo);

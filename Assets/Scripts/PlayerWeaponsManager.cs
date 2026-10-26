@@ -88,19 +88,20 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         WeaponSlots[activeWeaponIndex].gameObject.SetActive(true);
     }
 
-    public bool AddWeapon(WeaponController prefab, int slotIndex = -1, bool autoEquip = true)
+    public bool AddWeapon(WeaponController prefab)
     {
-        Debug.Log("Adding weapon:" + prefab + " To slot: " + slotIndex + " Auto equip?: " + autoEquip);
+        bool autoEquip = true;
+            
+        Debug.Log("Adding weapon:" + prefab + " Auto equip?: " + autoEquip);
         if (prefab == null)
             return false;
 
         // Decide slot
-        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
+        int slotIndex = GetFirstEmptySlot();
+        if (slotIndex == -1)
         {
-            slotIndex = GetFirstEmptySlot();
-
-            if (slotIndex == -1)
-                slotIndex = activeWeaponIndex;
+            DropWeapon();
+            slotIndex = activeWeaponIndex;
         }
 
         // Remove existing weapon in slot
@@ -113,10 +114,26 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         WeaponSlots[slotIndex] = instance;
 
-        if (autoEquip)
-            SetActiveWeapon(slotIndex);
+        if (autoEquip) SetActiveWeapon(slotIndex);
 
         return true;
+    }
+    
+    private void DropWeapon()
+    {
+        //Works but leaves junk. Removing this copying causes the .weapon to go missing. I DONT KNOW WHY AAAAAAAAAAAAAA
+        WeaponController activeWeaponCopy = Instantiate(ActiveWeapon);
+        activeWeaponCopy.gameObject.SetActive(false);
+        
+        GameObject droppedWeapon = Instantiate(activeWeaponCopy.transform.GetChild(0).gameObject, ActiveWeapon.transform.position, ActiveWeapon.transform.rotation, null);
+        DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
+        droppedWeaponController.enabled = true;
+        droppedWeaponController.weapon = activeWeaponCopy;
+        droppedWeaponController.remainingAmmo = activeWeaponCopy.currentAmmo;
+        droppedWeapon.GetComponent<Rigidbody>().isKinematic = false;
+        droppedWeapon.GetComponent<Interactable>().SetInteractable(true);
+        droppedWeapon.GetComponentInChildren<MeshCollider>().isTrigger = false;
+
     }
 
     public void RemoveWeapon(int slotIndex)
@@ -128,11 +145,10 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         if (weapon == null)
             return;
-
+        
         if (slotIndex == activeWeaponIndex)
             //weapon.SetFireHeld(false);
-
-        WeaponSlots[slotIndex] = null;
+            WeaponSlots[slotIndex] = null;
 
         Destroy(weapon.gameObject);
     }
