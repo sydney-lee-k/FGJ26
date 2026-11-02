@@ -121,13 +121,9 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     
     private void DropWeapon()
     {
-        //Works but leaves junk. Removing this copying causes the .weapon to go missing. I DONT KNOW WHY AAAAAAAAAAAAAA
-        //WeaponController activeWeaponCopy = Instantiate(ActiveWeapon);
-        
         GameObject droppedWeapon = Instantiate(ActiveWeapon.weaponVisualPrefab, ActiveWeapon.transform.position, ActiveWeapon.transform.rotation, null);
         DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
-        //droppedWeaponController.weapon = ActiveWeapon;
-        droppedWeaponController.weapon.currentAmmo = ActiveWeapon.currentAmmo;
+        droppedWeaponController.currentAmmo = ActiveWeapon.currentAmmo;
         droppedWeapon.GetComponent<Rigidbody>().isKinematic = false;
         droppedWeapon.GetComponent<Interactable>().SetInteractable(true);
         droppedWeapon.GetComponentInChildren<MeshCollider>().isTrigger = false;

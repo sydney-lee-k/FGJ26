@@ -39,8 +39,7 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
     {
         GameObject droppedWeapon = Instantiate(currentWeapon.weaponVisualPrefab, currentWeapon.transform.position, currentWeapon.transform.rotation, null);
         DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
-        //droppedWeaponController.weapon = primaryWeapon;
-        droppedWeaponController.weapon.currentAmmo = currentWeapon.currentAmmo;
+        droppedWeaponController.currentAmmo = currentWeapon.currentAmmo;
         droppedWeapon.GetComponent<Rigidbody>().isKinematic = false;
         droppedWeapon.GetComponent<Interactable>().SetInteractable(true);
         droppedWeapon.GetComponentInChildren<MeshCollider>().isTrigger = false;

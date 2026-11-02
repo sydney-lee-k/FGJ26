@@ -385,7 +385,7 @@ public class EnemyController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.forward * 10f, 10);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * 10f, 10);
         
         switch (state)
         {

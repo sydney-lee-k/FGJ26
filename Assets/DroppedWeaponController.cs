@@ -6,9 +6,7 @@ using UnityEngine;
 public class DroppedWeaponController : MonoBehaviour
 {
     public WeaponController weapon;
-    #if UNITY_EDITOR
-        [ReadOnly] [SerializeField] private int currentAmmo;
-    #endif
+    public int currentAmmo;
     public PlayerWeaponsManager playerWeaponsManager;
     [SerializeField] private float pickupRange = 2f;
     private Transform player;
@@ -27,10 +25,6 @@ public class DroppedWeaponController : MonoBehaviour
 
     private void Update()
     {
-        #if UNITY_EDITOR
-        currentAmmo = weapon.currentAmmo;
-        #endif
-        
         if (checkDelay <= 0)
         {
             if (Vector3Utils.IsWithinDistance(player.position, transform.position, pickupRange))
@@ -43,13 +37,9 @@ public class DroppedWeaponController : MonoBehaviour
                         //Formula can be changed here.
                         int missingAmmo = activeWeapon.MaxAmmo - activeWeapon.currentAmmo;
                         int ammoToRemove = Mathf.Min(weapon.currentAmmo, missingAmmo);
-                        weapon.currentAmmo -= ammoToRemove;
+                        currentAmmo -= ammoToRemove;
                         activeWeapon.currentAmmo += ammoToRemove;
                     }
-                }
-                else
-                {
-                    //Remove pickup and shit.
                 }
             }
 
@@ -65,7 +55,7 @@ public class DroppedWeaponController : MonoBehaviour
     {
         PlayerWeaponsManager playerWeaponsManager = player.GetComponent<PlayerWeaponsManager>();
         bool success = playerWeaponsManager.AddWeapon(weapon);
-        //Debug.Log("tried to add weapon: " + success);
+        playerWeaponsManager.GetActiveWeapon().currentAmmo = currentAmmo;
         if (!success) return;
         Destroy(gameObject);
     }

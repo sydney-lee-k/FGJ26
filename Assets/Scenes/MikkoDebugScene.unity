@@ -3147,8 +3147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   weaponPrefab: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
-  forcedSlot: -1
-  autoEquip: 1
 --- !u!54 &2029100957694003344
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3230,8 +3228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   weaponPrefab: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
-  forcedSlot: -1
-  autoEquip: 1
 --- !u!1 &2115743393058780733
 GameObject:
   m_ObjectHideFlags: 0
