@@ -117,6 +117,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponVisual_PlaceholderPistol
       objectReference: {fileID: 0}
+    - target: {fileID: 1881950400660792877, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2795913819637563266, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
       propertyPath: weapon
       value: 

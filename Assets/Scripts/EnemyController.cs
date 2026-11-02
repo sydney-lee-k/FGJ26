@@ -104,7 +104,6 @@ public class EnemyController : MonoBehaviour
     {
         health = GetComponent<Health>();
         destinationSetter = GetComponent<AIDestinationSetter>();
-        patrolController = PatrolController.Instance;
     }
 
     private void Start()
@@ -114,6 +113,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         aiPath = GetComponent<AIPath>();
         
+        patrolController = PatrolController.Instance;
         if (state == EnemyState.Patrol)
         {
             SeekPatrolPath(currentRoute ? currentRoute : null);
@@ -385,7 +385,7 @@ public class EnemyController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position + transform.forward * 10f, 10);
+        //Gizmos.DrawWireSphere(transform.position + transform.forward * 10f, 10);
         
         switch (state)
         {

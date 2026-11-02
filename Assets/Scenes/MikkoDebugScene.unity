@@ -456,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &363808099
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5542faffe22dbe84881da08fcb5d3bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  primaryWeapon: {fileID: 0}
+  primaryWeapon: {fileID: 1204861714508184108, guid: 7581f409eabb27541a76fef7294696ca, type: 3}
   actor: {fileID: 363808104}
   spawnParent: {fileID: 0}
 --- !u!114 &363808106
