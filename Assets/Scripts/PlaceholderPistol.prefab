@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   weaponId: PlaceholderPistol
+  weaponVisualPrefab: {fileID: 1881950400660792877, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
   fireMode: 0
   maxAmmo: 9999
   currentAmmo: 9999
@@ -120,6 +121,10 @@ PrefabInstance:
       propertyPath: weapon
       value: 
       objectReference: {fileID: 1204861714508184108}
+    - target: {fileID: 2795913819637563266, guid: 30d2fe99c0b1ede4995d471573a0486f, type: 3}
+      propertyPath: weaponPrefab
+      value: 
+      objectReference: {fileID: 4149536315709988110}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -180,8 +180,6 @@ MonoBehaviour:
   remainingAmmo: 0
   playerWeaponsManager: {fileID: 0}
   pickupRange: 2
-  forcedSlot: -1
-  autoEquip: 1
 --- !u!54 &5659760446802254724
 Rigidbody:
   m_ObjectHideFlags: 0

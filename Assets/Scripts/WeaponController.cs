@@ -17,6 +17,7 @@ public class WeaponController : MonoBehaviour
 {
     [Header("Weapon")]
     public string weaponId;
+    public GameObject weaponVisualPrefab;
     
     [Header("Firing")]
     [SerializeField] private FireMode fireMode = FireMode.Manual;
