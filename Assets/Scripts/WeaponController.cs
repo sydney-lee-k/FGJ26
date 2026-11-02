@@ -144,6 +144,8 @@ public class WeaponController : MonoBehaviour
 
             if (tracer)
             {
+                //This is a temporary example of audio implementation for gunshots. Actual implementation will change paramValue based on the current GUN-TYPE Interactive
+                //Play sound through audioManager:    soundKey  playLocation        paramName  paramValue.    
                 AudioManager.instance.PlayParamSound("GunShot", transform.position, "GunType", 0);
 
                 Tracer trace = PoolManager.Instance.Spawn(tracer, user.AimOrigin.position + user.AimDirection.normalized*thickness, quaternion.identity).GetComponent<Tracer>();

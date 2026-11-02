@@ -13,6 +13,8 @@ public class ReverbAudioZoneA : MonoBehaviour
     private void Start()
     {
         reverbInstance = RuntimeManager.CreateInstance("snapshot:/ReverbZone");
+        MusicManager.instance.BeginPlay("DebugMusic");
+
     }
 
     private void OnTriggerEnter(Collider other)

@@ -386,7 +386,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 262217
+  Length: 59141
 --- !u!114 &-7543903198704091956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,8 +784,8 @@ MonoBehaviour:
     Data3: -1448024644
     Data4: -1530728077
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639286084205875161
+  lastModified: 639292312268369074
   FileSizes:
   - Name: 
     Value: 2564
@@ -1316,8 +1316,8 @@ MonoBehaviour:
     Data3: -871985007
     Data4: -195571353
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1448,8 +1448,8 @@ MonoBehaviour:
     Data3: 811697591
     Data4: -2027628360
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639286084205837326
+  lastModified: 639292312268308265
   FileSizes: []
   Exists: 1
 --- !u!114 &-2295223587870179002
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -4175129670925292503}
   cacheVersion: 131860
-  cacheTime: 639286084206688152
+  cacheTime: 639292312268671605
   SerializableEventsDict:
   - key: event:/INTERFACE/MENU/UIselection
     index: 0
@@ -2592,8 +2592,8 @@ MonoBehaviour:
     Data3: 1312580496
     Data4: 1134712461
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2669,7 +2669,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/music.bank
   Name: music
   StudioPath: bank:/music
-  lastModified: 639286084206306716
+  lastModified: 639292312268671605
   FileSizes: []
   Exists: 1
 --- !u!114 &3465709324279308689
@@ -2691,8 +2691,8 @@ MonoBehaviour:
     Data3: -1992606572
     Data4: 91950907
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3345,8 +3345,8 @@ MonoBehaviour:
     Data3: 1285700250
     Data4: 420671454
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -3510,8 +3510,8 @@ MonoBehaviour:
     Data3: 429779626
     Data4: 573326700
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3814,8 +3814,8 @@ MonoBehaviour:
     Data3: 131489446
     Data4: -44361133
   Banks:
-  - {fileID: -2433883472599403376}
   - {fileID: 1642473508667056183}
+  - {fileID: -2433883472599403376}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

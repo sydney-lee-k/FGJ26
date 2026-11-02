@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("audoManger woke");
         if (instance == null)
         {
             instance = this;
@@ -37,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
     public void UnregisterLibrary(AudioEventLibrary lib) => activeLibraries.Remove(lib);
 
-    //finds the event in the currently registered library and plays sound (without parameters)
+    //find the event in the currently registered library and play sound as a oneshot without parameter changes
     public void PlaySound(string key, Vector3 pos = default)
     {
         foreach (var lib in activeLibraries)
@@ -62,7 +63,7 @@ public class AudioManager : MonoBehaviour
                 eventInstance.set3DAttributes(RuntimeUtils.To3DAttributes(pos)); //Set position for 3D audio
 
                 //Set the parameter value in the named parameter. values start from 0. Check audio documentation for the value specifics
-                eventInstance.setParameterByName(paramName, paramValue); 
+                eventInstance.setParameterByName(paramName, paramValue); //Set the parameter before playing the sound. specific names and values can be found in the FMOD project
                 eventInstance.start(); //Play event
                 eventInstance.release(); //Release event to avoid eventual memory leaks
             }

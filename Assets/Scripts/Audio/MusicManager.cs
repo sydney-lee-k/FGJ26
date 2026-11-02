@@ -10,6 +10,7 @@ public class MusicManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("musicManger woke");
         if (instance == null)
         {
             instance = this;
@@ -37,7 +38,12 @@ public class MusicManager : MonoBehaviour
         foreach (var lib in activeLibraries)
         {
             var e = lib.Get(key);
-            if (!e.IsNull) {/*play func here*/}
+            if (!e.IsNull) 
+            {
+                FMOD.Studio.EventInstance eventInstance = RuntimeManager.CreateInstance(e);
+                eventInstance.start();
+                eventInstance.release();
+            }
         }
     }
 
