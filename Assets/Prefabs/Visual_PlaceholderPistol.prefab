@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DroppedWeaponController
   weapon: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
-  remainingAmmo: 0
+  currentAmmo: 0
   playerWeaponsManager: {fileID: 0}
   pickupRange: 2
 --- !u!54 &5659760446802254724
@@ -206,7 +206,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &2020681930722082150
 GameObject:
   m_ObjectHideFlags: 0

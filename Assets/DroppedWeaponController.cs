@@ -32,7 +32,7 @@ public class DroppedWeaponController : MonoBehaviour
                 if (weapon.currentAmmo > 0)
                 {
                     WeaponController activeWeapon = playerWeaponsManager.GetActiveWeapon();
-                    if (weapon.weaponId == activeWeapon.weaponId && activeWeapon.currentAmmo != activeWeapon.MaxAmmo)
+                    if (activeWeapon != null && weapon.weaponId == activeWeapon.weaponId && activeWeapon.currentAmmo != activeWeapon.MaxAmmo)
                     {
                         //Formula can be changed here.
                         int missingAmmo = activeWeapon.MaxAmmo - activeWeapon.currentAmmo;

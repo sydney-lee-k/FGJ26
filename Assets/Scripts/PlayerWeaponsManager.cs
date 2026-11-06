@@ -38,12 +38,14 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     {
         input.AttackInputDown += HandleAttack;
         input.SwitchPressed += SwitchWeapon;
+        input.DropItemPressed += DropHeldWeapon;
     }
 
     private void OnDisable()
     {
         input.AttackInputDown -= HandleAttack;
         input.SwitchPressed -= SwitchWeapon;
+        input.DropItemPressed -= DropHeldWeapon;
     }
 
     private void HandleAttack(bool held)
@@ -118,7 +120,13 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         return true;
     }
-    
+
+    private void DropHeldWeapon()
+    {
+        if (!WeaponSlots[activeWeaponIndex]) return;
+        DropWeapon();
+        RemoveWeapon(activeWeaponIndex);
+    }
     private void DropWeapon()
     {
         GameObject droppedWeapon = Instantiate(ActiveWeapon.weaponVisualPrefab, ActiveWeapon.transform.position, ActiveWeapon.transform.rotation, null);
