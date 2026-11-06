@@ -14,7 +14,7 @@ public class Actor : MonoBehaviour
     public Affiliation affiliation;
 
     [Tooltip("Represents where other actors will aim when they attack this actor")]
-    [SerializeField] private Transform aimPoint;
+    public Transform aimPoint;
     public Transform AimPoint => aimPoint != null ? aimPoint : transform;
 
     private ActorsManager actorsManager;

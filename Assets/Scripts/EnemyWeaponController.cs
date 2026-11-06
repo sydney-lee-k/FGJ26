@@ -17,8 +17,8 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
     public Vector3 AimDirection => actor ? target.transform.position - AimOrigin.position : transform.forward;
     private void Awake()
     {
-        SwapWeapon(primaryWeapon);
         if(!spawnParent) spawnParent = transform;
+        SwapWeapon(primaryWeapon);
     }
     
     private void Update()
@@ -37,6 +37,7 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
 
     public void DropWeapon()
     {
+        if (!currentWeapon.weaponVisualPrefab) return;
         GameObject droppedWeapon = Instantiate(currentWeapon.weaponVisualPrefab, currentWeapon.transform.position, currentWeapon.transform.rotation, null);
         DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
         droppedWeaponController.currentAmmo = currentWeapon.currentAmmo;
