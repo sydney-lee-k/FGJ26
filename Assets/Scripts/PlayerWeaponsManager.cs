@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
@@ -102,13 +103,10 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         int slotIndex = GetFirstEmptySlot();
         if (slotIndex == -1)
         {
-            DropWeapon();
             slotIndex = activeWeaponIndex;
+            DropWeapon(slotIndex);
         }
-
-        // Remove existing weapon in slot
-        RemoveWeapon(slotIndex);
-
+        
         // INSTANTIATE HERE (your requirement)
         WeaponController instance = Instantiate(prefab, WeaponParent);
         instance.SetUser(this);
@@ -121,21 +119,22 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         return true;
     }
 
-    private void DropHeldWeapon()
+    private void DropHeldWeapon() { DropWeapon(activeWeaponIndex); }
+    private void DropWeapon(int slotIndex, bool removeWeapon = true)
     {
-        if (!WeaponSlots[activeWeaponIndex]) return;
-        DropWeapon();
-        RemoveWeapon(activeWeaponIndex);
-    }
-    private void DropWeapon()
-    {
-        GameObject droppedWeapon = Instantiate(ActiveWeapon.weaponVisualPrefab, ActiveWeapon.transform.position, ActiveWeapon.transform.rotation, null);
+        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
+            return;
+        
+        GameObject droppedWeapon = Instantiate(WeaponSlots[slotIndex].weaponVisualPrefab, WeaponParent.transform.position, WeaponParent.transform.rotation);
         DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
         droppedWeaponController.currentAmmo = ActiveWeapon.currentAmmo;
         droppedWeapon.GetComponent<Rigidbody>().isKinematic = false;
         droppedWeapon.GetComponent<Interactable>().SetInteractable(true);
         droppedWeapon.GetComponentInChildren<MeshCollider>().isTrigger = false;
         droppedWeaponController.enabled = true;
+
+
+        if(removeWeapon) RemoveWeapon(slotIndex);
     }
 
     public void RemoveWeapon(int slotIndex)
