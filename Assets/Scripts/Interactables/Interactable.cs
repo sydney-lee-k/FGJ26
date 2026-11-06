@@ -14,7 +14,8 @@ public class Interactable : MonoBehaviour, IInteractable
     public bool IsInteractable => isInteractable;
 
     private Outline outline;
-    
+
+    private Transform player;
 
     private void Awake()
     {
@@ -23,6 +24,8 @@ public class Interactable : MonoBehaviour, IInteractable
         outline.OutlineColor = Color.white;
         outline.OutlineWidth = 5f;
         outline.enabled = false;
+        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void Interact(GameObject interactor)
