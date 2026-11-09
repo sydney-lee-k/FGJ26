@@ -11,21 +11,43 @@ public class EnemyWeaponController : MonoBehaviour, IWeaponUser
     [SerializeField] private Actor actor;
     [NonSerialized] public Actor target; //When target is set will start to fire.
     [SerializeField] private Transform spawnParent;
+    [SerializeField] private float reloadTime = 1;
+    [SerializeField] [ReadOnly] private float timeSpentReloading;
+    [SerializeField] private EnemyController.SpeedMultiplier reloadSpeedMultiplier;
+    private EnemyController enemyController;
     
     public Actor Owner => actor;
     public Transform AimOrigin => actor.AimPoint;
     public Vector3 AimDirection => actor ? target.transform.position - AimOrigin.position : transform.forward;
     private void Awake()
     {
+        enemyController = GetComponent<EnemyController>();
         if(!spawnParent) spawnParent = transform;
         SwapWeapon(primaryWeapon);
     }
     
     private void Update()
     {
-        if (target) currentWeapon.SetFiring(true);
-        else currentWeapon.SetFiring(false);
-        
+        if (currentWeapon.currentAmmo > 0)
+        {
+            if (target) currentWeapon.SetFiring(true);
+            else currentWeapon.SetFiring(false);
+        }
+        else if(timeSpentReloading < reloadTime)
+        {
+            if (timeSpentReloading == 0)
+            {
+                currentWeapon.SetFiring(false);
+                enemyController.AddGlobalSpeedMultiplier(reloadSpeedMultiplier);
+            }
+            timeSpentReloading += Time.deltaTime;
+        }
+        else
+        {
+            if(timeSpentReloading == 0) enemyController.RemoveGlobalSpeedMultiplier(reloadSpeedMultiplier.id);
+            currentWeapon.currentAmmo = currentWeapon.MaxAmmo;
+            timeSpentReloading = 0;
+        }
     }
     
     public void SwapWeapon(WeaponController prefab)

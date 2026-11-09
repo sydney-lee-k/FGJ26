@@ -26,7 +26,6 @@ public class DoorController : MonoBehaviour
             EnemyController enemyController = other.GetComponent<EnemyController>();
 
             float angle = Vector3.Angle(transform.forward, enemyController.transform.forward);
-            Debug.Log(angle);
             if (angle < angleToOpen || angle > 360-angleToOpen || angle > 180 - angleToOpen && angle < 180+angleToOpen)
             {
                 if(enemyController && enemyController.canOpenDoors) EnemyOpen(other.transform, (angle < angleToOpen || angle > 360-angleToOpen));

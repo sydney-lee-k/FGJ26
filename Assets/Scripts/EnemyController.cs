@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Pathfinding;
 using UnityEditor;
 using UnityEngine;
@@ -7,6 +9,12 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
+    [Serializable]
+    public class SpeedMultiplier
+    {
+        public float multiplier = 1;
+        public string id;
+    }
     public enum EnemyState
     {
         Chase,
@@ -41,6 +49,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float alertSpeed = 4;
     [SerializeField] private float scoutSpeed = 4;
     [SerializeField] private float patrolSpeed = 4;
+    [SerializeField] private List<SpeedMultiplier> globalSpeedMultipliers;
     
     [Header("Chase")]
     [SerializeField] private float chaseDistance;
@@ -124,6 +133,26 @@ public class EnemyController : MonoBehaviour
         //previousState = state;
     }
 
+    public void AddGlobalSpeedMultiplier(SpeedMultiplier speedMultiplier)
+    {
+        globalSpeedMultipliers.Add(speedMultiplier);
+        aiPath.maxSpeed *= speedMultiplier.multiplier;
+    }
+    
+    public void RemoveGlobalSpeedMultiplier(string id)
+    {
+        SpeedMultiplier target = globalSpeedMultipliers.Find(multiplier => multiplier.id == id);
+        if (target != null)
+        {
+            aiPath.maxSpeed *= -target.multiplier;
+            globalSpeedMultipliers.Remove(target);
+        }
+        else
+        {
+            Debug.Log("No speed multiplier with the id: " + id);
+        }
+    }
+    
     private void Update()
     {
         Detection();

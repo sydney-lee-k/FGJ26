@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/Assets/DoorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DoorController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyWeaponController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyWeaponController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +126,7 @@
       <workItem from="1790933925365" duration="11076000" />
       <workItem from="1791198170148" duration="4905000" />
       <workItem from="1791796556037" duration="8015000" />
-      <workItem from="1794224001859" duration="2665000" />
+      <workItem from="1794224001859" duration="5043000" />
     </task>
     <servers />
   </component>
