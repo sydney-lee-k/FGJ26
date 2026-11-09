@@ -23,6 +23,9 @@ public class EnemyController : MonoBehaviour
     }
 
     [Header("State Management")]
+    public bool canOpenDoors => opensDoors;
+    [SerializeField] private bool opensDoors = true;
+    
     public EnemyState state = EnemyState.Patrol;
     [SerializeField] private EnemyWeaponController enemyWeaponController;
 

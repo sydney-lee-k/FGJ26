@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7b197633-d58b-467b-8c78-b5817935b6d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DroppedWeaponController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DroppedWeaponController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dropped Weapon.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dropped Weapon.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DoorController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DoorController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,7 @@
     "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "WeaponBranch",
+    "git-widget-placeholder": "AStarEnemies",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,6 +125,7 @@
       <workItem from="1790933925365" duration="11076000" />
       <workItem from="1791198170148" duration="4905000" />
       <workItem from="1791796556037" duration="8015000" />
+      <workItem from="1794224001859" duration="2665000" />
     </task>
     <servers />
   </component>
