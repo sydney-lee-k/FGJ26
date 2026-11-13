@@ -49,7 +49,6 @@ public class DoorController : MonoBehaviour
         Vector3 heading = player.position - transform.position;
         float dot = Vector3.Dot(heading.normalized, transform.forward);
         anim.SetBool("Forward", dot < 0);
-        Debug.Log(dot);
         
         if(isOpen) Open();
         else Close();

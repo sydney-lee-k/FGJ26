@@ -117,7 +117,7 @@ MonoBehaviour:
   muzzle: {fileID: 8695582690309780874}
   leftGrip: {fileID: 6091277982195830192}
   rightGrip: {fileID: 0}
-  modelCollider: {fileID: 0}
+  modelCollider: {fileID: 3270879607280862950}
 --- !u!114 &5499097948118057226
 MonoBehaviour:
   m_ObjectHideFlags: 0

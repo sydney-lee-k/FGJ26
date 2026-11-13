@@ -553,7 +553,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -3682,7 +3682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5542faffe22dbe84881da08fcb5d3bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  primaryWeapon: {fileID: 1204861714508184108, guid: 4807f77f666caa840b0ff7768f9adddd, type: 3}
+  primaryWeapon: {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
   actor: {fileID: 1869947725}
   spawnParent: {fileID: 971939536}
   reloadTime: 2
@@ -8660,7 +8660,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapons
   StartingWeapons:
   - {fileID: 1204861714508184108, guid: eaf97c4f185523d4b934d728d2d73f0c, type: 3}
-  - {fileID: 1204861714508184108, guid: 4807f77f666caa840b0ff7768f9adddd, type: 3}
   WeaponSlots:
   - {fileID: 0}
   - {fileID: 0}
