@@ -17,11 +17,9 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private LayerMask obstacleMask;
 
     [Header("View Mesh Settings")]
-    [SerializeField] private float bottomOffset = 0.1f;
-    [SerializeField] private float viewHeight = 3f;
-    [SerializeField] private float meshResolution;
-    [SerializeField] private int edgeResolveIterations;
-    [SerializeField] private float edgeDistanceThreshold;
+    [SerializeField] private float meshResolution = 1;
+    [SerializeField] private int edgeResolveIterations = 1;
+    [SerializeField] private float edgeDistanceThreshold = 1;
     [SerializeField] private MeshFilter viewMeshFilter;
 
     //[HideInInspector]
@@ -164,52 +162,27 @@ public class FieldOfView : MonoBehaviour
             viewPoints.Add(newViewCast.point);
             oldViewCast = newViewCast;
         }
-        
-        
-        int pointCount = viewPoints.Count;
-        int vertexCount = (pointCount + 1) * 2;
+        int vertexCount = viewPoints.Count + 1;
 
         Vector3[] vertices = new Vector3[vertexCount];
-        int[] triangles = new int[pointCount * 12];
-        
-        //Top and bottom.
-        vertices[0] = Vector3.down * bottomOffset;
-        vertices[pointCount + 1] = Vector3.up * (viewHeight - bottomOffset);
+        int[] triangles = new int[(vertexCount - 2) * 3];
 
-        for (int i = 0; i < pointCount; i++)
+        vertices[0] = Vector3.zero;
+
+        for (int i = 0; i < vertexCount - 1; i++)
         {
-            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]) + Vector3.down * bottomOffset;
-            vertices[pointCount + 2 + i] = vertices[i + 1] + Vector3.up * viewHeight;
-        }
+            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
 
-        int triangleIndex = 0;
-        
-        
-        for (int i = 0; i < pointCount; i++)
-        {
-            int next = (i + 1) % pointCount; //Wraps around to 0 to prevent a gap between the first and last point (as well as overflow)
-
-            // Bottom
-            triangles[triangleIndex++] = 0;
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = i + 1;
-
-            // Top
-            triangles[triangleIndex++] = pointCount + 1;
-            triangles[triangleIndex++] = pointCount + 2 + i;
-            triangles[triangleIndex++] = pointCount + 2 + next;
-
-            // Walls
-            triangles[triangleIndex++] = i + 1;
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = pointCount + 2 + i;
-
-            triangles[triangleIndex++] = next + 1;
-            triangles[triangleIndex++] = pointCount + 2 + next;
-            triangles[triangleIndex++] = pointCount + 2 + i;
+            if (i < vertexCount - 2)
+            {
+                triangles[i * 3] = 0;
+                triangles[i * 3 + 1] = i + 1;
+                triangles[i * 3 + 2] = i + 2;
+            }
         }
 
         viewMesh.Clear();
+
         viewMesh.vertices = vertices;
         viewMesh.triangles = triangles;
         viewMesh.RecalculateNormals();
