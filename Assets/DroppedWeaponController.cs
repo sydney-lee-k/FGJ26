@@ -1,0 +1,63 @@
+using System;
+using Unity.VisualScripting;
+using UnityEngine;
+
+// Might be good to make this as an IPoolable and then dynamically change models. Easier to test once we actually have models tho so for now instantiated.
+public class DroppedWeaponController : MonoBehaviour
+{
+    public WeaponController weapon;
+    public int currentAmmo;
+    public PlayerWeaponsManager playerWeaponsManager;
+    [SerializeField] private float pickupRange = 2f;
+    private Transform player;
+    private float checkDelay;
+    
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerWeaponsManager = player.GetComponent<PlayerWeaponsManager>();
+    }
+
+    private void Start()
+    {
+        Physics.SyncTransforms();
+    }
+
+    private void Update()
+    {
+        if (checkDelay <= 0)
+        {
+            if (Vector3Utils.IsWithinDistance(player.position, transform.position, pickupRange))
+            {
+                if (weapon.currentAmmo > 0)
+                {
+                    WeaponController activeWeapon = playerWeaponsManager.GetActiveWeapon();
+                    if (activeWeapon != null && weapon.weaponId == activeWeapon.weaponId && activeWeapon.currentAmmo != activeWeapon.MaxAmmo)
+                    {
+                        //Formula can be changed here.
+                        int missingAmmo = activeWeapon.MaxAmmo - activeWeapon.currentAmmo;
+                        int ammoToRemove = Mathf.Min(weapon.currentAmmo, missingAmmo);
+                        currentAmmo -= ammoToRemove;
+                        activeWeapon.currentAmmo += ammoToRemove;
+                    }
+                }
+            }
+
+            checkDelay = 0.5f;
+        }
+        else
+        {
+            checkDelay -= Time.deltaTime;
+        }
+    }
+    
+    public void Pickup()
+    {
+        PlayerWeaponsManager playerWeaponsManager = player.GetComponent<PlayerWeaponsManager>();
+        bool success = playerWeaponsManager.AddWeapon(weapon);
+        playerWeaponsManager.GetActiveWeapon().currentAmmo = currentAmmo;
+        if (!success) return;
+        Destroy(gameObject);
+    }
+}
+

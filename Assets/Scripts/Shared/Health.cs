@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
@@ -14,7 +15,8 @@ public class Health : MonoBehaviour
     public UnityAction OnDie;
 
     public float MaxHealth => maxHealth;
-    public float CurrentHealth { get; private set; }
+
+    [ReadOnly] public float CurrentHealth;
 
     public bool Invincible { get; set; }
     public bool IsDead => isDead;

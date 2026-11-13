@@ -10,18 +10,19 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     public Vector2 MoveVector { get; private set; }
     public Vector2 LookDelta { get; private set; }
     
-    public bool attackJustPressed { get; private set; }
-    public bool attackHeld { get; private set; }
+    public bool AttackJustPressed { get; private set; }
+    public bool AttackHeld { get; private set; }
 
-    public bool switchJustPressed { get; private set; }
-    public bool switchHeld { get; private set; }
+    public bool SwitchJustPressed { get; private set; }
+    public bool SwitchHeld { get; private set; }
     
-    public bool interactJustPressed { get; private set; }
-    public bool interactHeld { get; private set; }
+    public bool InteractJustPressed { get; private set; }
+    public bool InteractHeld { get; private set; }
     
     
     public event Action InteractPressed;
     public event Action SwitchPressed;
+    public event Action DropItemPressed;
     public event Action<bool> AttackInputDown;
     public event Action<bool> OnFocusDown;
     
@@ -46,12 +47,12 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     
     void Update()
     {
-        attackJustPressed = inputActions.Player.Attack.WasPressedThisFrame();
-        attackHeld = inputActions.Player.Attack.IsPressed();
-        switchJustPressed = inputActions.Player.Switch.WasPressedThisFrame();
-        switchHeld = inputActions.Player.Switch.IsPressed();
-        interactJustPressed = inputActions.Player.Interact.WasPressedThisFrame();
-        interactHeld = inputActions.Player.Interact.IsPressed();
+        AttackJustPressed = inputActions.Player.Attack.WasPressedThisFrame();
+        AttackHeld = inputActions.Player.Attack.IsPressed();
+        SwitchJustPressed = inputActions.Player.Switch.WasPressedThisFrame();
+        SwitchHeld = inputActions.Player.Switch.IsPressed();
+        InteractJustPressed = inputActions.Player.Interact.WasPressedThisFrame();
+        InteractHeld = inputActions.Player.Interact.IsPressed();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -84,5 +85,10 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     {
         if (context.started) OnFocusDown?.Invoke(true);
         else if (context.canceled) OnFocusDown?.Invoke(false);
+    }
+
+    public void OnDropItem(InputAction.CallbackContext context)
+    {
+        if (context.started) DropItemPressed?.Invoke();
     }
 }

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 {
     private InputReader input;
-
+    
     [Header("Weapons")]
     public List<WeaponController> StartingWeapons = new();
     [SerializeField] private WeaponController[] WeaponSlots = new WeaponController[2];
@@ -38,12 +39,14 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
     {
         input.AttackInputDown += HandleAttack;
         input.SwitchPressed += SwitchWeapon;
+        input.DropItemPressed += DropHeldWeapon;
     }
 
     private void OnDisable()
     {
         input.AttackInputDown -= HandleAttack;
         input.SwitchPressed -= SwitchWeapon;
+        input.DropItemPressed -= DropHeldWeapon;
     }
 
     private void HandleAttack(bool held)
@@ -88,23 +91,22 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
         WeaponSlots[activeWeaponIndex].gameObject.SetActive(true);
     }
 
-    public bool AddWeapon(WeaponController prefab, int slotIndex = -1, bool autoEquip = true)
+    public bool AddWeapon(WeaponController prefab)
     {
+        bool autoEquip = true;
+            
+        Debug.Log("Adding weapon:" + prefab + " Auto equip?: " + autoEquip);
         if (prefab == null)
             return false;
 
         // Decide slot
-        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
+        int slotIndex = GetFirstEmptySlot();
+        if (slotIndex == -1)
         {
-            slotIndex = GetFirstEmptySlot();
-
-            if (slotIndex == -1)
-                slotIndex = activeWeaponIndex;
+            slotIndex = activeWeaponIndex;
+            DropWeapon(slotIndex);
         }
-
-        // Remove existing weapon in slot
-        RemoveWeapon(slotIndex);
-
+        
         // INSTANTIATE HERE (your requirement)
         WeaponController instance = Instantiate(prefab, WeaponParent);
         instance.SetUser(this);
@@ -112,10 +114,27 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         WeaponSlots[slotIndex] = instance;
 
-        if (autoEquip)
-            SetActiveWeapon(slotIndex);
+        if (autoEquip) SetActiveWeapon(slotIndex);
 
         return true;
+    }
+
+    private void DropHeldWeapon() { DropWeapon(activeWeaponIndex); }
+    private void DropWeapon(int slotIndex, bool removeWeapon = true)
+    {
+        if (slotIndex < 0 || slotIndex >= WeaponSlots.Length)
+            return;
+        
+        GameObject droppedWeapon = Instantiate(WeaponSlots[slotIndex].weaponVisualPrefab, WeaponParent.transform.position, WeaponParent.transform.rotation);
+        DroppedWeaponController droppedWeaponController = droppedWeapon.GetComponent<DroppedWeaponController>();
+        droppedWeaponController.currentAmmo = ActiveWeapon.currentAmmo;
+        droppedWeapon.GetComponent<Rigidbody>().isKinematic = false;
+        droppedWeapon.GetComponent<Interactable>().SetInteractable(true);
+        droppedWeapon.GetComponentInChildren<MeshCollider>().isTrigger = false;
+        droppedWeaponController.enabled = true;
+
+
+        if(removeWeapon) RemoveWeapon(slotIndex);
     }
 
     public void RemoveWeapon(int slotIndex)
@@ -127,11 +146,10 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 
         if (weapon == null)
             return;
-
+        
         if (slotIndex == activeWeaponIndex)
             //weapon.SetFireHeld(false);
-
-        WeaponSlots[slotIndex] = null;
+            WeaponSlots[slotIndex] = null;
 
         Destroy(weapon.gameObject);
     }

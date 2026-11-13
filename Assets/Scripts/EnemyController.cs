@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Pathfinding;
 using UnityEditor;
 using UnityEngine;
@@ -7,6 +9,12 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
+    [Serializable]
+    public class SpeedMultiplier
+    {
+        public float multiplier = 1;
+        public string id;
+    }
     public enum EnemyState
     {
         Chase,
@@ -23,6 +31,9 @@ public class EnemyController : MonoBehaviour
     }
 
     [Header("State Management")]
+    public bool canOpenDoors => opensDoors;
+    [SerializeField] private bool opensDoors = true;
+    
     public EnemyState state = EnemyState.Patrol;
     [SerializeField] private EnemyWeaponController enemyWeaponController;
 
@@ -38,6 +49,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float alertSpeed = 4;
     [SerializeField] private float scoutSpeed = 4;
     [SerializeField] private float patrolSpeed = 4;
+    [SerializeField] private List<SpeedMultiplier> globalSpeedMultipliers;
     
     [Header("Chase")]
     [SerializeField] private float chaseDistance;
@@ -81,17 +93,39 @@ public class EnemyController : MonoBehaviour
     private EnemyState previousState;
     private Transform player;
     private AIPath aiPath;
+
+    private Health health;
     
-    
+    void OnEnable()
+    {
+        health.OnDie += Death;
+    }
+    void OnDisable()
+    {
+        health.OnDie -= Death;
+    }
+
+    private void Death()
+    {
+        
+        enemyWeaponController.DropWeapon();
+        Destroy(gameObject);
+    }
+
+    private void Awake()
+    {
+        health = GetComponent<Health>();
+        destinationSetter = GetComponent<AIDestinationSetter>();
+    }
+
     private void Start()
     {
-        destinationSetter = GetComponent<AIDestinationSetter>();
-        patrolController = PatrolController.Instance;
         scoutSpot = Instantiate(new GameObject(), transform.position, Quaternion.identity);
         scoutSpot.name = "ScoutSpot";
         player = GameObject.FindGameObjectWithTag("Player").transform;
         aiPath = GetComponent<AIPath>();
         
+        patrolController = PatrolController.Instance;
         if (state == EnemyState.Patrol)
         {
             SeekPatrolPath(currentRoute ? currentRoute : null);
@@ -99,6 +133,26 @@ public class EnemyController : MonoBehaviour
         //previousState = state;
     }
 
+    public void AddGlobalSpeedMultiplier(SpeedMultiplier speedMultiplier)
+    {
+        globalSpeedMultipliers.Add(speedMultiplier);
+        aiPath.maxSpeed *= speedMultiplier.multiplier;
+    }
+    
+    public void RemoveGlobalSpeedMultiplier(string id)
+    {
+        SpeedMultiplier target = globalSpeedMultipliers.Find(multiplier => multiplier.id == id);
+        if (target != null)
+        {
+            aiPath.maxSpeed *= -target.multiplier;
+            globalSpeedMultipliers.Remove(target);
+        }
+        else
+        {
+            Debug.Log("No speed multiplier with the id: " + id);
+        }
+    }
+    
     private void Update()
     {
         Detection();
@@ -363,7 +417,7 @@ public class EnemyController : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.forward * 10f, 10);
+        //Gizmos.DrawWireSphere(transform.position + transform.forward * 10f, 10);
         
         switch (state)
         {

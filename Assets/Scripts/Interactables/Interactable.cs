@@ -15,6 +15,8 @@ public class Interactable : MonoBehaviour, IInteractable
 
     private Outline outline;
 
+    private Transform player;
+
     private void Awake()
     {
         outline = GetComponent<Outline>();
@@ -22,6 +24,8 @@ public class Interactable : MonoBehaviour, IInteractable
         outline.OutlineColor = Color.white;
         outline.OutlineWidth = 5f;
         outline.enabled = false;
+        
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void Interact(GameObject interactor)
@@ -45,11 +49,9 @@ public class Interactable : MonoBehaviour, IInteractable
 
     public void OnFocusLost()
     {
-        if (!isFocused)
-            return;
-
+        if (!isFocused || !outline) return;
+        
         isFocused = false;
-
         outline.enabled = false;
     }
 

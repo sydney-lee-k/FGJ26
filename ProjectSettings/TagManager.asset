@@ -14,7 +14,7 @@ TagManager:
   - Obstacle
   - Ground
   - Enemy
-  - TestStencilLayer
+  - Door
   - 
   - 
   - 
@@ -35,7 +35,7 @@ TagManager:
   - 
   - 
   - 
-  - Blackout
+  - 
   - 
   m_SortingLayers:
   - name: Default
