@@ -21,6 +21,8 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private int edgeResolveIterations = 1;
     [SerializeField] private float edgeDistanceThreshold = 1;
     [SerializeField] private MeshFilter viewMeshFilter;
+    
+    [SerializeField] private float yVisualOffset;
 
     //[HideInInspector]
     public List<Transform> visibleTargets = new();
@@ -171,7 +173,7 @@ public class FieldOfView : MonoBehaviour
 
         for (int i = 0; i < vertexCount - 1; i++)
         {
-            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]);
+            vertices[i + 1] = transform.InverseTransformPoint(viewPoints[i]) + new Vector3(0, yVisualOffset, 0);
 
             if (i < vertexCount - 2)
             {
@@ -223,7 +225,7 @@ public class FieldOfView : MonoBehaviour
     {
         Vector3 direction = DirectionFromAngle(globalAngle, true);
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, range, obstacleMask))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, range, obstacleMask, QueryTriggerInteraction.Ignore))
         {
             return new ViewCastInfo(true, hit.point, hit.distance, globalAngle);
         }
