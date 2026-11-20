@@ -18,8 +18,9 @@ public class WeaponController : MonoBehaviour
     [Header("Weapon")]
     public string weaponId;
     public GameObject weaponVisualPrefab;
-    
+
     [Header("Firing")]
+    [SerializeField] private NoiseSource noiseSource;
     [SerializeField] private FireMode fireMode = FireMode.Manual;
 
     [Header("Ammo")]
@@ -58,6 +59,7 @@ public class WeaponController : MonoBehaviour
     {
         currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmo);
         weaponVisual = GetComponentInChildren<WeaponVisual>();
+        if(!noiseSource) noiseSource = GetComponentInChildren<NoiseSource>();
     }
 
     public void SetUser(IWeaponUser weaponUser)
@@ -116,7 +118,7 @@ public class WeaponController : MonoBehaviour
     {
         Vector3 origin = user.AimOrigin.position;
         Vector3 baseDirection = user.AimDirection;
-        if(noiseRange > 0) NoiseController.Instance.CreateNoise(origin, noiseRange, transform.root);
+        if(noiseSource && noiseRange > 0 && !user.Owner.CompareTag("Player")) noiseSource.CreateNoise(origin, noiseRange, transform.root);
         remainingShotDelay = shotDelay;
 
         for (int i = 0; i < bulletsPerShot; i++)

@@ -12,7 +12,8 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     
     public bool AttackJustPressed { get; private set; }
     public bool AttackHeld { get; private set; }
-
+    public bool AimHeld { get; private set; }
+    public bool FocusHeld { get; private set; }
     public bool SwitchJustPressed { get; private set; }
     public bool SwitchHeld { get; private set; }
     
@@ -24,6 +25,7 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     public event Action SwitchPressed;
     public event Action DropItemPressed;
     public event Action<bool> AttackInputDown;
+    public event Action<bool> AimInputDown;
     public event Action<bool> OnFocusDown;
     
     void Awake()
@@ -49,10 +51,12 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     {
         AttackJustPressed = inputActions.Player.Attack.WasPressedThisFrame();
         AttackHeld = inputActions.Player.Attack.IsPressed();
+        AimHeld = inputActions.Player.Aim.IsPressed();
         SwitchJustPressed = inputActions.Player.Switch.WasPressedThisFrame();
         SwitchHeld = inputActions.Player.Switch.IsPressed();
         InteractJustPressed = inputActions.Player.Interact.WasPressedThisFrame();
         InteractHeld = inputActions.Player.Interact.IsPressed();
+        FocusHeld = inputActions.Player.Focus.IsPressed();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -69,6 +73,12 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
     {
         if (context.started) AttackInputDown?.Invoke(true);
         else if (context.canceled) AttackInputDown?.Invoke(false);
+    }
+    
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (context.started) AimInputDown?.Invoke(true);
+        else if (context.canceled) AimInputDown?.Invoke(false);
     }
 
     public void OnInteract(InputAction.CallbackContext context)

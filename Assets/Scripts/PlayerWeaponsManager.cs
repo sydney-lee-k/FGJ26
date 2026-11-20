@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
 {
     private InputReader input;
+    [SerializeField] private FieldOfView fovController;
     
     [Header("Weapons")]
     public List<WeaponController> StartingWeapons = new();
@@ -33,6 +34,24 @@ public class PlayerWeaponsManager : MonoBehaviour, IWeaponUser
             AddWeapon(weapon);
         }
         input = InputReader.instance;
+        
+        if(!fovController) fovController = GetComponent<FieldOfView>();
+    }
+
+    private void Update()
+    {
+        if (input.FocusHeld)
+        {
+            fovController.currentView = FieldOfView.ViewMode.focus;
+        }
+        else if (input.AimHeld)
+        {
+            fovController.currentView = FieldOfView.ViewMode.aim;
+        }
+        else
+        {
+            fovController.currentView = FieldOfView.ViewMode.normal;
+        }
     }
 
     private void OnEnable()

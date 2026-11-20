@@ -6,10 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="7b197633-d58b-467b-8c78-b5817935b6d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FGJ26/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputActions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderPistol.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderPistol.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderRifle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderRifle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderShotgun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlaceholderShotgun.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MikkoDebugScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/FieldOfViewEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/FieldOfViewEditor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/FieldOfView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FieldOfView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/Generated/InputActions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerWeaponsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerWeaponsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WeaponController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WeaponController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
