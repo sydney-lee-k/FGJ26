@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.VisualScripting;
 using Debug = UnityEngine.Debug;
 
 public class FieldOfView : MonoBehaviour
@@ -12,7 +13,17 @@ public class FieldOfView : MonoBehaviour
         public float viewAngle = 90;
         public float viewRadius = 10;
         public float viewCircleRadius = 2;
+
+        public ViewSettings() { }
+        public ViewSettings(ViewSettings copiedSettings)
+        {
+            viewAngle = copiedSettings.viewAngle;
+            viewRadius = copiedSettings.viewRadius;
+            viewCircleRadius = copiedSettings.viewCircleRadius;
+        }
     }
+    
+    
     [SerializeField] public ViewSettings currentViewSettings = new ViewSettings();
     [SerializeField] private ViewSettings normalViewSettings = new ViewSettings();
     [SerializeField] private ViewSettings aimViewSettings = new ViewSettings();
@@ -100,7 +111,10 @@ public class FieldOfView : MonoBehaviour
 
     private void LerpView()
     {
-        ViewSettings lerpViewSettings = currentViewSettings;
+        ViewSettings lerpViewSettings = new ViewSettings(currentViewSettings);
+        
+        Debug.Log("Preview: " + previousViewSettings.viewAngle + " + " + previousViewSettings.viewRadius + ", " + previousViewSettings.viewCircleRadius);
+        Debug.Log("normalViewSettings: " + normalViewSettings.viewAngle + " + " + normalViewSettings.viewRadius + ", " + normalViewSettings.viewCircleRadius);
         
         switch (currentView)
         {

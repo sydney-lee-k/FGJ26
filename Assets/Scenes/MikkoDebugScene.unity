@@ -8771,25 +8771,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldOfView
   currentViewSettings:
-    viewAngle: 90
+    viewAngle: 89.91137
     viewRadius: 10
-    viewCircleRadius: 2
+    viewCircleRadius: 1.9988921
   normalViewSettings:
     viewAngle: 90
     viewRadius: 10
     viewCircleRadius: 2
   aimViewSettings:
-    viewAngle: 60
+    viewAngle: 30
     viewRadius: 10
-    viewCircleRadius: 1
+    viewCircleRadius: 1.25
   focusViewSettings:
     viewAngle: 0
     viewRadius: 10
     viewCircleRadius: 1
   currentView: 0
-  normalLerpTime: 2
-  focusLerpTime: 6
-  aimLerpTime: 3
+  normalLerpTime: 0.25
+  focusLerpTime: 0.5
+  aimLerpTime: 0.5
   detectionOffset: 1
   detectionTimer: 0.2
   targetMask:
